@@ -17,10 +17,10 @@ import 'package:streak/features/focus/pages/focus_history_page.dart';
 import 'package:streak/features/focus/pages/minimal_focus_stats_page.dart';
 import 'package:streak/features/focus/state/focus_controller.dart';
 import 'package:streak/features/focus/state/focus_labels_controller.dart';
+import 'package:streak/features/focus/widgets/color_coded_focus_bars.dart';
 import 'package:streak/features/focus/widgets/consistency_radial_gauge.dart';
 import 'package:streak/features/focus/widgets/focus_heatmap.dart';
 import 'package:streak/features/focus/widgets/focus_period_bar.dart';
-import 'package:streak/features/focus/widgets/focus_range_bars.dart';
 import 'package:streak/features/focus/widgets/graph_color_override_button.dart';
 import 'package:streak/features/focus/widgets/productive_hours_chart.dart';
 import 'package:streak/features/focus/widgets/segmented_label_bar_chart.dart';
@@ -305,8 +305,9 @@ class _FocusStatsPageState extends State<FocusStatsPage> {
                                   setState(() => _offset = value),
                             ),
                             const SizedBox(height: 14),
-                            FocusRangeBars(
+                            ColorCodedFocusBars(
                               stats: stats,
+                              sessions: focus.sessions,
                               range: _range,
                               color: overrides.resolve(
                                 GraphColorOverridesController.focusRangeBars,
