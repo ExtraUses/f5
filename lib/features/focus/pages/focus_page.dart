@@ -47,13 +47,25 @@ class FocusPage extends StatefulWidget implements FullWidthPage {
     this.startMinutes,
     this.breakMinutes,
     this.startLabel = '',
+    this.startLabelId = '',
     this.linkedHabitIds = const [],
   });
 
   final String? startHabitId;
   final int? startMinutes;
   final int? breakMinutes;
+
+  /// Display name of the focus label (e.g. "Deep Work"). Resolved from
+  /// the label UUID by the caller (FocusSetupPage) before this page is
+  /// pushed, so neither this page nor [FocusController] needs to look
+  /// up the name at render time.
   final String startLabel;
+
+  /// UUID foreign key into [FocusLabel.id]. Carried separately from
+  /// [startLabel] so the saved [FocusSession] stores both the display
+  /// name (for legacy compat) and the canonical id (for analytics).
+  final String startLabelId;
+
   final List<String> linkedHabitIds;
 
   static const routeName = 'focus';
@@ -94,6 +106,7 @@ class _FocusPageState extends State<FocusPage> {
         targetMinutes: widget.startMinutes!,
         breakMinutes: widget.breakMinutes ?? 0,
         label: widget.startLabel,
+        labelId: widget.startLabelId,
         linkedHabitIds: widget.linkedHabitIds,
       );
       unawaited(_startSavedTrack());

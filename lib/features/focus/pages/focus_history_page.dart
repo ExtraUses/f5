@@ -13,7 +13,7 @@ import 'package:streak/core/express/express_surface.dart';
 import 'package:streak/core/express/express_type.dart';
 import 'package:streak/core/extensions/inset_extensions.dart';
 import 'package:streak/core/i18n/l10n.dart';
-import 'package:streak/core/icons/habit_glyph.dart';
+import 'package:streak/core/icons/habit_icons.dart';
 import 'package:streak/core/routing/app_navigator.dart';
 import 'package:streak/core/utils/app_snackbar.dart';
 import 'package:streak/core/widgets/app_confirm_dialog.dart';
@@ -22,6 +22,8 @@ import 'package:streak/core/widgets/entrance.dart';
 import 'package:streak/features/focus/data/focus_session.dart';
 import 'package:streak/features/focus/state/focus_actions.dart';
 import 'package:streak/features/focus/state/focus_controller.dart';
+import 'package:streak/features/focus/state/focus_labels_controller.dart';
+import 'package:streak/features/focus/data/focus_label.dart';
 import 'package:streak/features/focus/widgets/focus_log_sheet.dart';
 import 'package:streak/features/habits/state/habits_controller.dart';
 import 'package:streak/features/settings/widgets/minimal_settings_widgets.dart';
@@ -323,7 +325,31 @@ class _SessionTile extends StatelessWidget {
     final habit = session.habitId.isEmpty
         ? null
         : context.watch<HabitsController>().byId(session.habitId);
-    final color = habit?.color.shownIn(context) ?? context.colors.primary;
+    final labels = context.watch<FocusLabelsController>();
+
+    // Resolve the label: prefer the canonical labelId (UUID) via the
+    // controller, then fall back to the legacy free-form label string
+    // for sessions saved before v2.4.0.
+    final FocusLabel? label = session.labelId.isNotEmpty
+        ? labels.byId(session.labelId)
+        : null;
+    final labelName = label?.name ??
+        (session.label.isNotEmpty ? session.label : '');
+
+    // Resolve the display color: label color takes priority, then habit
+    // color, then the theme accent.
+    final color = label?.color ??
+        habit?.color.shownIn(context) ??
+        context.colors.primary;
+
+    // Resolve the icon: label's custom icon when available, then habit's
+    // glyph, then the default timer icon for free sessions.
+    final IconData iconData = label != null
+        ? FocusLabelIcons.resolve(label.icon)
+        : (habit != null
+            ? HabitIcons.resolve(habit.icon)
+            : LucideIcons.timer);
+
     final locale = Localizations.localeOf(context).toString();
     final scheme = context.colors;
     final express = context.watch<SettingsController>().isExpressStyle;
@@ -368,13 +394,7 @@ class _SessionTile extends StatelessWidget {
                         : ExpressShape.squircle,
                     child: selected
                         ? Icon(LucideIcons.check, size: 19, color: color)
-                        : habit == null
-                            ? Icon(LucideIcons.timer, size: 18, color: color)
-                            : HabitGlyph(
-                                glyph: habit.icon,
-                                color: color,
-                                size: 18,
-                              ),
+                        : Icon(iconData, size: 18, color: color),
                   )
                 else
                   Container(
@@ -387,13 +407,7 @@ class _SessionTile extends StatelessWidget {
                   child: Center(
                     child: selected
                         ? Icon(LucideIcons.check, size: 20, color: color)
-                        : habit == null
-                            ? Icon(LucideIcons.timer, size: 18, color: color)
-                            : HabitGlyph(
-                                glyph: habit.icon,
-                                color: color,
-                                size: 18,
-                              ),
+                        : Icon(iconData, size: 18, color: color),
                   ),
                 ),
                 const SizedBox(width: 14),
@@ -402,11 +416,11 @@ class _SessionTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        session.label.isEmpty
+                        labelName.isEmpty
                             ? (habit?.name ?? context.l10n.focus_free_session)
                             : habit == null
-                            ? session.label
-                            : '${habit.name} · ${session.label}',
+                            ? labelName
+                            : '${habit.name} · $labelName',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: express

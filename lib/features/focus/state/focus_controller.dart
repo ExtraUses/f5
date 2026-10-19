@@ -34,6 +34,7 @@ class FocusController extends ChangeNotifier {
     if (map.isEmpty) return;
     _habitId = (map['habitId'] ?? '') as String;
     _label = map['label'] is String ? map['label'] as String : '';
+    _labelId = map['labelId'] is String ? map['labelId'] as String : '';
     _linkedHabitIds = map['linkedHabitIds'] is List
         ? List<String>.from(map['linkedHabitIds'] as List)
         : const [];
@@ -59,6 +60,7 @@ class FocusController extends ChangeNotifier {
     LocalStore.writeSetting('focusActive', {
       'habitId': _habitId,
       'label': _label,
+      'labelId': _labelId,
       'linkedHabitIds': _linkedHabitIds,
       'target': _targetMinutes,
       'focus': _focusMinutes,
@@ -76,6 +78,7 @@ class FocusController extends ChangeNotifier {
 
   String _habitId = '';
   String _label = '';
+  String _labelId = '';
   List<String> _linkedHabitIds = const [];
   int _targetMinutes = 25;
   int _focusMinutes = 25;
@@ -136,6 +139,7 @@ class FocusController extends ChangeNotifier {
     required DateTime startedAt,
     required int minutes,
     String label = '',
+    String labelId = '',
     List<String> linkedHabitIds = const [],
   }) async {
     final session = FocusSession(
@@ -146,6 +150,7 @@ class FocusController extends ChangeNotifier {
       completed: true,
       startedAt: startedAt,
       label: label,
+      labelId: labelId,
       linkedHabitIds: linkedHabitIds,
     );
     await _keep(session);
@@ -171,6 +176,11 @@ class FocusController extends ChangeNotifier {
 
   String get habitId => _habitId;
   String get label => _label;
+
+  /// The UUID foreign key into [FocusLabel.id]. Empty string means
+  /// "uncategorized". The display name lives in [_label]; this is the
+  /// canonical identifier used by analytics and backup.
+  String get labelId => _labelId;
 
   /// Habits that will receive a full completion credit when the
   /// in-flight focus session ends, in addition to the primary habit.
@@ -226,10 +236,12 @@ class FocusController extends ChangeNotifier {
     required int targetMinutes,
     int breakMinutes = 0,
     String label = '',
+    String labelId = '',
     List<String> linkedHabitIds = const [],
   }) {
     _habitId = habitId;
     _label = label;
+    _labelId = labelId;
     _linkedHabitIds = List<String>.unmodifiable(linkedHabitIds);
     if (label.isNotEmpty) unawaited(rememberLabel(habitId, label));
     _targetMinutes = targetMinutes;
@@ -369,6 +381,7 @@ class FocusController extends ChangeNotifier {
     final seconds = _isBreak || dropped ? 0 : elapsedAt(endedAt);
     final habitId = _habitId;
     final label = _label;
+    final labelId = _labelId;
     final linked = List<String>.of(_linkedHabitIds);
     final target = _focusMinutes;
     _stopTicker();
@@ -380,6 +393,7 @@ class FocusController extends ChangeNotifier {
     _since = null;
     _habitId = '';
     _label = '';
+    _labelId = '';
     _linkedHabitIds = const [];
     _tasks.clear();
     _celebrated = false;
@@ -405,6 +419,7 @@ class FocusController extends ChangeNotifier {
       completed: completed,
       startedAt: endedAt.subtract(Duration(seconds: seconds)),
       label: label,
+      labelId: labelId,
       linkedHabitIds: linked,
     );
     await _keep(session);
@@ -433,6 +448,7 @@ class FocusController extends ChangeNotifier {
               completed: true,
               startedAt: endedAt.subtract(Duration(seconds: seconds)),
               label: _label,
+              labelId: _labelId,
               linkedHabitIds: _linkedHabitIds,
             ),
           ),

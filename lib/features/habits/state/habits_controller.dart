@@ -678,10 +678,9 @@ class HabitsController extends ChangeNotifier {
           // an inherited widget without subscribing. The
           // `use_build_context_synchronously` lint fires because the
           // surrounding method is async, but no await happens between
-          // capturing `context` and calling `read`.
-          // ignore: use_build_context_synchronously
-          final controller =
-              context.read<GraphColorOverridesController>();
+          // capturing `context` and calling `read`. The ignore directive
+          // must sit on the same line as the `context.read` call.
+          final controller = context.read<GraphColorOverridesController>(); // ignore: use_build_context_synchronously
           await controller.restore(data.graphColorOverrides);
         }
       } catch (e) {

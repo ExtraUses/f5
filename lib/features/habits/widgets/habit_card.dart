@@ -249,7 +249,22 @@ class HabitCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: compact ? 10 : 14),
+                        SizedBox(width: compact ? 8 : 12),
+                        // Decrement button for quantitative habits — shown
+                        // only when there's progress to subtract and the
+                        // habit is not log-only (log-only habits ignore
+                        // negative deltas by design).
+                        if (habit.kind == HabitKind.quantitative &&
+                            !habit.isLogOnly &&
+                            (habit.completions[AppClock.now().dayKey]?.count ??
+                                    0) >
+                                0) ...[
+                          _DecrementButton(
+                            habit: habit,
+                            compact: compact,
+                          ),
+                          SizedBox(width: compact ? 6 : 8),
+                        ],
                         if (compact)
                           SizedBox(
                             width: 34,
@@ -872,6 +887,65 @@ class _QuantityButtonState extends State<_QuantityButton>
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Compact decrement (−) button for quantitative habits.
+///
+/// Subtracts one [Habit.incrementAmount] step from today's progress,
+/// down to a minimum of 0. The [HabitsController.addProgress] method
+/// already handles negative deltas correctly — when the count hits 0,
+/// the day's completion entry is removed entirely.
+///
+/// Hidden for:
+///   * Non-quantitative habits (positive/negative habits use toggle, not progress)
+///   * Log-only habits (negative deltas are intentionally ignored)
+///   * Days with zero progress (nothing to subtract)
+class _DecrementButton extends StatelessWidget {
+  const _DecrementButton({
+    required this.habit,
+    this.compact = false,
+  });
+
+  final Habit habit;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = habit.color.shownIn(context);
+    final size = compact ? 28.0 : 34.0;
+
+    return Semantics(
+      button: true,
+      label: 'Decrement ${habit.name}',
+      child: GestureDetector(
+        onTap: () async {
+          final controller = context.read<HabitsController>();
+          await controller.addProgress(
+            habit.id,
+            AppClock.now(),
+            -habit.incrementAmount,
+          );
+        },
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.10),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: color.withValues(alpha: 0.25),
+              width: 1,
+            ),
+          ),
+          child: Icon(
+            LucideIcons.minus,
+            size: compact ? 14 : 16,
+            color: color,
           ),
         ),
       ),

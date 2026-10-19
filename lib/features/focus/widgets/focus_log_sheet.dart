@@ -11,7 +11,9 @@ import 'package:streak/core/i18n/l10n.dart';
 import 'package:streak/core/widgets/sheet_type.dart';
 import 'package:streak/core/widgets/section_label.dart';
 import 'package:streak/core/widgets/time_picker.dart';
+import 'package:streak/features/focus/data/focus_label.dart';
 import 'package:streak/features/focus/state/focus_controller.dart';
+import 'package:streak/features/focus/state/focus_labels_controller.dart';
 import 'package:streak/features/focus/widgets/focus_duration_fields.dart';
 import 'package:streak/features/habits/state/habits_controller.dart';
 import 'package:streak/features/settings/state/settings_controller.dart';
@@ -36,6 +38,7 @@ class _FocusLog extends StatefulWidget {
 
 class _FocusLogState extends State<_FocusLog> {
   late String _habitId = widget.habitId;
+  String _labelId = '';
   late DateTime _day = AppClock.today();
   late TimeOfDay _time = TimeOfDay.fromDateTime(AppClock.now());
   int _minutes = 25;
@@ -57,6 +60,8 @@ class _FocusLogState extends State<_FocusLog> {
   }
 
   Future<void> _save() async {
+    final labels = context.read<FocusLabelsController>();
+    final labelName = _labelId.isEmpty ? '' : labels.nameOf(_labelId);
     await context.read<FocusController>().addSession(
           habitId: _habitId,
           startedAt: DateTime(
@@ -67,6 +72,8 @@ class _FocusLogState extends State<_FocusLog> {
             _time.minute,
           ),
           minutes: _minutes,
+          label: labelName,
+          labelId: _labelId,
         );
     if (mounted) Navigator.of(context).pop(true);
   }
@@ -74,6 +81,7 @@ class _FocusLogState extends State<_FocusLog> {
   @override
   Widget build(BuildContext context) {
     final habits = context.watch<HabitsController>().habits;
+    final labels = context.watch<FocusLabelsController>().visible;
     final locale = Localizations.localeOf(context).toString();
     final express = context.watch<SettingsController>().isExpressStyle;
 
@@ -110,6 +118,30 @@ class _FocusLogState extends State<_FocusLog> {
                       label: habit.name,
                       selected: _habitId == habit.id,
                       onTap: () => setState(() => _habitId = habit.id),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            _Label(context.l10n.focus_label),
+            SizedBox(
+              height: 42,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  FocusChip(
+                    label: context.l10n.focus_label_none,
+                    icon: LucideIcons.minus,
+                    selected: _labelId.isEmpty,
+                    onTap: () => setState(() => _labelId = ''),
+                  ),
+                  for (final label in labels) ...[
+                    const SizedBox(width: 8),
+                    FocusChip(
+                      label: label.name,
+                      selected: _labelId == label.id,
+                      onTap: () => setState(() => _labelId = label.id),
                     ),
                   ],
                 ],

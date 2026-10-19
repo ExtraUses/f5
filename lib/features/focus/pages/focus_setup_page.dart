@@ -15,6 +15,7 @@ import 'package:streak/features/focus/pages/focus_history_page.dart';
 import 'package:streak/features/focus/pages/focus_page.dart';
 import 'package:streak/features/focus/pages/focus_stats_page.dart';
 import 'package:streak/features/focus/state/focus_controller.dart';
+import 'package:streak/features/focus/state/focus_labels_controller.dart';
 import 'package:streak/features/focus/widgets/focus_dial.dart';
 import 'package:streak/features/focus/widgets/focus_habit_card.dart';
 import 'package:streak/features/focus/widgets/focus_multi_habit_tagger.dart';
@@ -38,7 +39,7 @@ class FocusSetupPage extends StatefulWidget {
 
 class _FocusSetupPageState extends State<FocusSetupPage> {
   late String _habitId = widget.habitId ?? '';
-  String _label = '';
+  String _labelId = '';
   Set<String> _linkedHabitIds = const {};
   int _minutes = 25;
   int _lastMinutes = 25;
@@ -72,7 +73,7 @@ class _FocusSetupPageState extends State<FocusSetupPage> {
 
   void _pick(Habit habit) {
     _habitId = habit.id;
-    _label = '';
+    _labelId = '';
     _linkedHabitIds = const {};
     // Persist the cleared selection so the tagger starts fresh for the
     // newly-picked primary habit.
@@ -85,7 +86,7 @@ class _FocusSetupPageState extends State<FocusSetupPage> {
   void _choose(Habit? habit) => setState(() {
     if (habit != null) return _pick(habit);
     _habitId = '';
-    _label = '';
+    _labelId = '';
     _linkedHabitIds = const {};
     // Persist the cleared selection so the settings controller and the
     // setup page agree on the current state across rebuilds.
@@ -217,12 +218,18 @@ class _FocusSetupPageState extends State<FocusSetupPage> {
       );
     }
     AppNavigator.pop();
+    // Resolve the label UUID to its display name so FocusPage and
+    // FocusController receive a human-readable label (not a UUID).
+    final labelName = _labelId.isEmpty
+        ? ''
+        : context.read<FocusLabelsController>().nameOf(_labelId);
     AppNavigator.push(
       FocusPage(
         startHabitId: _habitId,
         startMinutes: _minutes,
         breakMinutes: breakMinutes,
-        startLabel: _label,
+        startLabel: labelName,
+        startLabelId: _labelId,
         linkedHabitIds: _linkedHabitIds.toList(),
       ),
       fade: true,
@@ -420,15 +427,19 @@ class _FocusSetupPageState extends State<FocusSetupPage> {
                         child: FocusHabitCard(
                           habit: habit,
                           quick: _quick(habits),
-                          label: _label,
+                          label: _labelId.isEmpty
+                              ? ''
+                              : context
+                                  .read<FocusLabelsController>()
+                                  .nameOf(_labelId),
                           onPick: _choose,
                           onOpenAll: () => _openHabits(habits),
                           onOpenLabel: () => showFocusLabelSheet(
                             context,
                             habitId: _habitId,
-                            selected: _label,
+                            selected: _labelId,
                             onChanged: (value) =>
-                                setState(() => _label = value),
+                                setState(() => _labelId = value),
                           ),
                         ),
                       ),
