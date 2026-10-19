@@ -28,10 +28,10 @@ jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-latest
-    # Give the build up to 30 minutes — the first run downloads the NDK
-    # (~800 MB) and Gradle dependencies. Subsequent runs use the cache
-    # and finish in ~5 minutes.
-    timeout-minutes: 30
+    # First run downloads the NDK (~1.5 GB) + Gradle deps.
+    # 45 min gives plenty of headroom. Future runs use the cache
+    # and finish in ~5-7 min.
+    timeout-minutes: 45
 
     steps:
       - name: Checkout
@@ -64,7 +64,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /usr/local/lib/android/sdk/ndk
-          key: ndk-27.2.12479018
+          # Key includes Flutter version so the cache invalidates when
+          # Flutter's required NDK version changes.
+          key: ndk-flutter-${{ env.FLUTTER_VERSION }}
 
       - name: Show versions
         run: flutter --version
@@ -104,7 +106,7 @@ jobs:
   release:
     name: Publish release
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     # Only when manually dispatched with a tag.
     if: github.event_name == 'workflow_dispatch'
 
@@ -142,7 +144,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /usr/local/lib/android/sdk/ndk
-          key: ndk-27.2.12479018
+          key: ndk-flutter-${{ env.FLUTTER_VERSION }}
 
       - name: Install dependencies
         run: flutter pub get

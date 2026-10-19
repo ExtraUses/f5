@@ -18,11 +18,12 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.streak.app"
     compileSdk = 36
-    // Pin NDK version to avoid CI downloading the latest NDK (~1.5 GB)
-    // on every run. NDK 27.2 is ~800 MB smaller than r28c and is
-    // compatible with all plugins in this project (jni, audioplayers,
-    // flutter_local_notifications, home_widget).
-    ndkVersion = "27.2.12479018"
+    // Use Flutter's recommended NDK version. Pinning a specific NDK
+    // version caused Gradle to hang when Flutter expected a different
+    // version. Letting Flutter choose avoids the conflict.
+    // The NDK is cached by the workflow's Cache Android NDK step so
+    // it only downloads once, then reuses on every subsequent run.
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
