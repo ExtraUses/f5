@@ -18,9 +18,11 @@ import 'package:streak/features/focus/pages/minimal_focus_stats_page.dart';
 import 'package:streak/features/focus/state/focus_controller.dart';
 import 'package:streak/features/focus/state/focus_labels_controller.dart';
 import 'package:streak/features/focus/widgets/consistency_radial_gauge.dart';
+import 'package:streak/features/focus/widgets/focus_heatmap.dart';
 import 'package:streak/features/focus/widgets/focus_period_bar.dart';
 import 'package:streak/features/focus/widgets/focus_range_bars.dart';
 import 'package:streak/features/focus/widgets/graph_color_override_button.dart';
+import 'package:streak/features/focus/widgets/productive_hours_chart.dart';
 import 'package:streak/features/focus/widgets/segmented_label_bar_chart.dart';
 import 'package:streak/features/focus/widgets/timeframe_filter_chip_bar.dart';
 import 'package:streak/features/habits/state/habits_controller.dart';
@@ -313,6 +315,42 @@ class _FocusStatsPageState extends State<FocusStatsPage> {
                             ),
                           ],
                         ),
+                ),
+              ),
+
+              // ─── Productive Hours (24-hour timeline) ───────────────
+              // Only shown when a timeframe filter is active, since the
+              // chart needs the rolling-window sessions.
+              if (_timeframe != null) ...[
+                const SizedBox(height: 16),
+                StatReveal(
+                  child: StatCard(
+                    title: context.l10n.focus_productive_hours,
+                    icon: LucideIcons.clock,
+                    color: accent,
+                    child: ProductiveHoursChart(
+                      timeframe: _timeframe!,
+                      accent: accent,
+                    ),
+                  ),
+                ),
+              ],
+
+              // ─── Focus Intensity Heatmap ────────────────────────────
+              // Always visible — shows the last ~53 weeks of focus
+              // activity with scaled color brightness.
+              const SizedBox(height: 16),
+              StatReveal(
+                child: StatCard(
+                  title: context.l10n.focus_heatmap,
+                  icon: LucideIcons.calendarDays,
+                  color: accent,
+                  child: FocusHeatmap(
+                    accent: overrides.resolve(
+                      GraphColorOverridesController.focusLabelTotals,
+                      accent,
+                    ),
+                  ),
                 ),
               ),
 

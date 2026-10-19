@@ -105,26 +105,46 @@ class SegmentedLabelBarChart extends StatelessWidget {
                   return null;
                 }
                 final total = rod.toY * 60;
-                final buffer = StringBuffer(
-                  formatHoursShort(total.round()),
-                );
-                // Show the top 3 contributing labels under the total.
+                // Build a rich-text tooltip with colored dots:
+                //   1h 30m
+                //   ● Physics  45m
+                //   ● Chemistry  30m
+                //   ● Maths  15m
                 final stackForDay = labelStacks[dayIndex];
                 final sorted = stackForDay.entries.toList()
                   ..sort((a, b) => b.value.compareTo(a.value));
-                for (final entry in sorted.take(3)) {
-                  final name = labels.nameOf(entry.key);
-                  if (name.isEmpty) continue;
-                  buffer.write('\n$name  ${formatHoursShort(entry.value * 60)}');
-                }
+
                 return BarTooltipItem(
-                  buffer.toString(),
+                  formatHoursShort(total.round()),
                   TextStyle(
                     color: context.colors.onSurface,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                    height: 1.4,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
                   ),
+                  children: [
+                    for (final entry in sorted.take(5)) ...[
+                      TextSpan(
+                        text: '\n',
+                        style: const TextStyle(fontSize: 4),
+                      ),
+                      TextSpan(
+                        text: '\u25CF  ',  // ● (filled circle)
+                        style: TextStyle(
+                          color: colorFor[entry.key] ?? fallbackColor,
+                          fontSize: 10,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            '${labels.nameOf(entry.key)}  ${formatHoursShort(entry.value * 60)}',
+                        style: TextStyle(
+                          color: colorFor[entry.key] ?? fallbackColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ],
                 );
               },
             ),

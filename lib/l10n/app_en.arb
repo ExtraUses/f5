@@ -1023,6 +1023,8 @@
   "focus_consistency": "Consistency",
   "log_only": "Log only",
   "log_only_sub": "Track entries without affecting streaks, completion rates, or consistency. New entries go to a separate log.",
+  "focus_productive_hours": "Productive Hours",
+  "focus_heatmap": "Focus Heatmap",
   "focus_label_sub": "Sort your sessions, for example by subject. Hold one to remove it.",
   "focus_label_icon": "Icon (optional)",
   "focus_save_timer": "Save timer",
