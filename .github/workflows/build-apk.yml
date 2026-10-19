@@ -106,6 +106,17 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # Pre-install CMake so the jni native build can find it immediately.
+      # The previous build failed because CMake wasn't installed yet when
+      # the jni plugin tried to configure its native build. This step
+      # ensures it's ready before Gradle starts.
+      - name: Install CMake
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "cmake;3.22.1" 2>/dev/null || true
+          ls -la /usr/local/lib/android/sdk/cmake/3.22.1/bin/ 2>/dev/null || echo "CMake not found"
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+
       # Build APK for arm64 ONLY — this is the architecture used by
       # virtually all modern Android tablets. Skipping armv7 and x86_64
       # cuts the native C++ compilation time by ~2/3.
