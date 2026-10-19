@@ -237,7 +237,7 @@ class _HourBlock extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Tooltip(
           message: _tooltipText,
-          child: Container(
+          child: SizedBox(
             width: barWidth,
             height: (fromY * 80).clamp(3.0, 80.0),
             child: ClipRRect(
@@ -262,7 +262,8 @@ class _HourBlock extends StatelessWidget {
   String get _tooltipText {
     final parts = <String>[];
     parts.add('${_hourLabel(hour)}: ${_formatDuration(bucket.totalSeconds)}');
-    for (final entry in sorted.take(3)) {
+    final sortedLabels = bucket.sortedLabels;
+    for (final entry in sortedLabels.take(3)) {
       final name = labels.nameOf(entry.key);
       if (name.isEmpty) continue;
       parts.add('$name: ${_formatDuration(entry.value)}');

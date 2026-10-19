@@ -55,7 +55,6 @@ class FocusHeatmap extends StatelessWidget {
 
     // Generate the grid: 7 rows (days) × N columns (weeks).
     final today = DateTime.now();
-    final weekStart = DateTime.monday;
     final gridStart = today
         .subtract(Duration(days: weeks * 7))
         .atMidnight;
