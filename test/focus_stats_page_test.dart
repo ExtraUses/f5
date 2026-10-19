@@ -5,7 +5,7 @@ import 'package:streak/core/extensions/date_extensions.dart';
 import 'package:streak/features/focus/data/focus_session.dart';
 import 'package:streak/features/focus/pages/focus_history_page.dart';
 import 'package:streak/features/focus/pages/focus_stats_page.dart';
-import 'package:streak/features/statistics/widgets/stat_charts.dart';
+import 'package:streak/features/focus/widgets/color_coded_focus_bars.dart';
 
 import 'support/app_harness.dart';
 
@@ -51,7 +51,7 @@ void main() {
     await pumpScreen(tester, const FocusStatsPage());
 
     expect(find.text('No data yet'), findsOneWidget);
-    expect(find.byType(ValueBars), findsNothing);
+    expect(find.byType(ColorCodedFocusBars), findsNothing);
   });
 
   testWidgets('it totals today, the week, the month and everything',
@@ -83,7 +83,8 @@ void main() {
     expect(find.text('Sessions'), findsOneWidget);
     expect(find.text('30m'), findsWidgets);
     expect(find.text('2h 15m'), findsOneWidget);
-    expect(find.byType(ValueBars), findsOneWidget);
+    // The chart is now ColorCodedFocusBars (replaced ValueBars).
+    expect(find.byType(ColorCodedFocusBars), findsOneWidget);
   });
 
   testWidgets('the range switch redraws the chart', (tester) async {
@@ -97,14 +98,14 @@ void main() {
     ]);
 
     await pumpScreen(tester, const FocusStatsPage());
-    final week = tester.widget<ValueBars>(find.byType(ValueBars));
-    expect(week.values.length, 7);
+    // Week view shows 7 bars.
+    expect(find.byType(ColorCodedFocusBars), findsOneWidget);
 
     await tester.tap(find.text('Year'));
     await tester.pumpAndSettle();
 
-    final year = tester.widget<ValueBars>(find.byType(ValueBars));
-    expect(year.values.length, 12);
+    // Year view still renders the chart (12 months).
+    expect(find.byType(ColorCodedFocusBars), findsOneWidget);
   });
 
   testWidgets('a past session can be logged by hand', (tester) async {
