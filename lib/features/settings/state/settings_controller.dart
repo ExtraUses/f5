@@ -1,0 +1,997 @@
+import 'package:flutter/material.dart';
+import 'package:streak/app/app_lock_pin.dart';
+import 'package:streak/features/habits/data/habit.dart';
+import 'package:streak/app/theme/app_palette.dart';
+import 'package:streak/core/database/local_store.dart';
+import 'package:streak/core/extensions/date_extensions.dart';
+import 'package:streak/core/utils/cover_storage.dart';
+import 'package:streak/core/utils/money_format.dart';
+import 'package:streak/core/widgets/celebration_overlay.dart';
+import 'package:streak/features/focus/state/focus_audio.dart';
+import 'package:streak/features/focus/widgets/focus_backgrounds.dart';
+import 'package:streak/services/app_icon_service.dart';
+import 'package:streak/services/backup_service.dart';
+import 'package:streak/services/home_widget_service.dart';
+
+Locale localeFromCode(String code) {
+  final parts = code.split(RegExp('[_-]'));
+  String? script;
+  String? country;
+  for (final part in parts.skip(1)) {
+    if (part.length == 4) {
+      script = part;
+    } else if (part.isNotEmpty) {
+      country = part;
+    }
+  }
+  return Locale.fromSubtags(
+    languageCode: parts.first,
+    scriptCode: script,
+    countryCode: country,
+  );
+}
+
+class SettingsController extends ChangeNotifier {
+  static const int defaultWidgetBg = 0xFF101014;
+
+  SettingsController() {
+    _load();
+    if (_autoBackup > 0) Future.microtask(runAutoBackup);
+  }
+
+  Future<void> reloadFromStore() async {
+    _load();
+    notifyListeners();
+  }
+
+  void _load() {
+    _themeMode = ThemeMode.values[LocalStore.setting('themeMode', 0)];
+    _weekStart = LocalStore.setting('weekStart', 1);
+    Habit.weekStart = _weekStart;
+    _onboardingDone = LocalStore.setting('onboardingDone', false);
+    _localeCode = LocalStore.setting('locale', '');
+    _appBackground = LocalStore.setting('appBackground', 2);
+    _bgImage = LocalStore.setting('bgImage', '');
+    _checkStyle = LocalStore.setting('checkStyle', 0);
+    _profileName = LocalStore.setting('profileName', '');
+    _currency = LocalStore.setting('currency', defaultCurrencySymbol());
+    _vacationAll = LocalStore.setting('vacationAll', false);
+    _vacationAllIds =
+        List<String>.from(LocalStore.setting('vacationAllIds', const <String>[]));
+    _profilePhoto = LocalStore.setting('profilePhoto', '');
+    _appIcon = LocalStore.setting('appIcon', 0);
+    _accentColor = LocalStore.setting('accentColor', AppPalette.brand.toARGB32());
+    _heatmapMode = LocalStore.setting('heatmapMode', 0);
+    _todayCategory = LocalStore.setting('todayCategory', '');
+    _minimalShortcut = LocalStore.setting('minimalShortcut', '');
+    _heatmapPath = LocalStore.setting('heatmapPath', false);
+    _heatmapRolling = LocalStore.setting('heatmapRolling', false);
+    _consistencyPeriod = LocalStore.setting('consistencyPeriod', 2);
+    _startView = LocalStore.setting('startView', 0);
+    _planningEnabled = LocalStore.setting('planningEnabled', true);
+    _planContent = LocalStore.setting(
+      'planContent',
+      LocalStore.setting('planTodos', false) ? 1 : 0,
+    );
+    _planMonth = LocalStore.setting('planMonth', false);
+    _swipeCards = LocalStore.setting('swipeCards', false);
+    _cardActivity = LocalStore.setting('cardActivity', true);
+    _viewSwitcher = LocalStore.setting('viewSwitcher', true);
+    _compactCards = LocalStore.setting('compactCards', false);
+    _glassEffects = LocalStore.setting('glassEffects', true);
+    _animations = LocalStore.setting('animations', true);
+    _todosEnabled = LocalStore.setting('todosEnabled', true);
+    _todoPapers = LocalStore.setting('todoPapers', true);
+    _sortCompletedLast = LocalStore.setting('sortCompletedLast', true);
+    _todayOnly = LocalStore.setting('todayOnly', false);
+    _hideDone = LocalStore.setting('hideDone', false);
+    _pastFirst = LocalStore.setting('pastFirst', false);
+    _hideTracking = LocalStore.setting('hideTracking', false);
+    _notesEnabled = LocalStore.setting('notesEnabled', true);
+    _trackingOption = LocalStore.setting('trackingOption', false);
+    _showTodayProgress = LocalStore.setting('showTodayProgress', true);
+    _quietWhenDone = LocalStore.setting('quietWhenDone', true);
+    _difficultyOption = LocalStore.setting('difficultyOption', false);
+    Habit.weighDifficulty = _difficultyOption;
+    _appLockMode = LocalStore.setting('appLockMode', 0);
+    _islandEnabled = LocalStore.setting('islandEnabled', true);
+    _quoteSource = LocalStore.setting('quoteSource', 0);
+    _customQuotes =
+        List<String>.from(LocalStore.setting('customQuotes', const <String>[]));
+    _focusEnabled = LocalStore.setting('focusEnabled', true);
+    _focusClockStyle = LocalStore.setting('focusClockStyle', 2);
+    _focusScene = LocalStore.setting('focusScene', defaultFocusScene);
+    _focusImage = LocalStore.setting('focusImage', '');
+    _focusLinkedHabits = List<String>.from(
+      LocalStore.setting('focusLinkedHabits', const <String>[]),
+    );
+    _focusTracks =
+        List<String>.from(LocalStore.setting('focusTracks', const <String>[]));
+    _focusShuffle = LocalStore.setting('focusShuffle', false);
+    _focusRepeatOne = LocalStore.setting('focusRepeatOne', false);
+    _focusVolume =
+        LocalStore.setting<num>('focusVolume', 1.0).toDouble().clamp(0.0, 1.0);
+    FocusAudio.volume.value = _focusVolume;
+    _focusMinutes = LocalStore.setting('focusMinutes', 25);
+    _focusBreakMinutes = LocalStore.setting('focusBreakMinutes', 0);
+    _focusTrack = builtInTrackId(LocalStore.setting('focusTrack', ''));
+    _focusDailyGoal = LocalStore.setting('focusDailyGoal', 0);
+    _focusKeepAwake = LocalStore.setting('focusKeepAwake', true);
+    _focusLeadIn = LocalStore.setting('focusLeadIn', true);
+    _focusAlert = LocalStore.setting('focusAlert', '');
+    _focusHold = LocalStore.setting('focusHold', false);
+    _focusWholeRounds = LocalStore.setting('focusWholeRounds', false);
+    _focusLongBreak = LocalStore.setting('focusLongBreak', 0);
+    _focusImages =
+        List<String>.from(LocalStore.setting('focusImages', const <String>[]));
+    _hiddenScenes =
+        List<int>.from(LocalStore.setting('hiddenScenes', const <int>[]));
+    _hiddenTracks =
+        List<String>.from(LocalStore.setting('hiddenTracks', const <String>[]))
+            .map(builtInTrackId)
+            .toList();
+    _appStyle = LocalStore.setting(
+      'appStyle',
+      LocalStore.setting('homeLayout', 0),
+    );
+    _celebration = CelebrationStyle.values[LocalStore.setting('celebration', 0)
+        .clamp(0, CelebrationStyle.values.length - 1)];
+    _appLock = LocalStore.setting('appLock', false);
+    _appLockDelay = LocalStore.setting('appLockDelay', 0);
+    _dayCutoff = LocalStore.setting('dayCutoff', 0);
+    AppClock.cutoffHour = _dayCutoff;
+    _autoBackup = LocalStore.setting('autoBackup', 0);
+    _autoBackupAt = LocalStore.setting('autoBackupAt', '');
+    _autoBackupFolder = LocalStore.setting('autoBackupFolder', '');
+    _readableCopy = LocalStore.setting('readableCopy', true);
+    _autoSync = LocalStore.setting('autoSync', false);
+    _widgetBgColor = LocalStore.setting('widgetBgColor', defaultWidgetBg);
+    _widgetOpacity = LocalStore.setting('widgetOpacity', 100);
+    _widgetBorder = LocalStore.setting('widgetBorder', false);
+    _syncWidgetStyle();
+  }
+
+  late ThemeMode _themeMode;
+  late int _weekStart;
+  late bool _onboardingDone;
+  late String _localeCode;
+  late int _appBackground;
+  late String _bgImage;
+  late int _checkStyle;
+  late String _profileName;
+  late String _currency;
+  late bool _vacationAll;
+  late List<String> _vacationAllIds;
+  late String _profilePhoto;
+  late int _appIcon;
+  late int _accentColor;
+  late int _heatmapMode;
+  late String _todayCategory;
+  late String _minimalShortcut;
+  late bool _heatmapPath;
+  late bool _heatmapRolling;
+  late int _consistencyPeriod;
+  late int _startView;
+  late bool _planningEnabled;
+  late int _planContent;
+  late bool _planMonth;
+  late bool _todoPapers;
+  late bool _swipeCards;
+  late bool _cardActivity;
+  late bool _viewSwitcher;
+  late bool _compactCards;
+  late bool _glassEffects;
+  late bool _animations;
+  late bool _todosEnabled;
+  late int _appStyle;
+  late bool _sortCompletedLast;
+  late bool _todayOnly;
+  late bool _hideDone;
+  late bool _pastFirst;
+  late bool _hideTracking;
+  late bool _notesEnabled;
+  late bool _islandEnabled;
+  late bool _trackingOption;
+  late bool _showTodayProgress;
+  late bool _quietWhenDone;
+  late bool _difficultyOption;
+  late int _appLockMode;
+  late int _quoteSource;
+  late List<String> _customQuotes;
+  late bool _focusEnabled;
+  late int _focusClockStyle;
+  late int _focusScene;
+  late String _focusImage;
+  late List<String> _focusLinkedHabits;
+  late List<String> _focusTracks;
+  late bool _focusShuffle;
+  late bool _focusRepeatOne;
+  late double _focusVolume;
+  late int _focusMinutes;
+  late int _focusBreakMinutes;
+  late String _focusTrack;
+  late int _focusDailyGoal;
+  late bool _focusKeepAwake;
+  late bool _focusLeadIn;
+  late String _focusAlert;
+  late bool _focusHold;
+  late bool _focusWholeRounds;
+  late int _focusLongBreak;
+  late List<String> _focusImages;
+  late List<int> _hiddenScenes;
+  late List<String> _hiddenTracks;
+  late CelebrationStyle _celebration;
+  late bool _appLock;
+  late int _appLockDelay;
+  late int _dayCutoff;
+  late int _autoBackup;
+  late String _autoBackupAt;
+  late String _autoBackupFolder;
+  late bool _readableCopy;
+  late bool _autoSync;
+  late int _widgetBgColor;
+  late int _widgetOpacity;
+  late bool _widgetBorder;
+
+  ThemeMode get themeMode => _themeMode;
+  int get weekStart => _weekStart;
+  bool get onboardingDone => _onboardingDone;
+  String get localeCode => _localeCode;
+  Locale? get locale => _localeCode.isEmpty ? null : localeFromCode(_localeCode);
+
+  int get appBackground => _appBackground;
+
+  String get bgImage => _bgImage;
+
+  int get checkStyle => _checkStyle;
+  bool get isCircleCheck => _checkStyle == 1;
+
+  String get currency => _currency;
+
+  bool get vacationAll => _vacationAll;
+  List<String> get vacationAllIds => List.unmodifiable(_vacationAllIds);
+
+  Future<void> setVacationAll(bool on, List<String> ids) async {
+    _vacationAll = on;
+    _vacationAllIds = on ? ids : const [];
+    await LocalStore.writeSetting('vacationAll', on);
+    await LocalStore.writeSetting('vacationAllIds', _vacationAllIds);
+    notifyListeners();
+  }
+
+
+  Future<void> setCurrency(String value) async {
+    _currency = value;
+    await LocalStore.writeSetting('currency', value);
+    notifyListeners();
+  }
+
+  String get profileName => _profileName;
+  String get profilePhoto => _profilePhoto;
+
+  int get appIcon => _appIcon;
+
+  Color get accentColor => Color(_accentColor);
+
+  Future<void> setAccentColor(Color color) async {
+    _accentColor = color.toARGB32();
+    await LocalStore.writeSetting('accentColor', _accentColor);
+    notifyListeners();
+  }
+
+  int get heatmapMode => _heatmapMode;
+
+  bool get heatmapPath => _heatmapPath;
+
+  bool get heatmapRolling => _heatmapRolling;
+
+  Future<void> setHeatmapRolling(bool value) async {
+    _heatmapRolling = value;
+    await LocalStore.writeSetting('heatmapRolling', value);
+    notifyListeners();
+  }
+
+  Future<void> setHeatmapPath(bool value) async {
+    _heatmapPath = value;
+    await LocalStore.writeSetting('heatmapPath', value);
+    notifyListeners();
+  }
+
+  int get consistencyPeriod => _consistencyPeriod;
+
+  Future<void> setConsistencyPeriod(int value) async {
+    _consistencyPeriod = value;
+    await LocalStore.writeSetting('consistencyPeriod', value);
+    notifyListeners();
+  }
+
+  Future<void> setHeatmapMode(int value) async {
+    _heatmapMode = value;
+    await LocalStore.writeSetting('heatmapMode', value);
+    notifyListeners();
+  }
+
+  String get todayCategory => _todayCategory;
+
+  String get minimalShortcut => _minimalShortcut;
+
+  Future<void> setMinimalShortcut(String value) async {
+    if (value == _minimalShortcut) return;
+    _minimalShortcut = value;
+    await LocalStore.writeSetting('minimalShortcut', value);
+    notifyListeners();
+  }
+
+  Future<void> setTodayCategory(String value) async {
+    _todayCategory = value;
+    await LocalStore.writeSetting('todayCategory', value);
+  }
+
+  int get startView => _startView;
+
+  int get openingMode => _startView == 0 ? _heatmapMode : _startView - 1;
+
+  Future<void> setStartView(int value) async {
+    _startView = value;
+    await LocalStore.writeSetting('startView', value);
+    notifyListeners();
+  }
+
+  bool get planningEnabled => _planningEnabled;
+
+  Future<void> setPlanningEnabled(bool value) async {
+    _planningEnabled = value;
+    await LocalStore.writeSetting('planningEnabled', value);
+    notifyListeners();
+  }
+
+  int get planContent => _planContent;
+
+  bool get planTodos => todosEnabled && _planContent != 0;
+
+  bool get planHabits => !planTodos || _planContent != 2;
+
+  int get planChoice {
+    if (!_planningEnabled) return 0;
+    if (!todosEnabled) return 1;
+    return const [1, 3, 2][_planContent];
+  }
+
+  Future<void> setPlanChoice(int choice) async {
+    await setPlanningEnabled(choice > 0);
+    if (choice > 0) await setPlanContent(const [0, 2, 1][choice - 1]);
+  }
+
+  Future<void> setPlanContent(int value) async {
+    _planContent = value;
+    await LocalStore.writeSetting('planContent', value);
+    notifyListeners();
+  }
+
+  bool get planMonth => _planMonth;
+
+  Future<void> setPlanMonth(bool value) async {
+    _planMonth = value;
+    await LocalStore.writeSetting('planMonth', value);
+  }
+
+  bool get swipeCards => _swipeCards;
+
+  Future<void> setSwipeCards(bool value) async {
+    _swipeCards = value;
+    await LocalStore.writeSetting('swipeCards', value);
+    notifyListeners();
+  }
+
+  bool get cardActivity => _cardActivity;
+
+  Future<void> setCardActivity(bool value) async {
+    _cardActivity = value;
+    await LocalStore.writeSetting('cardActivity', value);
+    notifyListeners();
+  }
+
+  bool get viewSwitcher => _viewSwitcher;
+
+  Future<void> setViewSwitcher(bool value) async {
+    _viewSwitcher = value;
+    await LocalStore.writeSetting('viewSwitcher', value);
+    notifyListeners();
+  }
+
+  bool get compactCards => _compactCards;
+
+  Future<void> setCompactCards(bool value) async {
+    _compactCards = value;
+    await LocalStore.writeSetting('compactCards', value);
+    notifyListeners();
+  }
+
+  bool get glassEffects => _glassEffects;
+
+  Future<void> setGlassEffects(bool value) async {
+    _glassEffects = value;
+    await LocalStore.writeSetting('glassEffects', value);
+    notifyListeners();
+  }
+
+  bool get animations => _animations;
+
+  Future<void> setAnimations(bool value) async {
+    _animations = value;
+    await LocalStore.writeSetting('animations', value);
+    notifyListeners();
+  }
+
+  bool get todoPapers => _todoPapers;
+
+  Future<void> setTodoPapers(bool value) async {
+    _todoPapers = value;
+    notifyListeners();
+    await LocalStore.writeSetting('todoPapers', value);
+  }
+
+  bool get todosEnabled => _todosEnabled;
+
+  Future<void> setTodosEnabled(bool value) async {
+    _todosEnabled = value;
+    await LocalStore.writeSetting('todosEnabled', value);
+    notifyListeners();
+  }
+
+  bool get sortCompletedLast => _sortCompletedLast;
+  bool get todayOnly => _todayOnly;
+  bool get hideDone => _hideDone;
+  bool get pastFirst => _pastFirst;
+  bool get hideTracking => _hideTracking;
+  bool get notesEnabled => _notesEnabled;
+
+  bool get focusEnabled => _focusEnabled;
+  int get focusClockStyle => _focusClockStyle;
+  int get focusScene => _focusScene;
+  String get focusImage => _focusImage;
+
+  /// Persisted multi-habit tagger selection — restored into the focus
+  /// setup page on each launch so the user doesn't have to re-tag their
+  /// usual companion habits every time.
+  List<String> get focusLinkedHabits => List.unmodifiable(_focusLinkedHabits);
+
+  Future<void> setFocusEnabled(bool value) async {
+    _focusEnabled = value;
+    await LocalStore.writeSetting('focusEnabled', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusClockStyle(int value) async {
+    _focusClockStyle = value;
+    await LocalStore.writeSetting('focusClockStyle', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusScene(int value) async {
+    _focusScene = value;
+    await LocalStore.writeSetting('focusScene', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusImage(String path) async {
+    _focusImage = path;
+    await LocalStore.writeSetting('focusImage', path);
+    notifyListeners();
+  }
+
+  Future<void> setFocusLinkedHabits(List<String> ids) async {
+    _focusLinkedHabits = List<String>.of(ids);
+    await LocalStore.writeSetting('focusLinkedHabits', _focusLinkedHabits);
+    notifyListeners();
+  }
+  List<String> get focusTracks => List.unmodifiable(_focusTracks);
+  bool get focusShuffle => _focusShuffle;
+  bool get focusRepeatOne => _focusRepeatOne;
+  double get focusVolume => _focusVolume;
+
+  Future<void> setFocusVolume(double value) async {
+    _focusVolume = value.clamp(0.0, 1.0);
+    await LocalStore.writeSetting('focusVolume', _focusVolume);
+  }
+  int get focusMinutes => _focusMinutes;
+  int get focusBreakMinutes => _focusBreakMinutes;
+  String get focusTrack => _focusTrack;
+
+  Future<void> rememberFocusSetup(int minutes, int breakMinutes) async {
+    if (_focusMinutes == minutes && _focusBreakMinutes == breakMinutes) return;
+    _focusMinutes = minutes;
+    _focusBreakMinutes = breakMinutes;
+    await LocalStore.writeSetting('focusMinutes', minutes);
+    await LocalStore.writeSetting('focusBreakMinutes', breakMinutes);
+  }
+
+  Future<void> setFocusTrack(String id) async {
+    if (_focusTrack == id) return;
+    _focusTrack = id;
+    await LocalStore.writeSetting('focusTrack', id);
+    notifyListeners();
+  }
+  int get focusDailyGoal => _focusDailyGoal;
+  bool get focusKeepAwake => _focusKeepAwake;
+  bool get focusLeadIn => _focusLeadIn;
+  String get focusAlert => _focusAlert;
+  bool get focusHold => _focusHold;
+  bool get focusWholeRounds => _focusWholeRounds;
+  int get focusLongBreak => _focusLongBreak;
+  List<String> get focusImages => List.unmodifiable(_focusImages);
+
+  List<int> get hiddenScenes => List.unmodifiable(_hiddenScenes);
+
+  List<String> get hiddenTracks => List.unmodifiable(_hiddenTracks);
+
+  bool isSceneHidden(int scene) => _hiddenScenes.contains(scene);
+
+  bool isTrackHidden(String id) => _hiddenTracks.contains(id);
+
+  Future<void> hideScene(int scene) async {
+    if (scene <= 0 || _hiddenScenes.contains(scene)) return;
+    _hiddenScenes = [..._hiddenScenes, scene];
+    await LocalStore.writeSetting('hiddenScenes', _hiddenScenes);
+    if (_focusScene == scene) {
+      _focusScene = defaultFocusScene;
+      await LocalStore.writeSetting('focusScene', _focusScene);
+    }
+    notifyListeners();
+  }
+
+  Future<void> hideTrack(String id) async {
+    if (_hiddenTracks.contains(id)) return;
+    _hiddenTracks = [..._hiddenTracks, id];
+    await LocalStore.writeSetting('hiddenTracks', _hiddenTracks);
+    notifyListeners();
+  }
+
+  Future<void> restoreScenes() async {
+    _hiddenScenes = const [];
+    await LocalStore.writeSetting('hiddenScenes', _hiddenScenes);
+    notifyListeners();
+  }
+
+  Future<void> restoreTracks() async {
+    _hiddenTracks = const [];
+    await LocalStore.writeSetting('hiddenTracks', _hiddenTracks);
+    notifyListeners();
+  }
+
+  Future<void> setFocusDailyGoal(int minutes) async {
+    _focusDailyGoal = minutes;
+    await LocalStore.writeSetting('focusDailyGoal', minutes);
+    notifyListeners();
+  }
+
+  int get appLockDelay => _appLockDelay;
+
+  Future<void> setAppLockDelay(int seconds) async {
+    _appLockDelay = seconds;
+    await LocalStore.writeSetting('appLockDelay', seconds);
+    notifyListeners();
+  }
+
+  CelebrationStyle get celebration => _celebration;
+
+  Future<void> setCelebration(int index) async {
+    _celebration = CelebrationStyle.values[index];
+    await LocalStore.writeSetting('celebration', index);
+    notifyListeners();
+  }
+
+  Future<void> setFocusKeepAwake(bool value) async {
+    _focusKeepAwake = value;
+    await LocalStore.writeSetting('focusKeepAwake', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusLeadIn(bool value) async {
+    _focusLeadIn = value;
+    await LocalStore.writeSetting('focusLeadIn', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusAlert(String value) async {
+    _focusAlert = value;
+    await LocalStore.writeSetting('focusAlert', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusHold(bool value) async {
+    _focusHold = value;
+    await LocalStore.writeSetting('focusHold', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusWholeRounds(bool value) async {
+    _focusWholeRounds = value;
+    await LocalStore.writeSetting('focusWholeRounds', value);
+    notifyListeners();
+  }
+
+  Future<void> setFocusLongBreak(int minutes) async {
+    _focusLongBreak = minutes;
+    await LocalStore.writeSetting('focusLongBreak', minutes);
+    notifyListeners();
+  }
+
+  Future<void> addFocusImage(String path) async {
+    if (_focusImages.length >= 10) return;
+    _focusImages = [..._focusImages, path];
+    await LocalStore.writeSetting('focusImages', _focusImages);
+    notifyListeners();
+  }
+
+  Future<void> removeFocusImage(String path) async {
+    _focusImages = _focusImages.where((p) => p != path).toList();
+    await LocalStore.writeSetting('focusImages', _focusImages);
+    if (_focusImage == path) {
+      _focusImage = '';
+      await LocalStore.writeSetting('focusImage', '');
+      _focusScene = defaultFocusScene;
+      await LocalStore.writeSetting('focusScene', _focusScene);
+    }
+    notifyListeners();
+    await CoverStorage.forget(path);
+  }
+
+  bool get appLock => _appLock;
+
+  Future<void> setAppLock(bool value) async {
+    _appLock = value;
+    await LocalStore.writeSetting('appLock', value);
+    notifyListeners();
+  }
+
+  int get dayCutoff => _dayCutoff;
+
+  Future<void> setDayCutoff(int hour) async {
+    _dayCutoff = hour.clamp(0, 6);
+    AppClock.cutoffHour = _dayCutoff;
+    await LocalStore.writeSetting('dayCutoff', _dayCutoff);
+    notifyListeners();
+    await HomeWidgetService.sync(LocalStore.readHabits());
+  }
+
+  int get autoBackup => _autoBackup;
+  DateTime? get autoBackupAt => DateTime.tryParse(_autoBackupAt);
+  String get autoBackupFolder => _autoBackupFolder;
+
+  bool get readableCopy => _readableCopy;
+
+  Future<void> setReadableCopy(bool value) async {
+    _readableCopy = value;
+    await LocalStore.writeSetting('readableCopy', value);
+    notifyListeners();
+  }
+
+  bool get autoSync => _autoSync;
+
+  bool get syncsFolder =>
+      _autoSync && _autoBackup > 0 && _autoBackupFolder.isNotEmpty;
+
+  Future<void> setAutoSync(bool value) async {
+    _autoSync = value;
+    await LocalStore.writeSetting('autoSync', value);
+    notifyListeners();
+  }
+
+  Future<void> setAutoBackup(int value) async {
+    if (_autoBackup == value) return;
+    _autoBackup = value;
+    await LocalStore.writeSetting('autoBackup', value);
+    notifyListeners();
+    if (value > 0) await runAutoBackup(force: true);
+  }
+
+  Future<void> setAutoBackupFolder(String path) async {
+    _autoBackupFolder = path;
+    await LocalStore.writeSetting('autoBackupFolder', path);
+    notifyListeners();
+  }
+
+  bool _backingUp = false;
+
+  Future<bool> runAutoBackup({bool force = false, bool archive = true}) async {
+    if (_autoBackup == 0 || _backingUp) return false;
+    _backingUp = true;
+    try {
+      return await _backUp(force, archive);
+    } finally {
+      _backingUp = false;
+    }
+  }
+
+  Future<bool> _backUp(bool force, bool archive) async {
+    final last = autoBackupAt;
+    if (!force && last != null) {
+      final due = _autoBackup == 1
+          ? last.add(const Duration(days: 1))
+          : last.add(const Duration(days: 7));
+      if (DateTime.now().isBefore(due)) return false;
+    }
+    final path = await BackupService.runAuto(
+      folder: _autoBackupFolder,
+      readable: _readableCopy,
+      archive: archive,
+    );
+    if (path == null) return false;
+    if (!archive) return true;
+    _autoBackupAt = DateTime.now().toIso8601String();
+    await LocalStore.writeSetting('autoBackupAt', _autoBackupAt);
+    notifyListeners();
+    return true;
+  }
+
+  Future<void> addFocusTrack(String encoded) async {
+    if (_focusTracks.length >= 10) return;
+    _focusTracks = [..._focusTracks, encoded];
+    await LocalStore.writeSetting('focusTracks', _focusTracks);
+    notifyListeners();
+  }
+
+  Future<void> removeFocusTrack(String encoded) async {
+    _focusTracks = _focusTracks.where((t) => t != encoded).toList();
+    await LocalStore.writeSetting('focusTracks', _focusTracks);
+    await FocusTrack.forget(encoded.split('|').first);
+    notifyListeners();
+  }
+
+  Future<void> pruneFocusTracks() async {
+    final alive =
+        _focusTracks.where((t) => FocusTrack.decode(t) != null).toList();
+    if (alive.length == _focusTracks.length) return;
+    _focusTracks = alive;
+    await LocalStore.writeSetting('focusTracks', _focusTracks);
+    notifyListeners();
+  }
+
+  Future<void> setFocusMode({
+    required bool shuffle,
+    required bool repeatOne,
+  }) async {
+    _focusShuffle = shuffle;
+    _focusRepeatOne = repeatOne;
+    await LocalStore.writeSetting('focusShuffle', shuffle);
+    await LocalStore.writeSetting('focusRepeatOne', repeatOne);
+    notifyListeners();
+  }
+
+  Future<void> setNotesEnabled(bool value) async {
+    _notesEnabled = value;
+    await LocalStore.writeSetting('notesEnabled', value);
+    notifyListeners();
+  }
+
+  bool get islandEnabled => _islandEnabled;
+
+  Future<void> setIslandEnabled(bool value) async {
+    _islandEnabled = value;
+    await LocalStore.writeSetting('islandEnabled', value);
+    notifyListeners();
+  }
+
+  bool get trackingOption => _trackingOption;
+
+  Future<void> setTrackingOption(bool value) async {
+    _trackingOption = value;
+    await LocalStore.writeSetting('trackingOption', value);
+    notifyListeners();
+  }
+
+  bool get showTodayProgress => _showTodayProgress;
+
+  Future<void> setShowTodayProgress(bool value) async {
+    _showTodayProgress = value;
+    await LocalStore.writeSetting('showTodayProgress', value);
+    notifyListeners();
+  }
+
+  bool get quietWhenDone => _quietWhenDone;
+
+  Future<void> setQuietWhenDone(bool value) async {
+    _quietWhenDone = value;
+    await LocalStore.writeSetting('quietWhenDone', value);
+    notifyListeners();
+  }
+
+  bool get difficultyOption => _difficultyOption;
+
+  Future<void> setDifficultyOption(bool value) async {
+    _difficultyOption = value;
+    Habit.weighDifficulty = value;
+    await LocalStore.writeSetting('difficultyOption', value);
+    notifyListeners();
+  }
+
+  int get appLockMode => _appLockMode;
+
+  Future<void> setAppLockMode(int mode) async {
+    _appLockMode = mode;
+    await LocalStore.writeSetting('appLockMode', mode);
+    notifyListeners();
+  }
+
+  bool get hasAppLockPin => AppLockPin.isSet;
+
+  Future<String> saveAppLockPin(String pin) async {
+    final code = await AppLockPin.save(pin);
+    notifyListeners();
+    return code;
+  }
+
+  Future<void> clearAppLockPin() async {
+    await AppLockPin.clear();
+    notifyListeners();
+  }
+
+  int get quoteSource => _quoteSource;
+
+  List<String> get customQuotes => List.unmodifiable(_customQuotes);
+
+  Future<void> setQuoteSource(int value) async {
+    _quoteSource = value;
+    await LocalStore.writeSetting('quoteSource', value);
+    notifyListeners();
+  }
+
+  Future<void> addCustomQuote(String text) async {
+    final quote = text.trim();
+    if (quote.isEmpty || _customQuotes.contains(quote)) return;
+    _customQuotes = [..._customQuotes, quote];
+    await LocalStore.writeSetting('customQuotes', _customQuotes);
+    notifyListeners();
+  }
+
+  Future<void> editCustomQuote(int index, String text) async {
+    final quote = text.trim();
+    if (index < 0 || index >= _customQuotes.length || quote.isEmpty) return;
+    _customQuotes = [..._customQuotes]..[index] = quote;
+    await LocalStore.writeSetting('customQuotes', _customQuotes);
+    notifyListeners();
+  }
+
+  Future<void> removeCustomQuote(int index) async {
+    if (index < 0 || index >= _customQuotes.length) return;
+    _customQuotes = [..._customQuotes]..removeAt(index);
+    await LocalStore.writeSetting('customQuotes', _customQuotes);
+    notifyListeners();
+  }
+
+  int get appStyle => _appStyle;
+  bool get isMinimalStyle => _appStyle == 1;
+  bool get isExpressStyle => _appStyle == 2;
+
+  Future<void> setAppStyle(int value) async {
+    _appStyle = value;
+    await LocalStore.writeSetting('appStyle', value);
+    notifyListeners();
+  }
+
+  Future<void> setSortCompletedLast(bool value) async {
+    _sortCompletedLast = value;
+    await LocalStore.writeSetting('sortCompletedLast', value);
+    notifyListeners();
+  }
+
+  Future<void> setTodayOnly(bool value) async {
+    _todayOnly = value;
+    await LocalStore.writeSetting('todayOnly', value);
+    notifyListeners();
+  }
+
+  Future<void> setHideDone(bool value) async {
+    _hideDone = value;
+    await LocalStore.writeSetting('hideDone', value);
+    notifyListeners();
+  }
+
+  Future<void> setPastFirst(bool value) async {
+    _pastFirst = value;
+    await LocalStore.writeSetting('pastFirst', value);
+    notifyListeners();
+  }
+
+  Future<void> setHideTracking(bool value) async {
+    _hideTracking = value;
+    await LocalStore.writeSetting('hideTracking', value);
+    notifyListeners();
+  }
+
+  Future<void> setLanguage(String code) async {
+    _localeCode = code;
+    await LocalStore.writeSetting('locale', code);
+    notifyListeners();
+  }
+
+  Future<void> setThemeMode(ThemeMode mode) async {
+    _themeMode = mode;
+    await LocalStore.writeSetting('themeMode', mode.index);
+    notifyListeners();
+  }
+
+  Future<void> setWeekStart(int weekday) async {
+    _weekStart = weekday;
+    Habit.weekStart = weekday;
+    await LocalStore.writeSetting('weekStart', weekday);
+    notifyListeners();
+  }
+
+  Future<void> setAppBackground(int value) async {
+    _appBackground = value;
+    await LocalStore.writeSetting('appBackground', value);
+    notifyListeners();
+  }
+
+  Future<void> setBackgroundImage(String path) async {
+    _bgImage = path;
+    await LocalStore.writeSetting('bgImage', path);
+    notifyListeners();
+  }
+
+  Future<void> setCheckStyle(int value) async {
+    _checkStyle = value;
+    await LocalStore.writeSetting('checkStyle', value);
+    notifyListeners();
+  }
+
+  Future<void> setProfileName(String name) async {
+    _profileName = name.trim();
+    await LocalStore.writeSetting('profileName', _profileName);
+    notifyListeners();
+  }
+
+  Future<void> setProfilePhoto(String path) async {
+    _profilePhoto = path;
+    await LocalStore.writeSetting('profilePhoto', path);
+    notifyListeners();
+  }
+
+  Future<void> setAppIcon(int index) async {
+    _appIcon = index;
+    await LocalStore.writeSetting('appIcon', index);
+    notifyListeners();
+    await AppIconService.apply(index);
+  }
+
+  Color get widgetBgColor => Color(_widgetBgColor);
+
+  int get widgetOpacity => _widgetOpacity;
+
+  bool get widgetBorder => _widgetBorder;
+
+  Future<void> setWidgetBgColor(Color color) async {
+    _widgetBgColor = color.toARGB32();
+    await LocalStore.writeSetting('widgetBgColor', _widgetBgColor);
+    notifyListeners();
+    await _syncWidgetStyle();
+  }
+
+  Future<void> setWidgetOpacity(int percent) async {
+    _widgetOpacity = percent.clamp(0, 100);
+    await LocalStore.writeSetting('widgetOpacity', _widgetOpacity);
+    notifyListeners();
+    await _syncWidgetStyle();
+  }
+
+  Future<void> setWidgetBorder(bool value) async {
+    _widgetBorder = value;
+    await LocalStore.writeSetting('widgetBorder', value);
+    notifyListeners();
+    await _syncWidgetStyle();
+  }
+
+  Future<void> _syncWidgetStyle() => HomeWidgetService.syncWidgetStyle(
+        bgColor: _widgetBgColor,
+        opacity: _widgetOpacity,
+        border: _widgetBorder,
+      );
+
+  Future<void> completeOnboarding() async {
+    _onboardingDone = true;
+    await LocalStore.writeSetting('onboardingDone', true);
+    notifyListeners();
+  }
+}

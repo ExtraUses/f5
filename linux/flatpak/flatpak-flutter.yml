@@ -1,0 +1,49 @@
+app-id: io.github.InlitX.streak
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.llvm22
+command: Streak
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --socket=pulseaudio
+  - --talk-name=org.freedesktop.Notifications
+modules:
+  - name: streak
+    buildsystem: simple
+    build-options:
+      arch:
+        x86_64:
+          env:
+            BUNDLE_PATH: build/linux/x64/release/bundle
+        aarch64:
+          env:
+            BUNDLE_PATH: build/linux/arm64/release/bundle
+      append-path: /usr/lib/sdk/llvm22/bin:/run/build/streak/flutter/bin
+      prepend-ld-library-path: /usr/lib/sdk/llvm22/lib
+      env:
+        PUB_CACHE: /run/build/streak/.pub-cache
+    build-commands:
+      - sed -i 's/set(APPLICATION_ID "com.streak.app")/set(APPLICATION_ID "io.github.InlitX.streak")/' linux/CMakeLists.txt
+      - grep -q 'set(APPLICATION_ID "io.github.InlitX.streak")' linux/CMakeLists.txt
+      - flutter build linux --release --no-pub
+      - install -D $BUNDLE_PATH/Streak /app/bin/Streak
+      - cp -r $BUNDLE_PATH/lib /app/bin/lib
+      - cp -r $BUNDLE_PATH/data /app/bin/data
+      - install -Dm644 assets/icon.svg /app/share/icons/hicolor/scalable/apps/io.github.InlitX.streak.svg
+      - install -Dm644 linux/flatpak/io.github.InlitX.streak.metainfo.xml -t /app/share/metainfo
+      - install -Dm644 linux/flatpak/io.github.InlitX.streak.desktop -t /app/share/applications
+      - install -Dm644 LICENSE ADDITIONAL_TERMS.md -t /app/share/licenses/io.github.InlitX.streak
+    sources:
+      - type: git
+        url: https://github.com/InlitX/streak.git
+        tag: v2.2.0
+      - type: git
+        url: https://github.com/flutter/flutter.git
+        tag: 3.41.9
+        dest: flutter

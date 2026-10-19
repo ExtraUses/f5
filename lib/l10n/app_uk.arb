@@ -1,0 +1,1744 @@
+{
+  "widget_cfg_brightness": "Яскравість",
+  "motiv_almost": "Майже на місці! Ще зовсім трохи",
+  "about_story": "Цей застосунок з’явився через розчарування в наявних відстежувачах звичок. Більшість із них обмежують кількість звичок, які можна створити, ховають базові функції за платним доступом, стежать за вами або закидають рекламою. Тому я вирішив створити Streak: повністю безоплатний, без реклами, без платежів і без відстеження. Усе працює локально — ваші дані належать тільки вам. Відкритий код, без жодних підступів.",
+  "about_app": "Про цей застосунок",
+  "description_hint": "Додаткова примітка",
+  "times_per_month": "{n} разів на місяць",
+  "@times_per_month": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "app_background": "Тло",
+  "onb2_body": "Щоденні, тижневі або місячні цілі з розумними нагадуваннями, щоби нічого не було згаяно.",
+  "month": "Місяць",
+  "quant_preset_reading": "Читання",
+  "your_habits": "Ваші звички",
+  "about_subtitle": "За кожен день твоїх невтомних зусиль.",
+  "close": "Закрити",
+  "current": "Поточна",
+  "streak_off": "💪 Сьогодні ти можеш розпочати нову серію",
+  "save": "Зберегти",
+  "completion_rate_short": "Послідовність",
+  "widget_today_progress": "Сьогодні  {done} / {total}",
+  "@widget_today_progress": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "my_heatmap": "Моя мапа інтенсивності",
+  "notif_streak": "🔥 {streak}-денна серія",
+  "@notif_streak": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "new_category": "Нова категорія",
+  "onb1_body": "Фіксуйте звичку одним дотиком і спостерігайте, як ваші успіхи зростають день за днем.",
+  "kind_negative_hint": "Дні автоматично зараховуються як «чисті», тож ваша серія триває без зайвих дій. Відмічайте день лише тоді, коли стався зрив: він зафарбується червоним, але це можна буде виправити.",
+  "monthly": "Щомісяця",
+  "view_source": "Переглянути джерело на GitHub",
+  "add_image": "Додати зображення",
+  "consistency_trend": "Тенденція до послідовності",
+  "widget_cfg_change_image": "Змінити зображення",
+  "freq_per_month_short": "{n} р. / місяць",
+  "@freq_per_month_short": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "days_active": "Днів активності",
+  "remove_photo": "Видалити фото",
+  "widget_activity": "Активність",
+  "about_inline": "Streak — це застосунок із відкритим кодом для відстеження ваших звичок. Жодних обліковок, жодних обмежень, жодних оплат. Усе залишається у вашому телефоні.\n\nБудь-хто може переглянути код, покращити його або вільно використовувати.",
+  "widget_cfg_border": "Межа",
+  "ranking": "Рейтинг",
+  "count_months": "{count, plural, one{{count} місяць} few{{count} місяці} many{{count} місяців} other{{count} місяця}}",
+  "@count_months": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accent_color": "Акцентний колір",
+  "notif_action_add_hint": "Як багато?",
+  "today_only": "Лише сьогоднішні",
+  "card_activity": "Активність на картках",
+  "focus_only": "Лише через сеанс фокусування",
+  "focus_only_hint": "Звичка позначається після завершення сеансу, а не натисканням.",
+  "focus_only_title": "Потрібен сеанс фокусування",
+  "focus_only_body": "«{name}» позначається завершенням сеансу фокусування.",
+  "@focus_only_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_only_past": "«{name}» позначається лише сеансом фокусування, тому минулі дні позначити не можна.",
+  "@focus_only_past": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_only_start": "Почати сеанс",
+  "focus_flowtime": "Флоутайм",
+  "focus_flowtime_hint": "Без цілі та без будильника. Час іде вперед, а ви зупиняєтеся, коли відчуваєте, що досить.",
+  "focus_end_flow": "Ви фокусувалися {time}.",
+  "@focus_end_flow": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "add_step": "Додати крок",
+  "every_day": "Кожен день",
+  "weekends": "Вихідні",
+  "per_week": "На тиждень",
+  "get_started": "Розпочати",
+  "snooze_custom_hint": "Хвилин",
+  "bg_solid": "Суцільне",
+  "steps_done": "{done} / {total} кроків",
+  "@steps_done": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "good_evening": "Доброго вечора",
+  "your_name": "Ваше ім’я",
+  "edit_habit": "Редагувати звичку",
+  "onb2_title": "Не збивайтеся з курсу",
+  "good_afternoon": "Доброго дня",
+  "total_logs": "Усього журналів",
+  "add_reminder": "Додати нагадування",
+  "backup_saved": "Резервну копію збережено",
+  "widget_opacity": "Непрозорість",
+  "vacation_mode": "Режим відпочинку",
+  "last_30_days": "Останні 30 днів",
+  "bg_oled": "OLED",
+  "stats_empty": "Додайте звички, щоби побачити свою статистику",
+  "when_best": "Коли ви найбільш послідовні?",
+  "next": "Наступна",
+  "widget_preview": "Передперегляд",
+  "completion_time": "Час завершення",
+  "category_fitness": "Фітнес",
+  "import_question_body": "Замінити всі ваші поточні звички резервною копією чи об’єднати їх?",
+  "widget_done_today": "зроблено сьогодні",
+  "checklist_hint": "Розбийте звичку на кроки. Вона вважається виконаною лише тоді, коли кожен крок відмічено.",
+  "active_habits": "Активні звички",
+  "share_failed": "Не вдалося створити зображення",
+  "new_reminder": "Нове нагадування",
+  "quant_daily_goal": "Денна ціль",
+  "import_merge": "Об’єднати",
+  "relapses": "Зриви",
+  "share_progress": "Поділитися поступом",
+  "total": "Усього",
+  "best": "Найкраща",
+  "all": "Усі",
+  "dev_role": "Інді-розробник · Streak",
+  "icon": "Значок",
+  "vacation_off_desc": "Призупиняє цю звичку. Пропущені дні не перервуть вашу серію.",
+  "import_backup": "Імпортувати резервну копію",
+  "book_cover": "Обкладинка книги",
+  "days": "Днів",
+  "widget_background": "Колір тла",
+  "activity": "Активність",
+  "freq_per_week_short": "{n} р. / тиждень",
+  "@freq_per_week_short": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "motiv_perfect": "Бомбезний день! 🔥",
+  "on": "Увімк",
+  "add_habit": "Додати звичку",
+  "edit": "Редагувати",
+  "not_enough_data": "Поки замало даних",
+  "widget_no_habits": "Звичок ще немає\nТоркніться, щоб відкрити Streak",
+  "quant_unit_hint": "Міра (наприклад, мл, сторінки, повторення)",
+  "quant_preset_water": "Вода",
+  "theme": "Тема",
+  "year": "Рік",
+  "import_backup_sub": "Відновити звички з файлу",
+  "about_app_sub": "Версія, автори та вихідний код",
+  "appearance": "Вигляд",
+  "empty_title": "Розпочніть першу серію",
+  "strength": "Сила",
+  "default_user": "Inlitx",
+  "description": "Опис",
+  "count_days": "{count, plural, one {{count} день} few {{count} дні} many {{count} днів} other {{count} днів}}",
+  "@count_days": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sched_days": "Днів",
+  "circle": "Коло",
+  "buy_coffee": "Придбати кави",
+  "sort_completed_last": "Завершено останньою",
+  "name": "Назва",
+  "edit_category": "Редагувати категорію",
+  "save_reminder": "Зберегти нагадування",
+  "app_icon": "Значок застосунку",
+  "export_backup_sub": "Зберегти всі звички у файл",
+  "preferences": "Налаштування",
+  "icon_neutral": "Зелений",
+  "off": "Вимк",
+  "widget_cfg_color": "Колір",
+  "widget_border": "Межа",
+  "light": "Світла",
+  "square": "Квадрат",
+  "kind_negative": "Кинути",
+  "habit_kind": "Тип звички",
+  "icon_default": "Типово",
+  "widget_demo_read": "Читати",
+  "import_failed": "Не вдалося імпортувати цей файл",
+  "about_credits_body": "Створено за допомогою Flutter. Значки від Lucide. Графіки від fl_chart. Використано шрифти Figtree та Playfair Display.",
+  "category_health": "Здоров’я",
+  "category_mindfulness": "Повнота усвідомлення",
+  "permission_required": "Необхідно надати дозвіл на сповіщення",
+  "about_developer": "Розробник",
+  "widget_cfg_saturation": "Насиченість",
+  "customize_widgets_sub": "Тло, непрозорість, межа",
+  "select_one_day": "Оберіть принаймні один день",
+  "add_category": "Нова",
+  "about_credits": "Автори",
+  "category_learning": "Навчання",
+  "count_weeks": "{count, plural, one{{count} тиждень} few{{count} тижні} many {{count} тижнів} other{{count} тижнів}}",
+  "@count_weeks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "snooze_duration": "Відкласти на",
+  "delete_habit": "Видалити звичку",
+  "delete": "Видалити",
+  "times_per_week": "{n} разів на тиждень",
+  "@times_per_week": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "end_vacation": "Закінчити відпочинок",
+  "notif_greeting": "Привіт, {name}, ",
+  "@notif_greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "dev_handle": "@InlitX",
+  "support": "Підтримка",
+  "weekdays": "Будні",
+  "data": "Дані",
+  "best_streak": "Найкраща серія",
+  "log_relapse_body": "Це перериває сьогоднішню серію чистоти для користувача «{name}». Ви можете скасувати це, натиснувши ще раз.",
+  "@log_relapse_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "onb1_title": "Створюйте справжні серії",
+  "frequency": "Частота",
+  "import_replace": "Замінити всі",
+  "no_habits_yet": "Звички відсутні",
+  "made_by": "Зроблено з ❤️ @InlitX",
+  "reminder_message_hint": "Залиште порожнім, щоб отримати мотиваційну цитату",
+  "widget_cfg_hue": "Відтінок",
+  "delete_habit_body": "Видалити «{name}»? Цю дію неможливо скасувати.",
+  "@delete_habit_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "edit_reminder": "Редагувати нагадування",
+  "widget_cfg_style": "Стиль",
+  "completions_per_month": "Завершень / місяць",
+  "customize_widgets": "Персоналізувати віджети",
+  "new_label": "Нова",
+  "cover_image": "Обкладинка",
+  "empty_body": "Створіть звичку та натискайте на день, аби зафіксувати її. Маленькі кроки, щодня.",
+  "current_streak": "Поточна серія",
+  "notif_action_snooze": "Відкласти",
+  "paused": "Призупинено",
+  "new_habit": "Нова звичка",
+  "widget_demo_water": "Вода",
+  "step_hint": "Назва кроку",
+  "skip": "Пропустити",
+  "buy_coffee_sub": "Допоможіть застосунку залишатися безоплатним",
+  "bg_dots": "Крапки",
+  "snooze_custom": "Власний",
+  "perfect_days": "Ідеальні дні",
+  "kind_quantitative": "Кількість",
+  "widget_best_streak": "🔥 {streak} найкраща серія",
+  "@widget_best_streak": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "streak_evolution": "Еволюція серії",
+  "notif_action_add": "Додати кількість",
+  "week_starts_on": "Тиждень починається з",
+  "minutes_short": "{value} хв",
+  "@minutes_short": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_cfg_dot_color": "Колір крапки",
+  "daily": "Щодня",
+  "widget_cfg_style_card": "Картка",
+  "bg_gradient": "Градієнт",
+  "rate_github_sub": "Підтримайте проєкт зірочкою",
+  "no_data_yet": "Поки що без даних",
+  "about": "Про застосунок",
+  "widget_cfg_choose_image": "Обрати зображення",
+  "see_more": "Докладніше",
+  "app_tagline": "Відстежувач звичок",
+  "last_7_days": "Останні 7 днів",
+  "about_footer": "Зроблено з ☕ та великою кількістю вільного часу.",
+  "habits_imported": "Звички імпортовано",
+  "mon": "Пн",
+  "quant_unit_ml": "мл",
+  "streaks": "Серії",
+  "widget_demo_run": "Запустити",
+  "widget_cfg_style_classic": "Класичний",
+  "quant_edit_title": "Сьогоднішня кількість",
+  "reminder_message": "Повідомлення (необов’язково)",
+  "streak_on": "🔥 {n} днів поспіль. Не переривай серію!",
+  "@streak_on": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "export_cancelled": "Експорт скасовано",
+  "widget_cfg_all_habits": "Усі звички",
+  "motiv_progress": "Ти на правильному шляху, так тримати",
+  "advanced_options": "Додаткові параметри",
+  "kind_locked_hint": "Тип неможливо змінити після створення звички.",
+  "reorder": "Змінити порядок",
+  "widget_cfg_image": "Зображення",
+  "rate_github": "Поставити зірку на GitHub",
+  "dark": "Темна",
+  "widget_cfg_opacity": "Непрозорість  {value} %",
+  "@widget_cfg_opacity": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "import_from_app": "Імпортувати з іншого застосунку",
+  "name_hint": "Наприклад: Ранкова пробіжка",
+  "cancel": "Скасувати",
+  "import_from_app_done": "Імпортовано {habits} звичок ({days} днів) із {source}",
+  "@import_from_app_done": {
+    "placeholders": {
+      "habits": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "good_morning": "Доброго ранку",
+  "export_backup": "Експортувати резервну копію",
+  "quant_tap_amount": "Кількість за один дотик",
+  "quant_per_day": "Кількість за днями",
+  "log_relapse_confirm": "Так, зафіксувати",
+  "icons_tab": "Значки",
+  "uncategorized": "Без категорії",
+  "github_star_row": "Переглянути вихідний код і поставити зірочку",
+  "reorder_hint": "Перетягніть звички, щоб змінити їхній порядок",
+  "edit_name": "Змінити ім’я",
+  "category_finance": "Фінанси",
+  "onb3_title": "Перегляньте свій поступ",
+  "no_days": "Жодного дня",
+  "checklist": "Перелік пунктів",
+  "language": "Мова",
+  "sat": "Сб",
+  "notif_action_done": "Завершено",
+  "widget_no_data": "Даних ще немає\nВідкрийте Streak для синхронізації",
+  "weekly": "Щотижня",
+  "best_month": "Найкращий місяць",
+  "all_done_today": "На сьогодні все!",
+  "overview": "Огляд",
+  "consistency": "Послідовність",
+  "kind_positive": "Проста",
+  "repeat_weekly": "Певні дні",
+  "widget_cfg_title": "Персоналізація віджета",
+  "week": "Тиждень",
+  "onb3_body": "Детальна статистика та річна сітка наочно показують, якого поступу ви досягли.",
+  "more_icons": "Більше значків",
+  "delete_category": "Видалити категорію",
+  "widgets": "Віджети",
+  "widget_open_to_sync": "Відкрийте Streak для синхронізації",
+  "settings": "Налаштування",
+  "check_style": "Перевірити стиль",
+  "widget_cfg_custom_color": "Власний колір",
+  "widget_cfg_follow_system": "Слідувати темі системи",
+  "widget_cfg_dark_color": "Темна тема",
+  "widget_cfg_light_color": "Світла тема",
+  "todays_checklist": "Сьогоднішній перелік пунктів",
+  "go": "Уперед",
+  "quote_1": "Маленькі кроки кожного дня.",
+  "quote_2": "Стабільність важливіша за інтенсивність.",
+  "quote_3": "Будь вірним собі.",
+  "quote_4": "Один день за раз.",
+  "quote_5": "Прогрес важливіший за досконалість.",
+  "quote_6": "Краще зроблене, ніж ідеальне.",
+  "quote_7": "Підтримуй серію перемог.",
+  "quote_8": "Маленькі звички — великі зміни.",
+  "quote_9": "Довірся процесу.",
+  "quote_10": "Виграй ранок.",
+  "quote_11": "Дисципліна дорівнює свободі.",
+  "quote_12": "Сьогодні теж рахується.",
+  "quotes": "Цитати",
+  "quotes_which": "Які цитати",
+  "quotes_app": "Із застосунку",
+  "quotes_mine": "Мої",
+  "quotes_both": "Усі",
+  "quotes_my_list": "Мої цитати",
+  "quotes_add": "Додати цитату",
+  "quotes_edit": "Редагувати цитату",
+  "quotes_hint": "Напишіть свою цитату",
+  "quotes_empty": "У вас немає власних цитат",
+  "quotes_empty_sub": "Напишіть свої, і вони з'являться на екрані «Сьогодні».",
+  "quant_preset_generic": "Власний",
+  "x_of_y_completed": "Виконано {done} з {total}",
+  "@x_of_y_completed": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "completion_rate": "Показник завершення",
+  "completions": "Завершені",
+  "colors_tab": "Кольори",
+  "by_habit": "За звичкою",
+  "category": "Категорія",
+  "category_productivity": "Продуктивність",
+  "system": "Як у системі",
+  "less_icons": "Менше значків",
+  "my_heatmap_sub": "Відкрити сітку річної активності",
+  "quant_unit_pages": "сторінки",
+  "share": "Поділитися",
+  "sun": "Нд",
+  "motiv_start": "Почни день бадьоро 💪",
+  "about_body": "Streak народився з простої ідеї: навіщо платити за відстеження власних звичок?\n\nЦей застосунок має повністю відкритий вихідний код. Будь-хто може побачити, як саме він працює, запропонувати покращення або навіть створити власну версію. Жодних «чорних скриньок». Жодних сюрпризів.\n\nВаша приватність абсолютна — все залишається у вашому телефоні. Жодних обліковок, жодних серверів, жодної реклами. Жоден байт не покидає ваш пристрій.\n\nБез обмежень. Створюйте стільки звичок, скільки забажаєте. Жодних підписок, жодних «про-версій», жодних спливних вікон із проханням заплатити. Ніколи.\n\nЯкщо застосунок приносить вам користь, ви можете підтримати його зірочкою на GitHub або пригостити мене кавою. Але це цілком необов’язково — застосунок залишається вашим у будь-якому разі.",
+  "done_today": "Виконано сьогодні",
+  "widget_cfg_reset": "Скинути до типових",
+  "time": "Час",
+  "widget_cfg_thickness": "Товщина  {value} dp",
+  "@widget_cfg_thickness": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "every_n_days": "Кожні {n} днів",
+  "@every_n_days": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "log_relapse_title": "Зафіксувати зрив?",
+  "custom": "Власний",
+  "about_title": "Створено для вас. Безоплатно, назавжди.",
+  "repeat_interval": "Кожні N днів",
+  "color": "Колір",
+  "widget_cfg_add": "Додати віджет",
+  "emojis_tab": "Емоджі",
+  "sched_interval": "Інтервал",
+  "change_photo": "Змінити фото",
+  "today": "Сьогодні",
+  "widget_cfg_show_activity": "Показати активність",
+  "vacation_on_desc": "Призупинено — ці дні не будуть зараховані як пропущені або виконані.",
+  "profile": "Профіль",
+  "widget_cfg_save": "Зберегти",
+  "start_vacation": "Почати відпочинок",
+  "done": "Готово",
+  "reminders": "Нагадування",
+  "active_days": "Активні дні",
+  "focus_end_keep": "Так тримати",
+  "share_friends_sub": "Надішліть їм застосунок",
+  "focus_saved": "Записано: {time}",
+  "@focus_saved": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "note_photos": "Фото",
+  "auto_backup_run_now": "Створити копію зараз",
+  "wipe_data_sub": "Звички, нотатки, сеанси фокусування та налаштування",
+  "focus_your_tracks": "Ваші треки",
+  "message_copied": "Повідомлення скопійовано",
+  "share_background": "Тло",
+  "focus_sessions": "Сеанси",
+  "focus_amount_added": "{amount} додано до {habit}",
+  "@focus_amount_added": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "habit": {
+        "type": "String"
+      }
+    }
+  },
+  "notes_empty": "На цей день ще немає нотаток",
+  "archived_empty_sub": "Звички, які ви видаляєте, потрапляють сюди разом із усією їхньою історією.",
+  "wipe_data_sure": "Дійсно все видалити?",
+  "day_start_hour": "{hour}:00",
+  "@day_start_hour": {
+    "placeholders": {
+      "hour": {
+        "type": "String"
+      }
+    }
+  },
+  "delete_note": "Видалити нотатку",
+  "archive_habit_body": "Перемістити «{name}» до архіву? Історія збережеться, і ви зможете відновити її в налаштуваннях.",
+  "@archive_habit_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_end_anyway": "Усе одно завершити",
+  "focus_custom_duration": "Власний",
+  "focus_tasks": "Список підзавдань",
+  "style_classic": "Класичний",
+  "focus_history_day": "{count, plural, one{{count} сеанс} few{{count} сеанси} many{{count} сеансів} other{{count} сеанси}}",
+  "@focus_history_day": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_pomodoro": "Помодоро",
+  "share_show_stats": "Показати статистику",
+  "about_sub": "Версія, вихідний код і підтримка",
+  "focus_track_pad": "Теплий ембієнт",
+  "style_classic_desc": "Список звичок, нижня панель та всі налаштування на одному екрані.",
+  "focus_history": "Історія",
+  "save_note": "Зберегти нотатку",
+  "focus_end_complete": "Позначити як виконане",
+  "archived_empty": "Нічого не заархівовано",
+  "focus_scene_black": "Чорна",
+  "share_swipe_hint": "Проведіть карткою для подорожі в часі",
+  "focus_free_session": "Вільний сеанс",
+  "day_start_midnight": "Опівніч",
+  "share_size": "Розмір",
+  "focus_track_too_long": "Тривалість треків має бути менше 20 хвилин",
+  "focus_style_dots": "Крапки",
+  "journey_empty": "Фото поки що відсутні",
+  "share_stats_short": "Статистика",
+  "share_save": "Зберегти",
+  "app_style_sub": "Оберіть загальний вигляд та інтерфейс застосунку.",
+  "app_lock_sub": "Запитувати відбиток пальця або обличчя для відкриття Streak",
+  "auto_backup_daily": "Кожен день",
+  "restore": "Відновити",
+  "preferences_sub": "Мова, тиждень і сортування",
+  "auto_backup_no_permission": "Доступ до сховища заборонено",
+  "focus_built_in": "Включено",
+  "unit_hour_short": "год",
+  "focus_sound": "Звук",
+  "add_note": "Додати нотатку",
+  "share_photo": "Фото",
+  "note_kind_planned": "Заплановано",
+  "share_saved": "Збережено в галерею",
+  "wipe_data_confirm": "Усе стерти",
+  "unit_minutes": "хвилини",
+  "share_blur": "Розмиття",
+  "focus_end_reached": "Ціль досягнута. Звичка буде позначена як виконана.",
+  "focus_personalize": "Власний",
+  "focus_history_empty": "Сеансів ще немає",
+  "unit_seconds": "секунди",
+  "focus_enable_sub": "Таймер для звичок, які його потребують",
+  "focus_shuffle": "Перемішати",
+  "focus_goal_today": "{done} з {goal} за сьогодні",
+  "@focus_goal_today": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "edit_entry": "Редагувати запис",
+  "delete_forever_body": "Видалити «{name}» та всю історію? Цю дію неможливо скасувати.",
+  "@delete_forever_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_add_track": "Додати трек",
+  "notes": "Нотатки",
+  "focus_no_sound": "Трек не вибрано",
+  "wipe_data": "Стерти всі дані",
+  "auto_backup_weekly": "Кожен тиждень",
+  "app_style": "Стиль застосунку",
+  "wipe_data_done": "Усі дані стерто",
+  "focus_pick_habit": "На чому ви зосереджені?",
+  "unit_min_short": "хв",
+  "day_start": "Початок дня",
+  "note_take_photo": "Камера",
+  "delete_forever": "Видалити назавжди",
+  "auto_backup_folder_failed": "Ця тека захищена від запису",
+  "note_hint": "Напишіть нотатку...",
+  "focus_style_digital": "Коло",
+  "focus_stop_body": "Ваші хвилини зберігаються в будь-якому випадку. Звичка вважається виконаною лише тоді, коли ви досягнете мети.",
+  "app_lock_unlock": "Розблокувати",
+  "app_lock_delay": "Блокувати через",
+  "app_lock_delay_instant": "Одразу",
+  "app_lock_delay_seconds": "{value} с",
+  "@app_lock_delay_seconds": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "auto_backup_folder_default": "У застосунку (видаляється, якщо його видалити)",
+  "tomorrow": "Завтра",
+  "focus_round": "{n} раунд",
+  "@focus_round": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "journey": "Подорож",
+  "focus_target_reached": "Ціль досягнуто",
+  "share_friends_message": "Підтримую свої серії звичок у Streak — це маленький, безплатний та автономний відстежувач без облікових записів та реклами. Спробуй і ти: https://inlitx.github.io/streak/",
+  "note_kind_completed": "Завершено",
+  "focus_break": "Перерва",
+  "undo": "Скасувати",
+  "focus_style": "Стиль таймера",
+  "support_sub": "Повідомити про помилку або запропонувати функцію",
+  "note_type": "Тип",
+  "focus_scene_custom": "Ваше зображення",
+  "journey_sub": "{count, plural, one{1 фотографія} few{{count} фотографії} many{{count} фотографій} other{{count} фотографій}}",
+  "@journey_sub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus": "Фокус",
+  "wipe_data_warning": "Це видалить усі звички, нотатки, сеанси фокусування та налаштування на цьому телефоні. Цю дію неможливо скасувати, якщо у вас немає файлу резервної копії для подальшого імпорту.",
+  "auto_backup_where": "Коли ви відкриваєте застосунок, Streak створює повну резервну копію: ZIP-архів з усім вмістом, включно з фотографіями та музикою, а також файл JSON. Крім того, він зберігає копію у читабельному форматі, яку можна відкрити в будь-якому редакторі. Зберігаються кілька останніх резервних копій.",
+  "archived_habits_sub": "Відновити або видалити їх назавжди",
+  "note_kind_note": "Нотатка",
+  "focus_pomodoro_sub": "Чергуйте періоди концентрації з короткими перервами",
+  "focus_duration": "Тривалість",
+  "focus_images_limit": "До 10 зображень",
+  "select_all": "Вибрати все",
+  "selected_count": "{count, plural, other{Вибрано: {count}}}",
+  "@selected_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_delete_sessions": "Видалити сеанси?",
+  "focus_delete_sessions_body": "{count, plural, one{Буде видалено {count} сеанс фокусування. Цю дію неможливо скасувати.} few{Буде видалено {count} сеанси фокусування. Цю дію неможливо скасувати.} many{Буде видалено {count} сеансів фокусування. Цю дію неможливо скасувати.} other{Буде видалено {count} сеансів фокусування. Цю дію неможливо скасувати.}}",
+  "@focus_delete_sessions_body": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_sessions_deleted": "{count, plural, one{Видалено {count} сеанс} few{Видалено {count} сеанси} many{Видалено {count} сеансів} other{Видалено {count} сеансів}}",
+  "@focus_sessions_deleted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unscheduled_title": "День не за розкладом",
+  "unscheduled_body": "Ця звичка не запланована на {day}. Усе одно позначити її як додаткову?",
+  "@unscheduled_body": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "unscheduled_confirm": "Усе одно позначити",
+  "rest_days_none": "Немає",
+  "last_90_days": "Останні 90 днів",
+  "focus_clear_today": "Очистити сьогоднішні сеанси",
+  "focus_defaults": "Типові параметри сеансу",
+  "plan_day": "Планувати день",
+  "plan_day_sub": "Задайте звичкам час доби та переглядайте їх на шкалі часу.",
+  "habit_time": "Час доби",
+  "habit_time_none": "Будь-коли",
+  "habit_duration": "Тривалість",
+  "habit_duration_none": "Без тривалості",
+  "day_timeline": "День",
+  "day_timeline_free": "{span} вільно",
+  "@day_timeline_free": {
+    "placeholders": {
+      "span": {
+        "type": "String"
+      }
+    }
+  },
+  "day_timeline_anytime": "Будь-коли",
+  "day_timeline_empty": "На цей день нічого не заплановано",
+  "day_timeline_empty_sub": "Задайте звичці час доби, і вона з'явиться тут.",
+  "clear": "Очистити",
+  "start_view": "«Сьогодні» відкривається на",
+  "start_view_last": "Останній використаний",
+  "focus_stats": "Статистика фокусування",
+  "focus_average": "Середній сеанс",
+  "focus_log": "Записати сеанс",
+  "focus_log_date": "Дата",
+  "focus_log_saved": "Сеанс додано",
+  "perfect_streak": "Серія ідеальних днів",
+  "edit_note": "Редагувати нотатку",
+  "notes_hint": "Відкрийте звичку. Затисніть пальцем на дні в календарі. Так ви зможете побачити або додати нотатки",
+  "focus_total": "Час фокусування",
+  "share_size_large": "Здоровий",
+  "share_size_small": "Квадратний",
+  "yesterday": "Учора",
+  "focus_resume": "Відновити",
+  "app_lock_title": "Streak заблоковано",
+  "archived_habits": "Архівовані звички",
+  "restored": "Звичку збережено",
+  "see_less": "Згорнути",
+  "habit_archived": "Звичку архівовано",
+  "share_friends": "Поділитися з другом",
+  "auto_backup_off": "Вимк",
+  "journey_empty_sub": "Додайте фото до нотатки, і воно з’явиться тут.",
+  "auto_backup_folder": "Тека",
+  "focus_end": "Завершити",
+  "focus_pick_audio": "Виберіть трек зі свого телефону",
+  "focus_history_empty_sub": "Кожен завершений вами сеанс фокусування показується тут.",
+  "auto_backup_sub": "Вимк",
+  "share_save_failed": "Не вдалося зберегти зображення",
+  "focus_done_title": "Сеанс завершено",
+  "note_pick_photo": "Галерея",
+  "notes_count": "{count, plural, one{1 нотатка} few{{count} нотатки} many{{count} нотаток} other{{count} нотаток}}",
+  "@notes_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todos": "Завдання",
+  "todos_enable_sub": "Швидкий список поруч зі звичками",
+  "todo_new": "Нове завдання",
+  "todo_hint": "Що треба зробити?",
+  "todo_empty_title": "У списку порожньо",
+  "todo_empty_body": "Запишіть, що хочете зробити найближчими днями.",
+  "todo_date": "Дата",
+  "todo_no_date": "Без дати",
+  "todo_priority": "Пріоритет",
+  "priority_none": "Без пріоритету",
+  "priority_low": "Низький",
+  "priority_medium": "Середній",
+  "priority_high": "Високий",
+  "todo_overdue": "Прострочені",
+  "todo_upcoming": "Найближчі",
+  "todo_someday": "Колись",
+  "pick_a_date": "Оберіть дату",
+  "todo_left": "{count, plural, =0{Усе зроблено} one{{count} завдання} few{{count} завдання} many{{count} завдань} other{{count} завдання}}",
+  "@todo_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_completed_count": "{count, plural, other{Виконано ({count})}}",
+  "@todo_completed_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_clear_completed": "Видалити виконані",
+  "todo_clear_completed_body": "{count, plural, one{Це видалить {count} виконане завдання.} few{Це видалить {count} виконані завдання.} many{Це видалить {count} виконаних завдань.} other{Це видалить {count} виконані завдання.}}",
+  "@todo_clear_completed_body": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "prefs_general": "Загальні",
+  "prefs_features": "Функції",
+  "prefs_privacy": "Конфіденційність",
+  "collapse_cards": "Згорнути картки",
+  "expand_cards": "Розгорнути картки",
+  "view_switcher": "Перемикач вигляду",
+  "view_switcher_sub": "Показувати кнопки «Тиждень» / «Місяць» / «Рік» на екрані «Сьогодні». Якщо вимкнути, вони перемістяться в меню фільтрів",
+  "app_lock_failed": "Не вдалося підтвердити вашу особу",
+  "focus_style_flip": "Перевернутий",
+  "legend_note_added": "Нотатку додано",
+  "style_minimal": "Мінімальний",
+  "vacation_day_on": "Позначити як вихідний",
+  "auto_backup": "Автоматична резервна копія",
+  "day_start_sub": "Пізні години ночі все ще вважаються попереднім днем",
+  "focus_notif_body": "Ваш сеанс фокусування завершено. Чудова робота!",
+  "celebration": "Ефект завершення",
+  "celebration_confetti": "Конфеті",
+  "celebration_fireworks": "Феєрверк",
+  "celebration_surprise": "Здивуй мене",
+  "focus_notif_channel": "Сеанси фокусування",
+  "focus_notif_running": "Фокусування",
+  "focus_paused": "Призупинено",
+  "app_lock_unavailable": "На цьому телефоні не додано жодної біометрії",
+  "auto_backup_folder_set": "Теку збережено",
+  "archive_habit": "Архівна звичка",
+  "focus_track_limit": "До 30 треків",
+  "style_minimal_desc": "Сітка звичок і налаштування згруповані у чотири розділи.",
+  "focus_keep_awake": "Не вимикати екран",
+  "data_sub": "Резервні копії, архів та імпорт",
+  "note_time_optional": "Час (необов’язково)",
+  "focus_pause": "Призупинити",
+  "unit_hours": "години",
+  "focus_end_tasks": "{count} завдань досі не позначено.",
+  "@focus_end_tasks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notes_enable_sub": "Додавайте нотатки до будь-якого дня звички",
+  "wipe_data_sure_body": "Останній шанс. Без резервної копії ці дані втрачено назавжди.",
+  "archive": "Архів",
+  "focus_start": "Почати сеанс",
+  "focus_stop_title": "Завершити сеанс?",
+  "vacation_day_off": "Видалити вихідний",
+  "app_lock": "Блокування застосунку",
+  "deleted_forever": "Звичку видалено",
+  "clear_progress": "Очистити прогрес",
+  "clear_progress_sub": "Історія, нотатки та сеанси фокусування",
+  "clear_progress_warning": "Це призведе до видалення всіх зафіксованих днів, нотаток та сеансів фокусування, але збереже ваші звички, їхній розклад та ваші налаштування. Цю дію неможливо скасувати, якщо у вас немає файлу резервної копії для подальшого імпорту.",
+  "clear_progress_confirm": "Очистити прогрес",
+  "clear_progress_done": "Прогрес очищено",
+  "focus_loop": "По порядку",
+  "focus_daily_goal": "Ціль для фокусування",
+  "copy_message": "Копіювати повідомлення",
+  "view_notes": "Переглянути нотатки",
+  "focus_track_brown": "Червоний шум",
+  "focus_end_short": "Вам бракує {time} до мети.",
+  "@focus_end_short": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "appearance_sub": "Тема, акцент і тло",
+  "stats": "Статистика",
+  "import_from_app_sub": "Loop Habit Tracker, HabitKit…",
+  "statistics": "Статистика",
+  "icon_accent": "Триколор",
+  "a11y_add_amount": "Додати до {name}",
+  "@a11y_add_amount": {
+    "description": "Screen reader label for the button that adds progress to a quantitative habit",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_decrease": "Зменшити",
+  "@a11y_decrease": {
+    "description": "Screen reader label for the minus button of a number stepper"
+  },
+  "a11y_not_done": "не виконано",
+  "@a11y_not_done": {
+    "description": "Screen reader state of a day that has not been logged"
+  },
+  "a11y_previous_week": "Попередній тиждень",
+  "a11y_next_week": "Наступний тиждень",
+  "a11y_increase": "Збільшити",
+  "@a11y_increase": {
+    "description": "Screen reader label for the plus button of a number stepper"
+  },
+  "a11y_clear_relapse": "Видалити сьогоднішній зрив для {name}",
+  "@a11y_clear_relapse": {
+    "description": "Screen reader label for the button that removes today's relapse",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_log_relapse": "Зафіксувати зрив для {name}",
+  "@a11y_log_relapse": {
+    "description": "Screen reader label for the button that logs a relapse on a habit to avoid",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_mark_done": "Позначити {name} як виконане",
+  "@a11y_mark_done": {
+    "description": "Screen reader label for the button that logs a habit",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_mark_not_done": "Позначити {name} як невиконане",
+  "@a11y_mark_not_done": {
+    "description": "Screen reader label for the button that undoes a habit",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_pick_color": "Обрати колір",
+  "@a11y_pick_color": {
+    "description": "Screen reader label for a colour swatch in the picker"
+  },
+  "report_issue": "Повідомити про проблему",
+  "rest_days": "Дні відпочинку",
+  "rest_days_desc": "Призупиняє її щотижня в ці дні. Ви все одно можете їх реєструвати, і вони будуть зараховані.",
+  "todo_time": "Час",
+  "vacation_all_sub": "Ніщо не вважається пропущеним, поки вона ввімкнена",
+  "currency_hint": "Символ або код",
+  "money_saved": "Заощаджені гроші",
+  "clean_days": "Чистих днів",
+  "cost_per_day": "Вартість за день",
+  "currency": "Валюта",
+  "quant_average": "Середнє за день",
+  "vacation_all": "Призупити кожну звичку",
+  "widget_todos_empty": "На сьогодні все",
+  "repeat_hours": "Повторювати протягом дня",
+  "quant_logged_days": "Активних днів",
+  "widget_cfg_todos_hint": "Вимкнено: лише сьогоднішні, прострочені та завдання без дати",
+  "widget_todos_open": "Список справ  {count}",
+  "@widget_todos_open": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "currency_custom": "Власна",
+  "quant_best_day": "Найкращий день",
+  "quant_stats_empty": "Записуйте суму, і вона додаватиметься сюди, навіть у ті дні, коли вам не вдається досягти мети.",
+  "quant_goal_days": "Мету досягнуто",
+  "widget_cfg_todos_all": "Показати кожну задачу",
+  "every_n_hours": "Кожні {n} год",
+  "@every_n_hours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "cost_note": "Необов’язково. Залиште порожнім, якщо ця звичка не потребує грошових витрат.",
+  "todo_search": "Пошук завдань",
+  "todo_search_empty": "Нічого не знайдено",
+  "heatmap_path": "Поєднувати дні",
+  "heatmap_path_sub": "Малює сітку як одну довгу лінію",
+  "focus_only_clear_title": "Зняти позначку?",
+  "focus_only_clear_body": "Тільки сеанс фокусування може знову перевірити «{name}».",
+  "@focus_only_clear_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "period_this_week": "Цього тижня",
+  "period_last_week": "Минулого тижня",
+  "period_this_month": "Цього місяця",
+  "period_last_month": "Минулого місяця",
+  "period_this_year": "Цього року",
+  "period_last_year": "Минулого року",
+  "period_week_of": "Тиждень з {date}",
+  "@period_week_of": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_period_sessions": "{count, plural, =0{Жодного сеансу} =1{1 сеанс} one{{count} сеанс} few{{count} сеанси} many{{count} сеансів} other{{count} сеансів}}",
+  "@focus_period_sessions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notes_all": "Усі нотатки",
+  "notes_empty_all": "Поки немає нотаток",
+  "quant_preset_time": "Час",
+  "style_express_desc": "Закруглені форми, пружний рух і ширший шрифт.",
+  "style_express": "Експрес",
+  "celebration_none": "Немає",
+  "quant_add_title": "Додати кількість",
+  "pane_hint": "Відкрийте щось зі списку, щоби переглянути тут",
+  "average_short": "Сер.",
+  "refresh_now": "Оновити",
+  "refresh_now_sub": "Додайте те, що ваші інші пристрої залишили в теці",
+  "refresh_brought": "Ваші звички оновлено",
+  "refresh_nothing": "У теці немає нічого нового",
+  "just_tracking_option": "Пропонувати лише відстеження",
+  "just_tracking_option_sub": "Додає перемикач під час створення звички",
+  "just_tracking": "Лише відстеження",
+  "just_tracking_sub": "Зберігає власну сітку та числа, але не враховує в прогрес та денний підрахунок",
+  "quotes_off": "Вимк",
+  "view_switcher_needs": "Увімкніть активність на картках, щоб скористатися цією функцією",
+  "github_star_sub": "Поставте проєкту зірочку, щоби більше людей могли його знайти",
+  "report_issue_sub": "Повідомте про помилку або запропонуйте нову функцію",
+  "sort_completed_last_sub": "Переміщує завершені завдання в кінець списку",
+  "today_only_sub": "Приховує звички, які не заплановані на сьогодні",
+  "card_activity_sub": "Показує останні дні на картці, готові до відмітки",
+  "readable_copy": "Текст для читання",
+  "readable_copy_sub": "Також записує ваші звички у вигляді markdown-файлів",
+  "theme_sub": "Світла, темна або системна",
+  "accent_color_sub": "Використовується для кнопок і виділень",
+  "app_background_sub": "Те, що ви бачите за картами",
+  "check_style_sub": "Квадратні або круглі позначки",
+  "app_icon_sub": "Значок на вашому головному екрані",
+  "focus_daily_goal_sub": "Кількість хвилин фокусу, якої ви прагнете досягати щодня",
+  "quotes_sub": "Які цитати показуються в розділі «Сьогодні»",
+  "celebration_sub": "Що ви бачите, коли відмічаєте звичку",
+  "language_sub": "Мова всього застосунку",
+  "week_start_sub": "Перший стовпець кожної сітки",
+  "app_lock_delay_sub": "Як скоро застовунок знову запитає після того, як ви вийдете",
+  "start_view_sub": "Перегляд «Сьогодні» відкривається о",
+  "island_p_bougainvillea": "Бугенвілія",
+  "gamification_beta": "Ігровізація (бета)",
+  "island_t_lilac": "бузковий",
+  "island_p_crop_patch": "Грядка",
+  "island_enable_sub": "Перетворіть свої звички на середземноморський архіпелаг, який ви розбудовуєте острівець за острівцем",
+  "island_how": "Як працюють бали",
+  "island_p_garden_bed": "Клумба",
+  "island_p_signpost": "Указівник",
+  "island_p_dry_grass": "Сіно",
+  "island_reset": "Почати острів заново",
+  "island_placed": "{name} зараз на острові",
+  "@island_placed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "island_t_silver": "сріблястий",
+  "island_p_blue_railing": "Сині перила",
+  "heatmap_rolling": "Останні 12 місяців",
+  "island_p_boulder": "Валун",
+  "island_p_small_bridge": "Дерев’яний причал",
+  "island_only_affordable": "Лише те, що мені по кишені",
+  "island_g_terrazas": "Тераси",
+  "island_g_pueblo": "Село",
+  "island_how_todo": "4 за кожне виконане завдання",
+  "island_g_ermita": "Острів каплиці",
+  "island_p_storage_box": "Скриня для зберігання",
+  "island_g_cabo": "Плащ",
+  "island_p_water_bucket": "Відро для води",
+  "streak_unit_month": "{count} міс.",
+  "@streak_unit_month": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_p_altar": "Святиня",
+  "island_t_autumn": "осінній",
+  "gamification": "Ігровізація",
+  "island_built": "Збудовано {done} з {total}",
+  "@island_built": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "island_build": "Будівля",
+  "island_turn": "Змінити ракурс",
+  "island_p_cube_house": "Кубічний дім",
+  "check_never": "Ніколи",
+  "island_tap_hint": "Торкніться фігури, щоби побачити, що там має бути",
+  "island_empty": "Позначте звичку, і острови почнуть рости",
+  "island_complete": "Архіпелаг готовий",
+  "island_p_hanging_lantern": "Підвісний ліхтар",
+  "island_g_astillero": "Верф",
+  "island_p_stone_lantern": "Кам’яний ліхтар",
+  "island_nothing_here": "Поки що тут нічого немає",
+  "island_p_archway": "Арка",
+  "island_t_clay": "теракотовий",
+  "island_open": "Відкрити острів",
+  "island_p_veg_garden": "Город",
+  "island_p_well": "Криниця",
+  "emoji_own": "Уведіть або вставте будь-який емоджі",
+  "island_p_villa": "Вілла",
+  "island_g_mirador": "Спостерігач",
+  "island_p_tower_chapel": "Дзвіниця",
+  "island_p_terracotta_pot": "Теракотовий горщик",
+  "island_how_perfect": "Ще 25 за ідеальний день",
+  "island_beta": "Це перша спроба ігровізації, і вона все ще перебуває на стадії бета-тестування. Залежно від того, як ви всі нею користуватиметеся, вона може розвиватися, змінюватися або бути повністю замінена.",
+  "times_completed": "Разів виконано",
+  "island_rename": "Назвати свій острів",
+  "island_p_main_chapel": "Головна каплиця",
+  "island_p_stone_pile": "Купа каміння",
+  "island_p_bench": "Лавка",
+  "island_reset_sub": "Усе списується, а кожен бал повертається на ваш рахунок.",
+  "last_check": "Останній запис",
+  "heatmap_rolling_sub": "Річний графік закінчується сьогодні, а не 31 грудня",
+  "island_reset_go": "Почати спочатку",
+  "island_how_focus": "1 за хвилину фокусування",
+  "island_p_stone_basin": "Кам’яний басейн",
+  "check_marks": "{count} позначок",
+  "@check_marks": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_need": "Ще {count} балів",
+  "@island_need": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_coins": "Монети",
+  "check_history": "Перевірити історію",
+  "island_p_windmill": "Вітряк",
+  "island_g_puerto": "Гавань",
+  "island_t_white": "білий",
+  "island_p_hay_bale": "Тюк сіна",
+  "island_done": "Збудовано",
+  "island_p_agave": "Агава",
+  "island_p_mossy_stone": "Замшілий камінь",
+  "island_how_streak": "Бонус, коли звичка досягає 7, 30, 100 і 365 днів",
+  "island_goal": "Ось так це виглядає, коли зібрано кожну деталь.",
+  "island_p_house": "Малий дім",
+  "island_p_crate": "Ящик",
+  "island_t_coral": "кораловий",
+  "check_no_time": "не заощадило часу",
+  "island_p_flat_stone": "Плаский камінь",
+  "island_t_teal": "бірюзовий",
+  "island_p_olive": "Оливкове дерево",
+  "island_zoom_hint": "Перетягуйте одним пальцем, щоб перемістити. Зведіть два пальці, аби збільшити масштаб, і поверніть їх, щоб обернути острів.",
+  "island_t_deep": "темний",
+  "island_p_large_rock": "Велика скеля",
+  "island_p_terrace_house": "Будинок із терасою",
+  "streak_unit_week": "{count} тиж.",
+  "@streak_unit_week": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_p_wood_pile": "Стос дров",
+  "island_default_name": "Мій острів",
+  "island_how_check": "10 за кожну відмічену звичку",
+  "island_p_banner": "Плакат",
+  "island_p_flower_pot": "Квітковий горщик",
+  "check_history_sub": "Відмічено днів: {count}",
+  "@check_history_sub": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_p_lantern_post": "Ліхтарний стовп",
+  "island": "Острів",
+  "island_g_molino": "Хребет вітряків",
+  "island_g_cala": "Бухта",
+  "island_g_huerta": "Фруктовий сад",
+  "island_g_faro": "Стоси",
+  "island_p_pottery_jar": "Глиняний глечик",
+  "island_p_pebbles": "Галька",
+  "island_g_vega": "Луг",
+  "island_p_two_story": "Двоповерховий будинок",
+  "island_shop": "Крамниця",
+  "island_p_rocks": "Скелі",
+  "island_p_pergola_house": "Будинок із перголою",
+  "island_p_cypress": "Кипарис",
+  "island_g_caleta": "Маленька бухта",
+  "island_how_note": "Монети походять з вашої історії, тому резервна копія їх повертає.",
+  "period_all_time": "Увесь час",
+  "onb_kicker": "Вітаємо в",
+  "onb_blurb": "Маленькі щоденні перевірки стають звичками, які ви зберігаєте.",
+  "onb_free_title": "Безоплатно, назавжди",
+  "onb_free_body": "Немає реклами, немає передплат, немає закритих функцій.",
+  "onb_private_title": "Приватний та без мережі",
+  "onb_private_body": "Усе залишається на вашому пристрої. Обліковий запис не потрібен.",
+  "onb_yours_title": "Ваші дані належать вам",
+  "onb_yours_body": "Робіть копію або тримайте її при собі, коли забажаєте.",
+  "onb_step": "Крок {step} із {total}",
+  "@onb_step": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "every_n_weeks": "{n, plural, =1{Щотижня} other{Кожні {n} тиж.}}",
+  "@every_n_weeks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "every_n_months": "{n, plural, =1{Щомісяця} other{Кожні {n} міс.}}",
+  "@every_n_months": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "sched_unit_days": "Днів",
+  "sched_unit_weeks": "Тижнів",
+  "sched_unit_months": "Місяців",
+  "todo_tags": "Теги",
+  "todo_projects": "Проєкти",
+  "todo_project": "Проєкт",
+  "todo_project_new": "Новий проєкт",
+  "todo_project_name": "Назва проєкту",
+  "todo_project_edit": "Редагувати проєкт",
+  "todo_project_arrange": "Переставити",
+  "todo_project_arrange_hint": "Перетягніть теки туди, куди ви хочете.",
+  "todo_project_pick": "Оберіть проєкт",
+  "todo_project_none": "Немає проєкту",
+  "todo_project_delete_body": "Проєкт закінчиться. Завдання залишаться.",
+  "todo_tag": "Тег",
+  "todo_tag_new": "Новий тег",
+  "todo_tag_name": "Назва тегу",
+  "todo_tag_edit": "Редагувати тег",
+  "todo_tag_delete_body": "Тег зникне. Завдання залишаться.",
+  "todo_tag_none": "Немає тегу",
+  "todo_tag_all": "Усі",
+  "todo_tag_manage": "Керувати тегами",
+  "todo_tag_empty_title": "Поки що без тегів",
+  "todo_tag_empty_body": "Збирайте завдання за проєктами, місцями або як вам подобається.",
+  "todo_tag_folders": "Теки",
+  "todo_tag_list": "Список",
+  "todo_tag_count": "{n} відкрито",
+  "@todo_tag_count": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_tag_icon": "Значок",
+  "todo_tag_pick": "Обрати теги",
+  "todo_tag_filtered": "Відфільтровано за {name}",
+  "@todo_tag_filtered": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "todo_subtasks": "Підзадачі",
+  "todo_subtask_hint": "Підзадача",
+  "focus_countdown": "3-секундний зворотний відлік",
+  "focus_skip_break": "Пропустити перерву",
+  "focus_continue": "Продовжити",
+  "focus_alert": "Раунд скоро закінчиться",
+  "focus_alert_chime": "Дзвін",
+  "focus_alert_custom": "Оберіть звук",
+  "focus_alert_none": "Тиша",
+  "focus_hold": "Почекати, поки я зупиню",
+  "focus_hold_sub": "Перерва також триває, доки ви не натиснете «Продовжити». Після перерви «Фокусування» завжди чекає.",
+  "focus_restart": "Перезапустити",
+  "focus_restart_title": "Перезапустити цей раунд?",
+  "focus_restart_body": "Час, який ви витратили в цьому раунді, буде втрачено.",
+  "focus_end_add_time": "Додати час зосередження",
+  "focus_repeat_one": "Повторювати знову",
+  "category_order_empty": "Призначте звичці категорію, і вона з’явиться тут",
+  "notif_streak_week": "🔥 {streak}-тижнева серія",
+  "@notif_streak_week": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "notif_streak_month": "🔥 {streak}-місячна серія",
+  "@notif_streak_month": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "today_progress_option": "Поступ за сьогодні",
+  "today_progress_option_sub": "Кільце дня та індикатор сили для кожної звички",
+  "quiet_when_done": "Тиша після завершення",
+  "quiet_when_done_sub": "Сьогодні більше не надсилати нагадування про звичку, яку ви вже виконали",
+  "plan_tab": "План",
+  "difficulty": "Складність",
+  "difficulty_hint": "Складніші звички мають більшу вагу в поступі за день",
+  "difficulty_easy": "Легка",
+  "difficulty_medium": "Середня",
+  "difficulty_hard": "Важка",
+  "pin_lock": "PIN-код",
+  "pin_lock_sub": "Ваш власний код, окремо від коду блокування телефона",
+  "pin_choose": "Оберіть PIN-код",
+  "pin_choose_sub": "Від 4 до 8 цифр",
+  "pin_repeat": "Введіть повторно",
+  "pin_mismatch": "Вони не збігаються. Почніть спочатку.",
+  "pin_enter": "Уведіть свій PIN-код",
+  "pin_wrong": "Неправильний PIN-код",
+  "pin_wait": "Забагато спроб. Зачекайте {seconds} с",
+  "@pin_wait": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "pin_recovery_title": "Ваш код відновлення",
+  "pin_recovery_body": "Якщо ви забудете PIN-код, цей код відкриє Streak і вимкне блокування. Зберігайте його в надійному місці: його більше не буде показано.",
+  "pin_copy": "Копіювати код",
+  "pin_copied": "Код скопійовано",
+  "pin_forgot": "Забули PIN-код?",
+  "pin_recovery_hint": "Код відновлення",
+  "pin_recovery_wrong": "Цей код неправильний",
+  "pin_recovered": "Блокування вимкнено. Ви можете встановити новий PIN-код у налаштуваннях.",
+  "pin_change": "Змінити PIN-код",
+  "pin_remove": "Видалити PIN-код",
+  "pin_fingerprint": "Використати відбиток",
+  "app_lock_method": "Розблокувати за допомогою",
+  "app_lock_biometric": "Відбиток чи обличчя",
+  "difficulty_option": "Складність звички",
+  "difficulty_option_sub": "Нехай складніші звички вагоміше впливають на денний поступ",
+  "todo_save_another": "Зберегти й додати ще",
+  "todo_add_subtask": "Додати підзадачу",
+  "pin_paste": "Вставити код",
+  "discard_changes": "Відхилити зміни?",
+  "discard_changes_body": "Зміни, внесені до цієї звички, буде втрачено.",
+  "discard": "Відхилити",
+  "keep_editing": "Продовжити редагувати",
+  "data_folder": "Тека даних",
+  "data_folder_documents": "Документи",
+  "data_folder_app": "Біля застосунку",
+  "data_folder_pick": "Оберіть теку",
+  "data_folder_inside": "Виберіть теку поза поточною.",
+  "data_folder_taken": "У цій теці вже є дані Streak.",
+  "data_folder_denied": "Streak не може записати дані в цю теку.",
+  "data_folder_move_title": "Перенесення своїх даних",
+  "data_folder_move_body": "Streak закриється та перемістить ваші дані до {path}. Відкрийте його знову після закриття. Якщо щось піде не так, ваші дані залишаться там, де вони є.",
+  "@data_folder_move_body": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "data_folder_move_confirm": "Перемістити та закрити",
+  "pick_one_day": "Виберіть принаймні один день",
+  "reminder_habit_days": "У дні звички",
+  "reminder_habit_days_hint": "Він дзвонить у ті дні, коли настав час виконувати звичку.",
+  "focus_label": "Мітка",
+  "focus_label_none": "Немає мітки",
+  "focus_label_new": "Нова мітка",
+  "focus_label_hint": "Математика, читання, робота...",
+  "focus_label_remove": "Видалити мітку",
+  "focus_label_remove_body": "{label} зникає зі списку. Ваші попередні сеанси зберігають його.",
+  "@focus_label_remove_body": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_label_remove_confirm": "Видалити",
+  "by_label": "За міткою",
+  "tracking_hide": "Приховати лише відстеження",
+  "tracking_hide_sub": "Звички, які ви лише відстежуєте, не додавайте до цього списку",
+  "tracking_show": "Показати лише відстеження ({count})",
+  "@tracking_show": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reminders_ready_title": "Нагадування ввімкнено",
+  "reminders_ready_body": "Streak нагадає вам тут.",
+  "duplicate_habit": "Дублювати звичку",
+  "habit_duplicated": "{name} додано",
+  "@habit_duplicated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "repeat_until": "До",
+  "end_of_day": "У кінці дня",
+  "no_goal": "Немає щоденної мети",
+  "no_goal_sub": "Просто записуйте значення, наприклад свою вагу. Будь-яке значення зараховується за день.",
+  "any_amount": "Будь-яка кількість",
+  "any_amount_sub": "Будь-який запис зараховується як виконання за день, навіть якщо він менший за цільовий показник.",
+  "any_step": "Виконано кілька кроків",
+  "any_step_sub": "Якщо позначити один крок, день буде позначено як виконаний, навіть якщо не виконати всі кроки.",
+  "steps_needed_sub": "День вважається завершеним після виконання {needed} з {total} кроків.",
+  "@steps_needed_sub": {
+    "placeholders": {
+      "needed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "sched_start": "Починається",
+  "from_last_done": "Рахувати від останнього разу",
+  "month_weekday": "Той самий день тижня щомісяця",
+  "month_weekday_sub": "Припадає на {when}-е число місяця, а не на фіксовану дату.",
+  "@month_weekday_sub": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "nth_weekday": "{n, select, first{перший} second{другий} third{третій} fourth{четвертий} other{останній}} {day}",
+  "@nth_weekday": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "from_last_done_sub": "Щоразу, коли ви це робите, відлік очікування починається знову. Один пропущений день — і серія переривається.",
+  "about_legal": "© InlitX. Streak — це вільне програмне забезпечення за ліцензією GNU GPLv3 з додатковими умовами, викладеними в розділі 7, і надається без жодних гарантій. Натисніть, щоб прочитати ліцензію.",
+  "todo_view_list": "Простий",
+  "todo_view_papers": "Теки",
+  "todo_style": "У стилі списку справ",
+  "todo_style_sub": "Простий список або теки з нотатками, як у Google Keep.",
+  "todo_estimate": "Тривалість",
+  "todo_estimate_none": "Без тривалості",
+  "todo_paper": "Колір",
+  "todo_add": "Додати",
+  "todo_list_item": "Елемент списку",
+  "todo_title_hint": "Назва",
+  "todo_body_hint": "Нотатка",
+  "todo_sort": "Порядок пріоритетів",
+  "todo_sort_high_first": "Спочатку — найвищий пріоритет",
+  "todo_sort_low_first": "Спочатку — найнижчий пріоритет",
+  "todo_project_empty": "У цій теці поки що нічого немає",
+  "todo_background": "Тло",
+  "todo_background_pick": "Оберіть фото",
+  "todo_deleted": "Нотатку видалено",
+  "todo_mark_done": "Позначити як виконане",
+  "todo_mark_open": "Позначити як невиконане",
+  "todo_pin": "Прикріпити",
+  "todo_unpin": "Відкріпити",
+  "todo_select": "Вибрати",
+  "todo_selected": "{count, plural, =1{Вибрано 1 елемент} other{Вибрано {count} елементів}}",
+  "@todo_selected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_deleted_many": "{count, plural, =1{Нотатку видалено} other{{count} нотаток видалено}}",
+  "@todo_deleted_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "prefs_cards": "Картки та календар",
+  "prefs_habits": "Звички",
+  "focus_long_break": "Довга перерва",
+  "focus_long_break_sub": "Після кожних 4 раундів — довша перерва.",
+  "focus_whole_rounds": "Рахувати лише повні раунди",
+  "focus_whole_rounds_sub": "Раунд, який ви завершуєте достроково, не зберігається.",
+  "focus_end_drop": "Якщо ви завершите зараз, цей раунд не буде збережено.",
+  "focus_options": "Параметри",
+  "focus_fullscreen": "Повний екран",
+  "focus_exit_fullscreen": "Вийти з повного екрана",
+  "focus_track_fire": "Вогонь",
+  "focus_track_ticking": "Цокання годинника",
+  "focus_resources": "Безплатні сцени та звуки",
+  "focus_volume": "Гучність",
+  "focus_notif_break": "Час зробити перерву.",
+  "focus_break_over": "Перерва закінчилася",
+  "focus_notif_back": "Повернімося до фокусування.",
+  "focus_break_in": "Перерва через {n}",
+  "@focus_break_in": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_back_in": "Фокусування через {n}",
+  "@focus_back_in": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "plan_todos": "Задачі в плані",
+  "plan_todos_sub": "Показувати нижче звичок список справ, запланованих на той день.",
+  "plan_show_habits": "Звички",
+  "plan_show_both": "Обидва",
+  "plan_show_todos": "Списки справ",
+  "swipe_cards": "Перегортати картки звичок",
+  "swipe_cards_sub": "Проведіть ліворуч, щоби позначити звичку як виконану, і праворуч, аби скасувати цю дію.",
+  "habit_time_sub": "Зараз додає звичку до плану. Вона й досі показується в розділі «Сьогодні» на весь день.",
+  "day_timeline_empty_todos": "Додайте завдання на цю дату, і воно з’явиться тут.",
+  "hide_done": "Приховати виконані",
+  "hide_done_sub": "Те, що ви завершуєте сьогодні, буде викреслено зі списку",
+  "past_first": "Спочатку відкривати минулі дні",
+  "past_first_sub": "Натискання на минулий день спершу показує його, щоби нічого не змінити випадково",
+  "miss_reason_title": "Чому ви це пропустили?",
+  "miss_reasons": "Чому ви пропустили",
+  "miss_other": "Інше",
+  "miss_other_hint": "Напишіть причину",
+  "miss_overslept": "Проспав",
+  "miss_busy": "Не маю часу",
+  "miss_traveling": "Подорожую",
+  "miss_sick": "Хворію",
+  "miss_tired": "Не маю сил",
+  "miss_forgot": "Вилетіло з голови",
+  "day_not_done": "Не виконано",
+  "day_clean": "Чистий",
+  "day_relapses": "{count, plural, =1{1 рецидив} other{{count} рецидивів}}",
+  "@day_relapses": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "day_log_relapse": "Записати рецидив",
+  "day_amount": "{value} з {goal}",
+  "@day_amount": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "today_filter": "Показати",
+  "today_fold_done": "Готово ({count})",
+  "@today_fold_done": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "today_fold_other": "Інші дні ({count})",
+  "@today_fold_other": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "today_fold_hidden": "Приховано ({count})",
+  "@today_fold_hidden": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "auto_sync": "Синхронізуйте пристрої",
+  "auto_sync_sub": "Зберігає після кожної зміни й перевіряє теку кожні кілька хвилин",
+  "sync_guide": "Як синхронізувати два пристрої",
+  "widget_today_done": "{done} з {total} готово",
+  "@widget_today_done": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_streak_days": "Днів поспіль",
+  "widget_this_week": "Цей тиждень",
+  "widget_last_days": "Останні {count} дні",
+  "@widget_last_days": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_cfg_days": "Показані дні",
+  "widget_week_done": "{done} з {total}",
+  "@widget_week_done": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_cfg_content": "Уміст",
+  "widget_cfg_background": "Тло",
+  "widget_cfg_show_art": "Показати ілюстрацію",
+  "widget_cfg_show_header": "Заголовок",
+  "widget_cfg_show_icons": "Значок звички",
+  "widget_cfg_show_cards": "Підґрунтя кожної звички",
+  "widget_cfg_show_details": "Поточна серія під іменем",
+  "widget_cfg_buttons": "Кнопки",
+  "widget_cfg_buttons_round": "Раунд",
+  "widget_cfg_buttons_square": "Квадрат",
+  "widget_cfg_hide_done": "Приховати виконані",
+  "widget_cfg_compact": "Компактний",
+  "widget_cfg_compact_hint": "Менші рядки, серія поруч з іменем",
+  "widget_cfg_compact_todos_hint": "Менші рядки, час поруч із задачею",
+  "widget_cfg_today_band": "Виділити сьогодні",
+  "widget_cfg_show_habits": "Звички, які слід показати",
+  "widget_cfg_show_habits_hint": "Виберіть одну або кілька. Якщо вибрати одну звичку, у зведенні буде показано її серію.",
+  "a11y_previous_month": "Попередній місяць",
+  "a11y_next_month": "Наступний місяць",
+  "plan_show_month": "Показати весь місяць",
+  "plan_show_week": "Показати один тиждень",
+  "tracked_week": "{n} цього тижня",
+  "@tracked_week": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "tracked_month": "{n} цього місяця",
+  "@tracked_month": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "tracked_year": "{n} цього року",
+  "@tracked_year": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "quant_mode_add": "Додати",
+  "quant_mode_replace": "Замінити",
+  "performance": "Виконання",
+  "performance_sub": "Полегшена версія застосунку для старих або малопотужних телефонів",
+  "glass_effects": "Ефекти скла",
+  "glass_effects_sub": "Розмиття за панеллю та по краях екрана. Саме воно найбільше важить",
+  "animations": "Анімації",
+  "animations_sub": "Входи, зміни сторінок і рухомий текст",
+  "widgets_sub": "Стиль віджета для телефонів без редактора віджетів",
+  "widgets_hint": "Якщо на головному екрані під час додавання віджета або його затискання не відкривається редактор, змініть тут його стиль. Це стосується всіх віджетів цього типу, які не налаштовували окремо.",
+  "widget_kind_habit": "Звички",
+  "widget_kind_today": "Сьогодні",
+  "widget_kind_stats": "Підсумок",
+  "widget_kind_heatmap": "Мапа активності",
+  "widget_kind_todos": "Список справ",
+  "today_view": "Перегляд"
+}

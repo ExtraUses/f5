@@ -1,0 +1,958 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart' show listEquals;
+import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:streak/app/theme/app_tokens.dart';
+import 'package:streak/core/extensions/color_extensions.dart';
+import 'package:streak/core/extensions/date_extensions.dart';
+import 'package:streak/core/i18n/date_labels.dart';
+import 'package:streak/core/i18n/l10n.dart';
+import 'package:streak/core/icons/habit_glyph.dart';
+import 'package:streak/core/widgets/cover_image.dart';
+import 'package:streak/core/widgets/scrolling_text.dart';
+import 'package:streak/features/habits/data/habit.dart';
+import 'package:streak/features/habits/widgets/relapse_dialog.dart';
+import 'package:streak/features/habits/widgets/amount_actions.dart';
+import 'package:streak/features/habits/state/habits_controller.dart';
+import 'package:streak/features/habits/widgets/habit_heatmap.dart';
+import 'package:streak/features/habits/widgets/heatmap_path.dart';
+import 'package:streak/features/habits/widgets/unscheduled_day_dialog.dart';
+import 'package:streak/features/settings/state/settings_controller.dart';
+
+class _GlyphTile extends StatelessWidget {
+  const _GlyphTile({required this.habit, this.size = 52});
+
+  final Habit habit;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: habit.color.shownIn(context).withValues(alpha: 0.16),
+        borderRadius: BorderRadius.circular(size * 0.28),
+      ),
+      child: HabitGlyph(
+        glyph: habit.icon,
+        color: habit.color.shownIn(context),
+        size: size * 0.46,
+      ),
+    );
+  }
+}
+
+class _CheckTile extends StatelessWidget {
+  const _CheckTile({
+    required this.habit,
+    required this.done,
+    required this.circle,
+    required this.onTap,
+    this.size = 52,
+  });
+
+  final Habit habit;
+  final bool done;
+  final bool circle;
+  final VoidCallback onTap;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    if (habit.kind == HabitKind.quantitative) {
+      return _QuantTile(habit: habit, circle: circle, size: size);
+    }
+    final negative = habit.kind == HabitKind.negative;
+    final relapsed = negative && isRelapse(habit, AppClock.now());
+    final marked = negative ? relapsed : done;
+    final tint = relapsed ? context.tokens.danger : habit.color.shownIn(context);
+
+    return Semantics(
+      button: true,
+      label: negative
+          ? (relapsed
+              ? context.l10n.a11y_clear_relapse(habit.name)
+              : context.l10n.a11y_log_relapse(habit.name))
+          : (done
+              ? context.l10n.a11y_mark_not_done(habit.name)
+              : context.l10n.a11y_mark_done(habit.name)),
+      child: GestureDetector(
+        onTap: () {
+          onTap();
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 220),
+          curve: Curves.easeOutCubic,
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            color: tint.withValues(alpha: marked ? 1 : 0.16),
+            borderRadius: BorderRadius.circular(
+              circle ? size / 2 : size * 0.28,
+            ),
+          ),
+          child: Icon(
+            negative ? LucideIcons.ban : Icons.check_rounded,
+            size: size * 0.5,
+            color: marked ? tint.ink : tint.withValues(alpha: 0.85),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _QuantTile extends StatelessWidget {
+  const _QuantTile({
+    required this.habit,
+    required this.circle,
+    required this.size,
+    this.showCheck = true,
+  });
+
+  final Habit habit;
+  final bool circle;
+  final double size;
+  final bool showCheck;
+
+  Future<void> _add(BuildContext context, DateTime today) async {
+    final controller = context.read<HabitsController>();
+    final allowed =
+        await confirmUnscheduledDay(context, habit: habit, date: today);
+    if (!allowed) return;
+    await controller.addProgress(habit.id, today, habit.incrementAmount);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final today = AppClock.now();
+    final count = habit.completions[today.dayKey]?.count ?? 0;
+    final progress = habit.progressFor(count);
+    final reached = progress.reachedGoal;
+    final settled = reached ? progress.reachedColor(habit.color.shownIn(context)) : habit.color.shownIn(context);
+
+    return Semantics(
+      button: true,
+      label: context.l10n.a11y_add_amount(habit.name),
+      child: GestureDetector(
+        onTap: () => _add(context, today),
+        onLongPress: () => unawaited(addCustomAmount(context, habit)),
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(
+              circle ? size / 2 : size * 0.28,
+            ),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                ColoredBox(
+                  color: settled.withValues(alpha: reached ? 1 : 0.16),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0, end: progress.fraction),
+                    duration: const Duration(milliseconds: 520),
+                    curve: Curves.easeOutCubic,
+                    builder: (context, t, _) => FractionallySizedBox(
+                      heightFactor: t.clamp(0.0, 1.0),
+                      widthFactor: 1,
+                      child: ColoredBox(
+                        color: progress.activeColor(habit.color.shownIn(context)),
+                      ),
+                    ),
+                  ),
+                ),
+                if (showCheck)
+                  TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0, end: progress.fraction),
+                    duration: const Duration(milliseconds: 520),
+                    curve: Curves.easeOutCubic,
+                    builder: (context, t, _) => Icon(
+                      Icons.check_rounded,
+                      size: size * 0.5,
+                      color: reached || t >= 0.45 ? habit.color.shownIn(context).ink : habit.color.shownIn(context),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+bool _hasCover(Habit habit) => CoverImage.exists(habit.coverPath);
+
+Widget _shell(
+  BuildContext context,
+  Habit habit,
+  Widget child, {
+  EdgeInsets? padding,
+}) {
+  final cover = _hasCover(habit);
+  return Container(
+    width: double.infinity,
+    clipBehavior: Clip.antiAlias,
+    decoration: BoxDecoration(
+      color: context.colors.surfaceContainerHighest.withValues(alpha: 0.45),
+      borderRadius: BorderRadius.circular(20),
+    ),
+
+    foregroundDecoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(
+        color: cover
+            ? Colors.white.withValues(alpha: 0.14)
+            : context.colors.surfaceContainerHighest,
+      ),
+    ),
+    child: Stack(
+      children: [
+        if (cover) ...[
+          Positioned.fill(
+            child: CoverImage(
+              path: habit.coverPath,
+              clarity: habit.coverClarity,
+            ),
+          ),
+          Positioned.fill(
+            child: ColoredBox(
+              color: Colors.black.withValues(alpha: 0.7),
+            ),
+          ),
+        ],
+        Padding(
+          padding: padding ?? const EdgeInsets.all(14),
+          child: child,
+        ),
+      ],
+    ),
+  );
+}
+
+Color _titleColor(BuildContext context, Habit habit) =>
+    _hasCover(habit) ? Colors.white : context.colors.onSurface;
+
+Color _mutedColor(BuildContext context, Habit habit) => _hasCover(habit)
+    ? Colors.white.withValues(alpha: 0.72)
+    : context.tokens.muted;
+
+class GridWeekCard extends StatelessWidget {
+  const GridWeekCard({
+    super.key,
+    required this.habit,
+    required this.onOpen,
+    required this.onToggleDay,
+    this.onLongPress,
+  });
+
+  final Habit habit;
+  final VoidCallback onOpen;
+  final void Function(DateTime date) onToggleDay;
+  final VoidCallback? onLongPress;
+
+  static const _cell = 28.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final today = AppClock.today();
+    final circle = context.watch<SettingsController>().isCircleCheck;
+    final labels = WeekdayLabels.shortMonFirst(
+      Localizations.localeOf(context).languageCode,
+    );
+    final scale = MediaQuery.textScalerOf(context).scale(11) / 11;
+    final columns = scale > 1.6 ? 3 : (scale > 1.3 ? 4 : 5);
+
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        onTap: onOpen,
+        onLongPress: onLongPress,
+        child: _shell(
+          context,
+          habit,
+          padding: const EdgeInsets.all(12),
+          Row(
+            children: [
+              _GlyphTile(habit: habit, size: 44),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ScrollingText(
+                  habit.name,
+                  style: TextStyle(
+                    fontSize: 16.5,
+                    fontWeight: FontWeight.w700,
+                    color: _titleColor(context, habit),
+                  ),
+                ),
+              ),
+              for (var i = columns - 1; i >= 0; i--)
+                _DayCell(
+                  habit: habit,
+                  date: today.addDays(-i),
+                  label: labels[today.addDays(-i).weekday - 1],
+                  circle: circle,
+                  size: _cell,
+                  onTap: onToggleDay,
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DayCell extends StatelessWidget {
+  const _DayCell({
+    required this.habit,
+    required this.date,
+    required this.label,
+    required this.circle,
+    required this.size,
+    required this.onTap,
+  });
+
+  final Habit habit;
+  final DateTime date;
+  final String label;
+  final bool circle;
+  final double size;
+  final void Function(DateTime date) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final negative = habit.kind == HabitKind.negative;
+    final relapsed = negative && isRelapse(habit, date);
+    final done = relapsed || habit.isCompletedOn(date);
+    final covered = !done && habit.isCoveredOn(date);
+    final tint = relapsed ? context.tokens.danger : habit.color.shownIn(context);
+    final quant = habit.kind == HabitKind.quantitative;
+    final today = date.atMidnight == AppClock.today();
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 6),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ExcludeSemantics(
+            child: MediaQuery.withClampedTextScaling(
+              maxScaleFactor: 1.2,
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _mutedColor(context, habit),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+          quant && today
+              ? _QuantTile(
+                  habit: habit,
+                  circle: circle,
+                  size: size,
+                  showCheck: false,
+                )
+              : Semantics(
+                  button: true,
+                  label: heatmapDayLabel(context, habit, date),
+                  child: GestureDetector(
+                    onTap: () {
+                      onTap(date);
+                    },
+                    child: SizedBox(
+                      width: size,
+                      height: size,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          circle ? size / 2 : 9,
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            ColoredBox(
+                              color: tint.withValues(
+                                alpha: done ? 1 : (covered ? 0.4 : 0.14),
+                              ),
+                            ),
+                            if (!done && quant)
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: FractionallySizedBox(
+                                  heightFactor: habit.progressFor(
+                                    habit.completions[date.dayKey]?.count ?? 0,
+                                  ).fraction,
+                                  widthFactor: 1,
+                                  child: ColoredBox(color: habit.color.shownIn(context)),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+        ],
+      ),
+    );
+  }
+}
+
+class GridYearCard extends StatelessWidget {
+  const GridYearCard({
+    super.key,
+    required this.habit,
+    required this.onOpen,
+    required this.onToggleToday,
+    required this.onToggleDay,
+    this.onLongPress,
+  });
+
+  final Habit habit;
+  final VoidCallback onOpen;
+  final VoidCallback onToggleToday;
+  final void Function(DateTime date) onToggleDay;
+  final VoidCallback? onLongPress;
+
+  @override
+  Widget build(BuildContext context) {
+    final today = AppClock.today();
+    final circle = context.watch<SettingsController>().isCircleCheck;
+
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        onTap: onOpen,
+        onLongPress: onLongPress,
+        child: _shell(
+          context,
+          habit,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  _GlyphTile(habit: habit),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: ScrollingText(
+                      habit.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: _titleColor(context, habit),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  _CheckTile(
+                    habit: habit,
+                    done: habit.isCompletedOn(today),
+                    circle: circle,
+                    onTap: onToggleToday,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              _GridYearStrip(
+                habit: habit,
+                circle: circle,
+                onToggle: onToggleDay,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class GridMonthCard extends StatelessWidget {
+  const GridMonthCard({
+    super.key,
+    required this.habit,
+    required this.onOpen,
+    required this.onToggleToday,
+    required this.onToggleDay,
+    this.onLongPress,
+  });
+
+  final Habit habit;
+  final VoidCallback onOpen;
+  final VoidCallback onToggleToday;
+  final void Function(DateTime date) onToggleDay;
+  final VoidCallback? onLongPress;
+
+  @override
+  Widget build(BuildContext context) {
+    final today = AppClock.today();
+    final circle = context.watch<SettingsController>().isCircleCheck;
+    final month = DateFormat.yMMM(
+      Localizations.localeOf(context).toString(),
+    ).format(today);
+
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        onTap: onOpen,
+        onLongPress: onLongPress,
+        child: _shell(
+          context,
+          habit,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  _CheckTile(
+                    habit: habit,
+                    done: habit.isCompletedOn(today),
+                    circle: circle,
+                    onTap: onToggleToday,
+                    size: 38,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ScrollingText(
+                          habit.name,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: _titleColor(context, habit),
+                          ),
+                        ),
+                        Text(
+                          month,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _mutedColor(context, habit),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Center(
+                child: _GridMonthCalendar(
+                  habit: habit,
+                  circle: circle,
+                  onToggle: onToggleDay,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GridYearStrip extends StatefulWidget {
+  const _GridYearStrip({
+    required this.habit,
+    required this.circle,
+    required this.onToggle,
+  });
+
+  final Habit habit;
+  final bool circle;
+  final void Function(DateTime date) onToggle;
+
+  @override
+  State<_GridYearStrip> createState() => _GridYearStripState();
+}
+
+class _GridYearStripState extends State<_GridYearStrip> {
+  static const _weeks = 53;
+  static const _cell = 13.0;
+
+  final _scroll = ScrollController();
+  bool _scrolled = false;
+
+  @override
+  void dispose() {
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final today = AppClock.today();
+    final start = today
+        .startOfWeek(context.watch<SettingsController>().weekStart)
+        .addDays(-7 * (_weeks - 1));
+    final months = DateFormat.MMM(Localizations.localeOf(context).languageCode);
+    final path = heatmapPathOn(context);
+    final gap = path ? heatmapPathGap : 3.0;
+    final pitch = _cell + gap;
+    final colors = [
+      for (var i = 0; i < _weeks * 7; i++)
+        heatmapCellColor(context, widget.habit, start.addDays(i)),
+    ];
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrolled && _scroll.hasClients) {
+        _scrolled = true;
+        _scroll.jumpTo(_scroll.position.maxScrollExtent);
+      }
+    });
+
+    return SingleChildScrollView(
+      controller: _scroll,
+      scrollDirection: Axis.horizontal,
+      child: withHeatmapPath(
+        on: path,
+        columns: _weeks,
+        rows: 7,
+        cell: _cell,
+        gap: gap,
+        top: 14,
+        inkFor: (column, row) {
+          final date = start.addDays(column * 7 + row);
+          return widget.habit.isCompletedOn(date)
+              ? heatmapPathColor(context, widget.habit.color.shownIn(context))
+              : context.colors.surfaceContainerHighest;
+        },
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTapUp: (details) {
+            final column = (details.localPosition.dx / pitch).floor();
+            final row = ((details.localPosition.dy - 14) / pitch).floor();
+            if (column < 0 || column >= _weeks || row < 0 || row > 6) return;
+            final date = start.addDays(column * 7 + row);
+            if (date.isAfter(today)) return;
+            widget.onToggle(date);
+          },
+          child: SizedBox(
+            width: _weeks * pitch,
+            height: 14 + 7 * pitch,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned.fill(
+                  child: RepaintBoundary(
+                    child: CustomPaint(
+                      painter: _YearCells(
+                        colors: colors,
+                        cell: _cell,
+                        gap: gap,
+                        radius: widget.circle ? _cell / 2 : 3,
+                      ),
+                    ),
+                  ),
+                ),
+                for (var column = 0; column < _weeks; column++)
+                  if (column == 0 ||
+                      start.addDays(column * 7).month !=
+                          start.addDays((column - 1) * 7).month)
+                    Positioned(
+                      left: column * pitch,
+                      top: 0,
+                      height: 14,
+                      child: Text(
+                        months.format(start.addDays(column * 7)),
+                        textScaler: MediaQuery.textScalerOf(context)
+                            .clamp(maxScaleFactor: 1.2),
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: context.tokens.muted,
+                        ),
+                      ),
+                    ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _YearCells extends CustomPainter {
+  const _YearCells({
+    required this.colors,
+    required this.cell,
+    required this.gap,
+    required this.radius,
+  });
+
+  final List<Color> colors;
+  final double cell;
+  final double gap;
+  final double radius;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..isAntiAlias = true;
+    final pitch = cell + gap;
+    final corner = Radius.circular(radius);
+    for (var i = 0; i < colors.length; i++) {
+      final left = (i ~/ 7) * pitch;
+      final top = 14 + (i % 7) * pitch;
+      paint.color = colors[i];
+      canvas.drawRRect(
+        RRect.fromLTRBR(left, top, left + cell, top + cell, corner),
+        paint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_YearCells old) =>
+      old.cell != cell ||
+      old.gap != gap ||
+      old.radius != radius ||
+      !listEquals(old.colors, colors);
+}
+
+class _GridMonthCalendar extends StatelessWidget {
+  const _GridMonthCalendar({
+    required this.habit,
+    required this.circle,
+    required this.onToggle,
+  });
+
+  final Habit habit;
+  final bool circle;
+  final void Function(DateTime date) onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    final today = AppClock.today();
+    final weekStart = context.watch<SettingsController>().weekStart;
+    final first = DateTime(today.year, today.month, 1).startOfWeek(weekStart);
+    final lastDay = DateTime(today.year, today.month + 1, 0);
+    final weeks =
+        ((lastDay.startOfWeek(weekStart).epochDay - first.epochDay) / 7).round() +
+        1;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var w = 0; w < weeks; w++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2),
+            child: Row(
+              children: List.generate(7, (d) {
+                final date = first.addDays(w * 7 + d);
+                final inMonth = date.month == today.month;
+                final future = date.isAfter(today);
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Semantics(
+                        button: inMonth && !future,
+                        label: inMonth
+                            ? heatmapDayLabel(context, habit, date)
+                            : null,
+                        child: GestureDetector(
+                          onTap: inMonth && !future
+                              ? () => onToggle(date)
+                              : null,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: !inMonth
+                                  ? Colors.transparent
+                                  : future
+                                  ? context.colors.surfaceContainerHighest
+                                        .withValues(alpha: 0.4)
+                                  : heatmapCellColor(context, habit, date),
+                              borderRadius: BorderRadius.circular(
+                                circle ? 999 : 3,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class GridViewSwitcher extends StatefulWidget {
+  const GridViewSwitcher({
+    super.key,
+    required this.mode,
+    required this.onChanged,
+  });
+
+  final HeatmapMode mode;
+  final ValueChanged<HeatmapMode> onChanged;
+
+  @override
+  State<GridViewSwitcher> createState() => _GridViewSwitcherState();
+}
+
+class _GridViewSwitcherState extends State<GridViewSwitcher> {
+  static const _options = [
+    (HeatmapMode.week, Icons.checklist_rounded),
+    (HeatmapMode.month, Icons.grid_view_rounded),
+    (HeatmapMode.year, Icons.view_agenda_outlined),
+  ];
+  static const _slot = 60.0;
+  static const _inset = 8.0;
+
+  double? _finger;
+
+  int get _selected =>
+      _options.indexWhere((option) => option.$1 == widget.mode).clamp(0, 2);
+
+  int _under(double x) => (x / _slot).floor().clamp(0, _options.length - 1);
+
+  double _centerOf(int index) => (index + 0.5) * _slot;
+
+  void _press(Offset local) =>
+      setState(() => _finger = _centerOf(_under(local.dx - _inset)));
+
+  void _move(Offset local) {
+    final finger = _finger;
+    if (finger == null) return;
+    final x = (local.dx - _inset)
+        .clamp(_centerOf(0), _centerOf(_options.length - 1));
+    setState(() => _finger = x);
+  }
+
+  void _release({required bool commit}) {
+    final finger = _finger;
+    if (finger == null) return;
+    setState(() => _finger = null);
+    final picked = _options[_under(finger)].$1;
+    if (commit && picked != widget.mode) widget.onChanged(picked);
+  }
+
+  String _label(BuildContext context, HeatmapMode value) => switch (value) {
+        HeatmapMode.week => context.l10n.week,
+        HeatmapMode.year => context.l10n.year,
+        _ => context.l10n.month,
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final finger = _finger;
+    final held = finger != null;
+    final active = held ? _under(finger) : _selected;
+    final bar = Container(
+      padding: const EdgeInsets.symmetric(horizontal: _inset, vertical: 6),
+      decoration: BoxDecoration(
+        color: context.colors.surfaceContainerHighest.withValues(alpha: 0.96),
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(
+          color: context.colors.outlineVariant.withValues(alpha: 0.5),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.22),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          AnimatedPositioned(
+            left: (finger ?? _centerOf(_selected)) - _slot / 2,
+            top: 0,
+            bottom: 0,
+            width: _slot,
+            duration: Duration(milliseconds: held ? 90 : 380),
+            curve: held ? Curves.linear : Curves.easeOutBack,
+            child: AnimatedScale(
+              scale: held ? 1.18 : 1,
+              duration: const Duration(milliseconds: 240),
+              curve: Curves.easeOutBack,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 240),
+                decoration: BoxDecoration(
+                  color: context.colors.primary
+                      .withValues(alpha: held ? 0.22 : 0.16),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: held ? 0.2 : 0),
+                      blurRadius: 14,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final (index, (value, icon)) in _options.indexed)
+                Semantics(
+                  button: true,
+                  selected: value == widget.mode,
+                  label: _label(context, value),
+                  child: GestureDetector(
+                    onTap: () {
+                      widget.onChanged(value);
+                    },
+                    behavior: HitTestBehavior.opaque,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 8,
+                      ),
+                      child: AnimatedScale(
+                        scale: index == active ? 1.12 : 1,
+                        duration: const Duration(milliseconds: 380),
+                        curve: Curves.easeOutBack,
+                        child: TweenAnimationBuilder<Color?>(
+                          tween: ColorTween(
+                            end: index == active
+                                ? context.colors.primary
+                                : context.tokens.muted,
+                          ),
+                          duration: const Duration(milliseconds: 260),
+                          builder: (context, tint, _) =>
+                              Icon(icon, size: 24, color: tint),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onHorizontalDragDown: (details) => _press(details.localPosition),
+      onHorizontalDragUpdate: (details) => _move(details.localPosition),
+      onHorizontalDragEnd: (_) => _release(commit: true),
+      onHorizontalDragCancel: () => _release(commit: false),
+      child: bar,
+    );
+  }
+}

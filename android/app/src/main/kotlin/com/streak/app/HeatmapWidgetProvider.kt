@@ -1,0 +1,57 @@
+package com.streak.app
+
+import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+
+class HeatmapWidgetProvider : AppWidgetProvider() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action == ACTION_HOME_WIDGET_UPDATE) HeatmapRenderer.updateAll(context)
+    }
+
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray,
+    ) {
+        WidgetRefreshReceiver.keepFresh(context)
+        for (id in appWidgetIds) HeatmapRenderer.update(context, appWidgetManager, id)
+    }
+
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: Bundle,
+    ) {
+        val size = sizeOf(newOptions)
+        if (sizes[appWidgetId] == size) return
+        sizes[appWidgetId] = size
+        HeatmapRenderer.update(context, appWidgetManager, appWidgetId)
+    }
+
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        for (id in appWidgetIds) {
+            sizes.remove(id)
+            HeatmapConfig.clear(context, id)
+            WidgetConfig.forget(context, id)
+        }
+    }
+
+    private companion object {
+        const val ACTION_HOME_WIDGET_UPDATE =
+            "es.antonborri.home_widget.action.UPDATE_WIDGET"
+
+        val sizes = mutableMapOf<Int, Long>()
+
+        fun sizeOf(options: Bundle): Long {
+            val width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0)
+            val height = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0)
+            return width.toLong() shl 32 or (height.toLong() and 0xFFFFFFFFL)
+        }
+    }
+}

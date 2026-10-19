@@ -1,0 +1,268 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
+import 'package:streak/core/utils/app_dirs.dart';
+
+class FocusTrack {
+  const FocusTrack({
+    required this.id,
+    required this.name,
+    required this.asset,
+  });
+
+  final String id;
+  final String name;
+  final bool asset;
+
+  Source get source =>
+      asset ? AssetSource('sounds/$id') : DeviceFileSource(id);
+
+  bool get loops => asset && loopingTracks.contains(id);
+
+  String encode() => '$id|$name';
+
+  static FocusTrack? decode(String raw) {
+    final index = raw.indexOf('|');
+    if (index <= 0) return null;
+    final path = raw.substring(0, index);
+    if (!File(path).existsSync()) return null;
+    return FocusTrack(
+      id: path,
+      name: raw.substring(index + 1),
+      asset: false,
+    );
+  }
+
+  static const _folder = 'tracks';
+
+  static Future<String> store(String source, {String folder = _folder}) async {
+    final dir = Directory('${(await appDataDir()).path}/$folder');
+    if (!dir.existsSync()) dir.createSync(recursive: true);
+    final found = source.split('.').last.toLowerCase();
+    final extension = FocusAudio.trackExtensions.contains(found) ? found : 'mp3';
+    final dest = '${dir.path}/${DateTime.now().millisecondsSinceEpoch}.$extension';
+    await File(source).copy(dest);
+    return dest;
+  }
+
+  static Future<void> forget(String path) async {
+    try {
+      final root = (await appDataDir()).path.replaceAll(r'\', '/');
+      if (!path.replaceAll(r'\', '/').startsWith('$root/$_folder/')) return;
+      final file = File(path);
+      if (file.existsSync()) await file.delete();
+    } catch (e) {
+      debugPrint('Could not delete the track: $e');
+    }
+  }
+}
+
+const builtInTracks = <String, String>{
+  'rain.mp3': 'Rain',
+  'brown_noise.mp3': 'Brown noise',
+  'fire.mp3': 'Fire',
+  'ticking.mp3': 'Ticking clock',
+  'one_love.mp3': 'One Love',
+  'i_can_find_you.mp3': 'I Can Find You',
+};
+
+const loopingTracks = {'ticking.mp3'};
+
+String builtInTrackId(String id) {
+  final mp3 = id.replaceFirst(RegExp(r'\.ogg$'), '.mp3');
+  return builtInTracks.containsKey(mp3) ? mp3 : id;
+}
+
+class FocusAudio {
+  const FocusAudio._();
+
+  static final AudioPlayer _player = AudioPlayer();
+  static final AudioPlayer _effects = AudioPlayer();
+  static final Random _random = Random();
+
+  static final ValueNotifier<String> current = ValueNotifier('');
+  static final ValueNotifier<bool> playing = ValueNotifier(false);
+  static final ValueNotifier<Duration> position = ValueNotifier(Duration.zero);
+  static final ValueNotifier<Duration> length = ValueNotifier(Duration.zero);
+  static final ValueNotifier<double> volume = ValueNotifier(1);
+
+  static List<FocusTrack> _queue = const [];
+  static bool _shuffle = false;
+  static bool _repeatOne = false;
+  static bool _wired = false;
+
+  static const maxTracks = 30;
+
+  static final trackExtensions = [
+    'mp3',
+    'm4a',
+    'aac',
+    'wav',
+    if (!Platform.isWindows) ...['ogg', 'opus'],
+    'flac',
+    'mp4',
+  ];
+  static const maxTrackMinutes = 20;
+
+  static void _wire() {
+    if (_wired) return;
+    _wired = true;
+    _player.onPlayerComplete.listen((_) => _advance());
+    _player.onPositionChanged.listen((at) => position.value = at);
+    _player.onDurationChanged.listen((total) => length.value = total);
+  }
+
+  static Future<void> _advance() async {
+    if (_queue.isEmpty) return;
+    final index = _queue.indexWhere((t) => t.id == current.value);
+    if (_repeatOne || _queue.length == 1) {
+      await _start(_queue[index < 0 ? 0 : index]);
+      return;
+    }
+    final next = _shuffle
+        ? _pickRandom(index)
+        : (index + 1) % _queue.length;
+    await _start(_queue[next]);
+  }
+
+  static int _pickRandom(int avoid) {
+    if (_queue.length < 2) return 0;
+    var next = avoid;
+    while (next == avoid) {
+      next = _random.nextInt(_queue.length);
+    }
+    return next;
+  }
+
+  static Future<void> _start(FocusTrack track) async {
+    _wire();
+    position.value = Duration.zero;
+    length.value = Duration.zero;
+    await _player.setReleaseMode(
+      _repeatOne || track.loops ? ReleaseMode.loop : ReleaseMode.stop,
+    );
+    current.value = track.id;
+    try {
+      await _player.play(track.source, volume: volume.value);
+      playing.value = true;
+    } catch (e) {
+      debugPrint('Could not play the track: $e');
+      await _player.stop();
+      playing.value = false;
+    }
+  }
+
+  static Future<void> playQueue(
+    List<FocusTrack> tracks, {
+    required bool shuffle,
+    required bool repeatOne,
+    FocusTrack? from,
+  }) async {
+    if (tracks.isEmpty) return;
+    _queue = tracks;
+    _shuffle = shuffle;
+    _repeatOne = repeatOne;
+    final start = from ??
+        (shuffle ? tracks[_random.nextInt(tracks.length)] : tracks.first);
+    await _start(start);
+  }
+
+  static Future<void> skip(int step) async {
+    if (_queue.isEmpty) return;
+    final index = _queue.indexWhere((t) => t.id == current.value);
+    if (step < 0 && position.value > const Duration(seconds: 3)) {
+      await seek(Duration.zero);
+      return;
+    }
+    final next = _shuffle && step > 0
+        ? _pickRandom(index)
+        : (index + step) % _queue.length;
+    await _start(_queue[next]);
+  }
+
+  static Future<void> seek(Duration at) async {
+    position.value = at;
+    await _player.seek(at);
+  }
+
+  static Future<void> setMode({
+    required bool shuffle,
+    required bool repeatOne,
+  }) async {
+    _shuffle = shuffle;
+    _repeatOne = repeatOne;
+    if (current.value.isEmpty) return;
+    final loops = _queue.any((t) => t.id == current.value && t.loops);
+    await _player.setReleaseMode(
+      repeatOne || loops ? ReleaseMode.loop : ReleaseMode.stop,
+    );
+  }
+
+  static Future<void> setVolume(double value) async {
+    volume.value = value.clamp(0.0, 1.0);
+    await _player.setVolume(volume.value);
+  }
+
+  static Future<void> pause() async {
+    await _player.pause();
+    playing.value = false;
+  }
+
+  static Future<void> resume() async {
+    await _player.resume();
+    playing.value = true;
+  }
+
+  static Future<void> stop() async {
+    await _player.stop();
+    playing.value = false;
+    current.value = '';
+    position.value = Duration.zero;
+    length.value = Duration.zero;
+  }
+
+  static const silentAlert = 'none';
+
+  static Timer? _alertCutoff;
+
+  static Future<void> alert(String sound, {bool loop = false}) async {
+    if (sound == silentAlert) return;
+    _alertCutoff?.cancel();
+    if (loop) _alertCutoff = Timer(const Duration(minutes: 2), stopAlert);
+    try {
+      await _effects.stop();
+      await _effects.setReleaseMode(loop ? ReleaseMode.loop : ReleaseMode.stop);
+      await _effects.play(
+        sound.isEmpty
+            ? AssetSource('sounds/chime.mp3')
+            : DeviceFileSource(sound),
+        volume: 0.9,
+      );
+    } catch (_) {}
+  }
+
+  static Future<void> stopAlert() async {
+    _alertCutoff?.cancel();
+    _alertCutoff = null;
+    try {
+      await _effects.stop();
+      await _effects.setReleaseMode(ReleaseMode.stop);
+    } catch (_) {}
+  }
+
+  static Future<int?> durationOf(String path) async {
+    final probe = AudioPlayer();
+    try {
+      await probe.setSourceDeviceFile(path);
+      final duration = await probe.getDuration();
+      return duration?.inMinutes;
+    } catch (_) {
+      return null;
+    } finally {
+      await probe.dispose();
+    }
+  }
+}

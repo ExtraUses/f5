@@ -1,0 +1,110 @@
+package com.streak.app
+
+import android.content.Context
+import org.json.JSONArray
+import org.json.JSONObject
+import kotlin.math.max
+
+object WidgetOptimistic {
+
+    private const val PREFS = "HomeWidgetPreferences"
+    private const val KEY = "habits_data"
+    private const val KIND_NEGATIVE = 1
+    private const val KIND_QUANTITATIVE = 2
+
+    fun apply(context: Context, habitId: String, dayKey: String, delta: Double): Boolean {
+        return synchronized(this) {
+            try {
+                val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                val root = JSONObject(prefs.getString(KEY, null) ?: return@synchronized false)
+                val todayKey = WidgetPayload.todayKey(context)
+                val day = indexOf(root, dayKey, todayKey)
+                val today = indexOf(root, todayKey, todayKey)
+                if (day < 0) return@synchronized false
+                val habits = root.optJSONArray("habits") ?: return@synchronized false
+                for (i in 0 until habits.length()) {
+                    val habit = habits.optJSONObject(i) ?: continue
+                    if (habit.optString("id") != habitId) continue
+                    val before = doneOn(habit, today)
+                    if (!mutate(habit, day, today, delta)) return@synchronized false
+                    if (day == today) resummarize(root, habit, today, before)
+                    prefs.edit().putString(KEY, root.toString()).commit()
+                    return@synchronized true
+                }
+                false
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
+
+    private fun indexOf(root: JSONObject, dayKey: String, todayKey: String): Int {
+        val days = root.optJSONArray("days") ?: return -1
+        if (days.length() > 0 && days.optJSONObject(0)?.has("key") != true) {
+            return if (dayKey == todayKey) WidgetPayload.TODAY else -1
+        }
+        return WidgetPayload.windowIndexOf(root, dayKey)
+    }
+
+    private fun doneOn(habit: JSONObject, day: Int): Boolean =
+        day >= 0 && habit.optJSONArray("completions")?.optBoolean(day, false) == true
+
+    private fun resummarize(root: JSONObject, habit: JSONObject, today: Int, before: Boolean) {
+        val summary = root.optJSONObject("summary") ?: return
+        if (today < 0 || habit.optBoolean("tracking", false)) return
+        if (habit.optJSONArray("scheduled")?.optBoolean(today, true) == false) return
+        val after = doneOn(habit, today)
+        if (after == before) return
+        summary.remove("ratio")
+        val total = summary.optInt("total", 0)
+        val done = summary.optInt("doneToday", 0) + if (after) 1 else -1
+        summary.put("doneToday", done.coerceIn(0, total))
+    }
+
+    private fun mutate(habit: JSONObject, day: Int, today: Int, delta: Double): Boolean {
+        val completions = habit.optJSONArray("completions") ?: return false
+        val counts = habit.optJSONArray("counts") ?: return false
+        if (completions.length() <= day || counts.length() <= day) return false
+
+        val kind = habit.optInt("kind", 0)
+        val target = max(1.0, habit.optDouble("perDayTarget", 1.0))
+        val count = counts.optDouble(day, 0.0)
+
+        val newCount: Double
+        val done: Boolean
+        when (kind) {
+            KIND_NEGATIVE -> {
+                newCount = if (count > 0) 0.0 else 1.0
+                done = newCount == 0.0
+            }
+            KIND_QUANTITATIVE -> {
+                newCount = max(0.0, count + delta)
+                done = if (habit.optBoolean("anyAmount", false)) newCount > 0 else newCount >= target
+            }
+            else -> {
+                done = count < target
+                newCount = if (done) target else 0.0
+            }
+        }
+
+        counts.put(day, newCount)
+        completions.put(day, done)
+        putLevel(habit, day, today, CardBitmaps.levelFor(kind, newCount, target))
+        return true
+    }
+
+    private fun putLevel(habit: JSONObject, day: Int, today: Int, level: Int) {
+        if (today < 0) return
+        val heatmap: JSONArray = habit.optJSONArray("heatmap") ?: return
+        var last = -1
+        for (i in heatmap.length() - 1 downTo 0) {
+            if (heatmap.optInt(i, -1) != -1) {
+                last = i
+                break
+            }
+        }
+        if (last < 0) return
+        val index = last - (today - day)
+        if (index in 0 until heatmap.length()) heatmap.put(index, level)
+    }
+}

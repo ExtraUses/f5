@@ -1,0 +1,240 @@
+import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:streak/app/theme/app_tokens.dart';
+import 'package:streak/core/extensions/inset_extensions.dart';
+import 'package:streak/core/widgets/sheet_type.dart';
+export 'package:streak/core/minimal/minimal_kit.dart'
+    show MinimalTitle;
+
+import 'package:streak/core/minimal/minimal_kit.dart';
+import 'package:streak/core/utils/responsive.dart';
+
+class MinimalPage extends StatelessWidget {
+  const MinimalPage({
+    super.key,
+    required this.title,
+    required this.children,
+    this.subtitle,
+    this.leading,
+  });
+
+  final String title;
+  final String? subtitle;
+  final List<Widget> children;
+  final Widget? leading;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(toolbarHeight: 52, leading: leading),
+      body: ListView(
+        padding: context.pagePadding(22, 0, 22, 40),
+        children: [
+          MinimalTitle(title: title, subtitle: subtitle),
+          ...children,
+        ],
+      ),
+    );
+  }
+}
+
+class SoftCard extends StatelessWidget {
+  const SoftCard({super.key, required this.children});
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      decoration: BoxDecoration(
+        color: minimalSurface(context),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(children: children),
+    );
+  }
+}
+
+class SoftRow extends StatelessWidget {
+  const SoftRow({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.subtitle,
+    this.value,
+    this.trailing,
+    this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String? subtitle;
+  final String? value;
+  final Widget? trailing;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final muted = context.tokens.muted;
+    final stacked = stackedRows(context) && value != null;
+    final bare = bareRows(context);
+
+    return Semantics(
+      button: true,
+      child: MinimalPress(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+          child: Row(
+            children: [
+              if (!bare) Icon(icon, size: 19, color: muted),
+              if (!bare) const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: -0.2,
+                        color: context.colors.onSurface,
+                      ),
+                    ),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 3),
+                      Text(
+                        subtitle!,
+                        style: TextStyle(fontSize: 12.5, color: muted),
+                      ),
+                    ],
+                    if (stacked) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        value!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: muted,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              if (value != null && !stacked)
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 130),
+                    child: Text(
+                      value!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: muted,
+                      ),
+                    ),
+                  ),
+                ),
+              if (trailing != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: trailing!,
+                ),
+              if (onTap != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Icon(
+                    LucideIcons.chevronRight,
+                    size: 16,
+                    color: muted.withValues(alpha: 0.6),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> showOptionSheet(
+  BuildContext context, {
+  required String title,
+  required List<String> options,
+  required int index,
+  required ValueChanged<int> onSelected,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    isScrollControlled: true,
+    constraints: BoxConstraints(
+      maxWidth: phoneWidth,
+      maxHeight: MediaQuery.sizeOf(context).height * 0.85,
+    ),
+    builder: (sheet) => SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(22, 4, 22, 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title, style: sheetTitleStyle(sheet)),
+            const SizedBox(height: 10),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (var i = 0; i < options.length; i++)
+                      Semantics(
+                        button: true,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(14),
+                          onTap: () {
+                            Navigator.of(sheet).pop();
+                            onSelected(i);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    options[i],
+                                    style: sheetOptionStyle(
+                                      sheet,
+                                      selected: i == index,
+                                      color: i == index
+                                          ? context.colors.primary
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                if (i == index)
+                                  Icon(LucideIcons.check,
+                                      size: 18, color: context.colors.primary),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

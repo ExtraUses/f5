@@ -1,0 +1,179 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+class ScrollingLine extends StatefulWidget {
+  const ScrollingLine({
+    super.key,
+    required this.child,
+    this.speed = 26,
+    this.pause = const Duration(milliseconds: 1600),
+    this.rounds = 3,
+    this.replayOnScrollUp = false,
+  });
+
+  final Widget child;
+  final double speed;
+  final Duration pause;
+  final int rounds;
+  final bool replayOnScrollUp;
+
+  @override
+  State<ScrollingLine> createState() => _ScrollingLineState();
+}
+
+class _ScrollingLineState extends State<ScrollingLine>
+    with SingleTickerProviderStateMixin {
+  final _scroll = ScrollController();
+  late final AnimationController _controller;
+
+  Animation<double> _travel = const AlwaysStoppedAnimation(0);
+  double _overflow = 0;
+  int _round = 0;
+  ScrollPosition? _page;
+  ScrollDirection _heading = ScrollDirection.idle;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this)
+      ..addStatusListener(_nextRound)
+      ..addListener(_follow);
+    _scheduleTune();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!widget.replayOnScrollUp) return;
+    final page = Scrollable.maybeOf(context)?.position;
+    if (page == _page) return;
+    _page?.removeListener(_watchPage);
+    _page = page?..addListener(_watchPage);
+  }
+
+  void _watchPage() {
+    final heading = _page!.userScrollDirection;
+    if (heading == _heading) return;
+    _heading = heading;
+    if (heading != ScrollDirection.forward) return;
+    if (_overflow <= 0 || _controller.isAnimating) return;
+    _round = widget.rounds - 1;
+    _controller.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _page?.removeListener(_watchPage);
+    _controller.dispose();
+    _scroll.dispose();
+    super.dispose();
+  }
+
+  void _scheduleTune() => WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted || !_scroll.hasClients) return;
+        _tune(_scroll.position.maxScrollExtent);
+      });
+
+  void _tune(double overflow) {
+    if (overflow == _overflow) return;
+    final wasMasked = _overflow > 0;
+    _overflow = overflow;
+    if (overflow <= 0) {
+      _controller.stop();
+      if (wasMasked) setState(() {});
+      return;
+    }
+    if (!wasMasked) setState(() {});
+
+    final crossing = (overflow / widget.speed * 1000).round().clamp(400, 20000);
+    final pause = widget.pause.inMilliseconds;
+    _travel = TweenSequence<double>([
+      TweenSequenceItem(tween: ConstantTween(0), weight: pause.toDouble()),
+      TweenSequenceItem(
+        tween: Tween(begin: 0.0, end: overflow)
+            .chain(CurveTween(curve: Curves.easeInOut)),
+        weight: crossing.toDouble(),
+      ),
+      TweenSequenceItem(
+        tween: ConstantTween(overflow),
+        weight: pause.toDouble(),
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: overflow, end: 0.0)
+            .chain(CurveTween(curve: Curves.easeInOut)),
+        weight: crossing.toDouble(),
+      ),
+    ]).animate(_controller);
+    _round = 0;
+    _controller
+      ..duration = Duration(milliseconds: (crossing + pause) * 2)
+      ..forward(from: 0);
+  }
+
+  void _follow() {
+    if (_scroll.hasClients) _scroll.jumpTo(_travel.value);
+  }
+
+  void _nextRound(AnimationStatus status) {
+    if (status != AnimationStatus.completed) return;
+    _round++;
+    if (_round < widget.rounds) _controller.forward(from: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final line = SingleChildScrollView(
+      controller: _scroll,
+      scrollDirection: Axis.horizontal,
+      physics: const NeverScrollableScrollPhysics(),
+      child: widget.child,
+    );
+    if (MediaQuery.disableAnimationsOf(context)) return line;
+
+    _scheduleTune();
+    if (_overflow <= 0) return line;
+    return ShaderMask(
+      blendMode: BlendMode.dstIn,
+      shaderCallback: (bounds) => LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        colors: const [Colors.transparent, Colors.white, Colors.white,
+            Colors.transparent],
+        stops: const [0, 0.04, 0.9, 1],
+      ).createShader(bounds),
+      child: line,
+    );
+  }
+}
+
+class ScrollingText extends StatelessWidget {
+  const ScrollingText(
+    this.text, {
+    super.key,
+    required this.style,
+    this.speed = 26,
+    this.pause = const Duration(milliseconds: 1600),
+  });
+
+  final String text;
+  final TextStyle style;
+  final double speed;
+  final Duration pause;
+
+  @override
+  Widget build(BuildContext context) {
+    if (MediaQuery.disableAnimationsOf(context)) {
+      return Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: style,
+      );
+    }
+    return ScrollingLine(
+      speed: speed,
+      pause: pause,
+      child: Text(text, maxLines: 1, softWrap: false, style: style),
+    );
+  }
+}

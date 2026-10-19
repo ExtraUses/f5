@@ -1,0 +1,53 @@
+name: Submit a resource
+description: Share a video scene, wallpaper or sound for the Focus timer
+title: "[Resource] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing. Every resource is checked by hand before it goes up on the website.
+
+        **Only free-to-use content is accepted.** Your own work, public domain, CC0, or a license that allows anyone to use and share it, commercially included. Proprietary content, non-commercial licenses (NC) or anything you do not have the right to share will be closed.
+
+        Add the resource name after `[Resource]` in the title.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - Video scene
+        - Wallpaper
+        - Sound
+    validations:
+      required: true
+  - type: dropdown
+    id: origin
+    attributes:
+      label: Where it comes from
+      options:
+        - I made it myself
+        - From a site with a free license
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source link and license
+      description: If you made it, write "My own work". Otherwise paste the original page and its license.
+      placeholder: https://pixabay.com/... (Pixabay Content License)
+    validations:
+      required: true
+  - type: textarea
+    id: file
+    attributes:
+      label: File
+      description: Drag the file here, or paste a download link if it is too large.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Confirmation
+      options:
+        - label: It is free to use and share, it is not proprietary or non-commercial, and I have the right to send it.
+          required: true

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Streak
+Comment=A minimal habit tracker that helps you build lasting streaks
+Exec=Streak
+Icon=io.github.InlitX.streak
+Terminal=false
+Categories=Utility;
+Keywords=habit;habits;streak;tracker;focus;
+StartupWMClass=io.github.InlitX.streak

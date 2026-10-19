@@ -1,0 +1,1024 @@
+import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:streak/app/theme/app_tokens.dart';
+import 'package:streak/core/express/express_tabs.dart';
+import 'package:streak/core/i18n/l10n.dart';
+import 'package:streak/core/minimal/minimal_kit.dart';
+import 'package:streak/core/utils/amount_format.dart';
+import 'package:streak/core/widgets/app_text_field.dart';
+import 'package:streak/core/widgets/hold_repeat_button.dart';
+import 'package:streak/core/widgets/number_keypad_dialog.dart';
+import 'package:streak/features/habits/data/habit.dart';
+import 'package:streak/features/habits/data/substep.dart';
+import 'package:streak/features/habits/widgets/habit_form_schedule.dart';
+import 'package:streak/features/habits/widgets/minimal_form_fields.dart';
+import 'package:streak/features/habits/widgets/saved_money.dart';
+import 'package:streak/features/habits/widgets/substep_draft.dart';
+import 'package:streak/features/settings/state/settings_controller.dart';
+
+class KindSelector extends StatelessWidget {
+  const KindSelector({
+    super.key,
+    required this.kind,
+    required this.locked,
+    required this.onChanged,
+  });
+
+  final HabitKind kind;
+  final bool locked;
+  final ValueChanged<HabitKind> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final options = [
+      (HabitKind.positive, context.l10n.kind_positive, LucideIcons.circleCheck),
+      (HabitKind.negative, context.l10n.kind_negative, LucideIcons.ban),
+      (HabitKind.quantitative, context.l10n.kind_quantitative, LucideIcons.gauge),
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            for (var i = 0; i < options.length; i++) ...[
+              if (i > 0) const SizedBox(width: 8),
+              Expanded(
+                child: _KindOption(
+                  active: options[i].$1 == kind,
+                  dimmed: locked && options[i].$1 != kind,
+                  label: options[i].$2,
+                  icon: options[i].$3,
+                  onTap: locked ? null : () => onChanged(options[i].$1),
+                ),
+              ),
+            ],
+          ],
+        ),
+        if (locked) ...[
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Icon(LucideIcons.lock, size: 13, color: context.tokens.muted),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  context.l10n.kind_locked_hint,
+                  style: TextStyle(fontSize: 12, color: context.tokens.muted),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _KindOption extends StatelessWidget {
+  const _KindOption({
+    required this.active,
+    required this.dimmed,
+    required this.label,
+    required this.icon,
+    required this.onTap,
+  });
+
+  final bool active;
+  final bool dimmed;
+  final String label;
+  final IconData icon;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    return Semantics(
+      button: true,
+      selected: active,
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 180),
+          opacity: dimmed ? 0.35 : 1,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            decoration: BoxDecoration(
+              color: active ? scheme.primary : scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              children: [
+                Icon(icon,
+                    size: 20, color: active ? scheme.onPrimary : context.tokens.muted),
+                const SizedBox(height: 6),
+                Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: active ? scheme.onPrimary : context.tokens.muted,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class NegativeHint extends StatelessWidget {
+  const NegativeHint({
+    super.key,required this.color});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(LucideIcons.shieldCheck, size: 18, color: color),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              context.l10n.kind_negative_hint,
+              style: TextStyle(
+                fontSize: 13,
+                height: 1.4,
+                color: context.tokens.muted,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CostField extends StatelessWidget {
+  const CostField({super.key, required this.controller, required this.color});
+
+  final TextEditingController controller;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return CompactCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 4, bottom: 8),
+            child: Text(
+              context.l10n.cost_per_day,
+              style: TextStyle(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w700,
+                color: context.colors.onSurface,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: AppTextField(
+                  hint: '0',
+                  controller: controller,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                ),
+              ),
+              const SizedBox(width: 10),
+              CompactPill(
+                label: context.watch<SettingsController>().currency,
+                selected: true,
+                color: color,
+                onTap: () => showCurrencySheet(context),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          CompactNote(text: context.l10n.cost_note, color: color),
+        ],
+      ),
+    );
+  }
+}
+
+class FocusOnlyToggle extends StatelessWidget {
+  const FocusOnlyToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.timer,
+        title: context.l10n.focus_only,
+        hint: context.l10n.focus_only_hint,
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+class TrackingToggle extends StatelessWidget {
+  const TrackingToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.activity,
+        title: context.l10n.just_tracking,
+        hint: context.l10n.just_tracking_sub,
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+/// Toggle for the "Log Only / Exclude from Analytics" flag.
+///
+/// Visually mirrors [TrackingToggle] (same [HabitFlagToggle] shell, same
+/// padding, same switch style) so the two toggles read as siblings in
+/// the habit editor. The icon is `LucideIcons.archive` — distinct from
+/// the activity icon used by tracking — so users can tell the two
+/// "no-streak" modes apart at a glance.
+class LogOnlyToggle extends StatelessWidget {
+  const LogOnlyToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.archive,
+        title: context.l10n.log_only,
+        hint: context.l10n.log_only_sub,
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+class NoGoalToggle extends StatelessWidget {
+  const NoGoalToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.chartLine,
+        title: context.l10n.no_goal,
+        hint: context.l10n.no_goal_sub,
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+class AnyAmountToggle extends StatelessWidget {
+  const AnyAmountToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.circleCheck,
+        title: context.l10n.any_amount,
+        hint: context.l10n.any_amount_sub,
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+class AnyStepsToggle extends StatelessWidget {
+  const AnyStepsToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    required this.needed,
+    required this.total,
+    required this.onNeeded,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final int needed;
+  final int total;
+  final ValueChanged<int> onNeeded;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final shown = needed.clamp(1, total < 1 ? 1 : total);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        HabitFlagToggle(
+          icon: LucideIcons.listChecks,
+          title: context.l10n.any_step,
+          hint: value && total > 1
+              ? context.l10n.steps_needed_sub(shown, total)
+              : context.l10n.any_step_sub,
+          value: value,
+          color: color,
+          onChanged: onChanged,
+          compact: compact,
+        ),
+        if (value && total > 2) ...[
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (var n = 1; n < total; n++)
+                ChoiceChip(
+                  label: Text('$n'),
+                  selected: n == shown,
+                  showCheckmark: false,
+                  selectedColor: color.withValues(alpha: 0.22),
+                  onSelected: (_) => onNeeded(n),
+                ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class FromLastDoneToggle extends StatelessWidget {
+  const FromLastDoneToggle({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.history,
+        title: context.l10n.from_last_done,
+        hint: context.l10n.from_last_done_sub,
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+class MonthWeekdayToggle extends StatelessWidget {
+  const MonthWeekdayToggle({
+    super.key,
+    required this.value,
+    required this.start,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final bool value;
+  final DateTime start;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) => HabitFlagToggle(
+        icon: LucideIcons.calendarDays,
+        title: context.l10n.month_weekday,
+        hint: context.l10n.month_weekday_sub(monthWeekdayLabel(context, start)),
+        value: value,
+        color: color,
+        onChanged: onChanged,
+        compact: compact,
+      );
+}
+
+class DifficultyPicker extends StatelessWidget {
+  const DifficultyPicker({
+    super.key,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final int value;
+  final Color color;
+  final ValueChanged<int> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = context.watch<SettingsController>();
+    final options = [
+      (context.l10n.difficulty_easy, LucideIcons.feather),
+      (context.l10n.difficulty_medium, LucideIcons.gauge),
+      (context.l10n.difficulty_hard, LucideIcons.mountain),
+    ];
+    final labels = [for (final option in options) option.$1];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        HabitFlagToggle(
+          icon: LucideIcons.mountain,
+          title: context.l10n.difficulty,
+          hint: context.l10n.difficulty_hint,
+          value: value > 0,
+          color: color,
+          compact: compact,
+          onChanged: (on) => onChanged(on ? 2 : 0),
+        ),
+        if (value > 0) ...[
+          const SizedBox(height: 10),
+          if (settings.isMinimalStyle)
+            MinimalSegmented(
+              expand: true,
+              index: value - 1,
+              options: labels,
+              onChanged: (i) => onChanged(i + 1),
+            )
+          else if (settings.isExpressStyle)
+            ExpressTabs(
+              labels: labels,
+              index: value - 1,
+              onChanged: (i) => onChanged(i + 1),
+            )
+          else
+            Row(
+              children: [
+                for (var i = 0; i < options.length; i++) ...[
+                  if (i > 0) const SizedBox(width: 8),
+                  Expanded(
+                    child: _KindOption(
+                      active: value == i + 1,
+                      dimmed: false,
+                      label: options[i].$1,
+                      icon: options[i].$2,
+                      onTap: () => onChanged(i + 1),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+        ],
+      ],
+    );
+  }
+}
+
+class HabitFlagToggle extends StatelessWidget {
+  const HabitFlagToggle({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.hint,
+    required this.value,
+    required this.color,
+    required this.onChanged,
+    this.compact = false,
+  });
+
+  final IconData icon;
+  final String title;
+  final String hint;
+  final bool value;
+  final Color color;
+  final ValueChanged<bool> onChanged;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(compact ? 12 : 14),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: color),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: compact ? 13 : 14,
+                    fontWeight: FontWeight.w700,
+                    color: context.colors.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  hint,
+                  style: TextStyle(
+                    fontSize: compact ? 11.5 : 12.5,
+                    height: 1.35,
+                    color: context.tokens.muted,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          Switch(value: value, onChanged: onChanged),
+        ],
+      ),
+    );
+  }
+}
+
+class SubstepsEditor extends StatefulWidget {
+  const SubstepsEditor({
+    super.key,
+    required this.substeps,
+    required this.color,
+    required this.onChanged,
+  });
+
+  final List<Substep> substeps;
+  final Color color;
+  final ValueChanged<List<Substep>> onChanged;
+
+  @override
+  State<SubstepsEditor> createState() => _SubstepsEditorState();
+}
+
+class _SubstepsEditorState extends State<SubstepsEditor> {
+  late List<SubstepDraft> _steps;
+
+  @override
+  void initState() {
+    super.initState();
+    _steps = widget.substeps
+        .map((s) => SubstepDraft(s.id, TextEditingController(text: s.title)))
+        .toList();
+  }
+
+  @override
+  void dispose() {
+    for (final step in _steps) {
+      step.controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void _emit() => widget.onChanged(
+        _steps
+            .map((s) => Substep(id: s.id, title: s.controller.text.trim()))
+            .toList(),
+      );
+
+  void _add() {
+    setState(() {
+      _steps.add(
+        SubstepDraft(
+          DateTime.now().microsecondsSinceEpoch.toString(),
+          TextEditingController(),
+        ),
+      );
+    });
+    _emit();
+  }
+
+  void _remove(int index) {
+    final removed = _steps[index];
+    setState(() => _steps.removeAt(index));
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => removed.controller.dispose());
+    _emit();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      semanticContainer: false,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(LucideIcons.listChecks, size: 17, color: widget.color),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    context.l10n.checklist_hint,
+                    style: TextStyle(
+                      fontSize: 13,
+                      height: 1.4,
+                      color: context.tokens.muted,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (_steps.isNotEmpty) const SizedBox(height: 14),
+            for (var i = 0; i < _steps.length; i++)
+              Padding(
+                key: ValueKey(_steps[i].id),
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: AppTextField(
+                        hint: context.l10n.step_hint,
+                        controller: _steps[i].controller,
+                        onChanged: (_) => _emit(),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () => _remove(i),
+                      icon: Icon(
+                        LucideIcons.x,
+                        size: 20,
+                        color: context.tokens.muted,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 4),
+            Semantics(
+              button: true,
+              child: GestureDetector(
+                onTap: _add,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  decoration: BoxDecoration(
+                    color: context.colors.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(LucideIcons.plus, size: 18, color: widget.color),
+                      const SizedBox(width: 8),
+                      Text(
+                        context.l10n.add_step,
+                        style: TextStyle(
+                          color: widget.color,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class QuantitativeFields extends StatelessWidget {
+  const QuantitativeFields({
+    super.key,
+    required this.quantKind,
+    required this.unitController,
+    required this.target,
+    required this.increment,
+    required this.onPresetSelected,
+    required this.onUnitChanged,
+    required this.onTargetChanged,
+    required this.onIncrementChanged,
+    this.showGoal = true,
+  });
+
+  final QuantKind quantKind;
+  final TextEditingController unitController;
+  final double target;
+  final double increment;
+  final ValueChanged<QuantKind> onPresetSelected;
+  final VoidCallback onUnitChanged;
+  final ValueChanged<double> onTargetChanged;
+  final ValueChanged<double> onIncrementChanged;
+  final bool showGoal;
+
+  double get _step => switch (quantKind) {
+        QuantKind.water => 50,
+        QuantKind.time => 5,
+        QuantKind.reading || QuantKind.generic => 1,
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final time = quantKind == QuantKind.time;
+    final unit =
+        time ? context.l10n.unit_min_short : unitController.text.trim();
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: _PresetChip(
+                    icon: LucideIcons.droplet,
+                    label: context.l10n.quant_preset_water,
+                    selected: quantKind == QuantKind.water,
+                    onTap: () => onPresetSelected(QuantKind.water),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PresetChip(
+                    icon: LucideIcons.bookOpen,
+                    label: context.l10n.quant_preset_reading,
+                    selected: quantKind == QuantKind.reading,
+                    onTap: () => onPresetSelected(QuantKind.reading),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PresetChip(
+                    icon: LucideIcons.timer,
+                    label: context.l10n.quant_preset_time,
+                    selected: quantKind == QuantKind.time,
+                    onTap: () => onPresetSelected(QuantKind.time),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PresetChip(
+                    icon: LucideIcons.gauge,
+                    label: context.l10n.quant_preset_generic,
+                    selected: quantKind == QuantKind.generic,
+                    onTap: () => onPresetSelected(QuantKind.generic),
+                  ),
+                ),
+              ],
+            ),
+            if (!time) ...[
+              const SizedBox(height: 16),
+              AppTextField(
+                hint: context.l10n.quant_unit_hint,
+                controller: unitController,
+                onChanged: (_) => onUnitChanged(),
+              ),
+            ],
+            if (showGoal) const SizedBox(height: 12),
+            if (showGoal) _QuantityStepperRow(
+              label: context.l10n.quant_daily_goal,
+              value: target,
+              unit: unit,
+              step: _step,
+              min: 0.01,
+              clock: time,
+              onChanged: onTargetChanged,
+            ),
+            const SizedBox(height: 8),
+            _QuantityStepperRow(
+              label: context.l10n.quant_tap_amount,
+              value: increment,
+              unit: unit,
+              step: _step,
+              min: 0.01,
+              clock: time,
+              onChanged: onIncrementChanged,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PresetChip extends StatelessWidget {
+  const _PresetChip({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: selected
+                ? scheme.primary.withValues(alpha: 0.16)
+                : scheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+            border: selected ? Border.all(color: scheme.primary, width: 1.4) : null,
+          ),
+          child: Column(
+            children: [
+              Icon(icon, size: 17, color: selected ? scheme.primary : context.tokens.muted),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: selected ? scheme.primary : context.tokens.muted,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _QuantityStepperRow extends StatelessWidget {
+  const _QuantityStepperRow({
+    required this.label,
+    required this.value,
+    required this.unit,
+    required this.step,
+    required this.min,
+    required this.clock,
+    required this.onChanged,
+  });
+
+  final String label;
+  final double value;
+  final String unit;
+  final double step;
+  final double min;
+  final bool clock;
+  final ValueChanged<double> onChanged;
+
+  Future<void> _promptValue(BuildContext context) async {
+    final result = await showNumberKeypadDialog(
+      context,
+      title: label,
+      value: value,
+      unit: unit,
+      min: min,
+      decimals: true,
+      clock: clock,
+    );
+    if (result != null) onChanged(result);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 6, 6, 6),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w600),
+            ),
+          ),
+          HoldRepeatButton(
+            icon: LucideIcons.minus,
+label: context.l10n.a11y_decrease,
+            onTap: value - step >= min ? () => onChanged(value - step) : null,
+          ),
+          Semantics(
+            button: true,
+            child: InkWell(
+              onTap: () => _promptValue(context),
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                constraints: const BoxConstraints(minWidth: 60),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                alignment: Alignment.center,
+                child: Text(
+                  clock
+                      ? formatMinutes(value)
+                      : unit.isEmpty
+                          ? formatAmount(value)
+                          : '${formatAmount(value)} $unit',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.dotted,
+                    decorationColor: scheme.primary.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          HoldRepeatButton(
+            icon: LucideIcons.plus,
+label: context.l10n.a11y_increase,
+            onTap: () => onChanged(value + step),
+          ),
+        ],
+      ),
+    );
+  }
+}

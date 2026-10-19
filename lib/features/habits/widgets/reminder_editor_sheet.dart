@@ -1,0 +1,701 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:streak/app/theme/app_tokens.dart';
+import 'package:streak/core/extensions/date_extensions.dart';
+import 'package:streak/core/i18n/l10n.dart';
+import 'package:streak/core/widgets/sheet_type.dart';
+import 'package:streak/core/i18n/date_labels.dart';
+import 'package:streak/core/utils/app_snackbar.dart';
+import 'package:provider/provider.dart';
+import 'package:streak/core/widgets/app_text_field.dart';
+import 'package:streak/core/widgets/time_picker.dart';
+import 'package:streak/features/habits/data/reminder.dart';
+import 'package:streak/features/habits/widgets/minimal_form_fields.dart';
+import 'package:streak/features/settings/state/settings_controller.dart';
+import 'package:uuid/uuid.dart';
+
+class ReminderEditorSheet extends StatefulWidget {
+  const ReminderEditorSheet({
+    super.key,
+    this.initial,
+    this.followsHabit = false,
+  });
+
+  final Reminder? initial;
+  final bool followsHabit;
+
+  @override
+  State<ReminderEditorSheet> createState() => _ReminderEditorSheetState();
+}
+
+class _ReminderEditorSheetState extends State<ReminderEditorSheet> {
+  static const _maxEvery = 90;
+
+  late TimeOfDay _time;
+  late final Set<int> _days;
+  late final TextEditingController _message;
+
+  final _snoozeField = TextEditingController();
+  late bool _intervalMode;
+  late int _everyDays;
+  late int _everyHours;
+  TimeOfDay? _until;
+  late int _snooze;
+
+  @override
+  void initState() {
+    super.initState();
+    final initial = widget.initial;
+    _time = initial != null
+        ? TimeOfDay(hour: initial.hour, minute: initial.minute)
+        : TimeOfDay.fromDateTime(DateTime.now().add(const Duration(minutes: 1)));
+    _days = initial != null ? {...initial.days} : {1, 2, 3, 4, 5, 6, 7};
+    _message = TextEditingController(text: initial?.message ?? '');
+    _intervalMode = !widget.followsHabit && (initial?.isInterval ?? false);
+    _everyDays = (initial != null && initial.isInterval) ? initial.everyDays : 2;
+    _everyHours = initial?.everyHours ?? 0;
+    final until = initial?.untilMinute;
+    if (until != null) _until = TimeOfDay(hour: until ~/ 60, minute: until % 60);
+    _snooze = initial?.snoozeMinutes ?? Reminder.defaultSnoozeMinutes;
+  }
+
+  @override
+  void dispose() {
+    _message.dispose();
+    _snoozeField.dispose();
+    super.dispose();
+  }
+
+  void _applyPreset(Set<int> days) {
+    setState(() {
+      _days
+        ..clear()
+        ..addAll(days);
+    });
+  }
+
+  bool get _needsDays => !_intervalMode && !widget.followsHabit;
+
+  bool get _customSnooze => !Reminder.snoozeChoices.contains(_snooze);
+
+  Future<void> _pickCustomSnooze() async {
+    _snoozeField.text = '$_snooze';
+    final picked = await showDialog<int>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(dialogContext.l10n.snooze_custom),
+        content: TextField(
+          controller: _snoozeField,
+          autofocus: true,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          decoration: InputDecoration(
+            hintText: dialogContext.l10n.snooze_custom_hint,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(dialogContext.l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(
+              int.tryParse(_snoozeField.text),
+            ),
+            child: Text(dialogContext.l10n.save),
+          ),
+        ],
+      ),
+    );
+    if (picked == null) return;
+    setState(() {
+      _snooze = picked.clamp(1, Reminder.maxSnoozeMinutes);
+    });
+  }
+
+  Future<void> _pickTime() async {
+    final picked = await pickTime(context, _time);
+    if (picked != null) setState(() => _time = picked);
+  }
+
+  Future<void> _pickUntil() async {
+    final picked = await pickTime(
+      context,
+      _until ?? const TimeOfDay(hour: 23, minute: 0),
+    );
+    if (picked != null) setState(() => _until = picked);
+  }
+
+  void _save() {
+    if (_needsDays && _days.isEmpty) {
+      AppSnackbar.error(context, context.l10n.select_one_day);
+      return;
+    }
+    final hourOfPeriod = _time.hourOfPeriod;
+    final hour24 = _time.period == DayPeriod.am
+        ? (hourOfPeriod == 12 ? 0 : hourOfPeriod)
+        : (hourOfPeriod == 12 ? 12 : hourOfPeriod + 12);
+
+    final initial = widget.initial;
+    final int? anchor;
+    if (!_intervalMode) {
+      anchor = null;
+    } else if (initial != null &&
+        initial.isInterval &&
+        initial.everyDays == _everyDays &&
+        initial.anchorEpochDay != null) {
+      anchor = initial.anchorEpochDay;
+    } else {
+      anchor = DateTime.now().epochDay;
+    }
+
+    Navigator.of(context).pop(
+      Reminder(
+        id: initial?.id ?? const Uuid().v4(),
+        hour: hour24,
+        minute: _time.minute,
+        days: _days.toList()..sort(),
+        message: _message.text.trim(),
+        everyDays: _intervalMode ? _everyDays : 1,
+        everyHours: _intervalMode ? 0 : _everyHours,
+        untilMinute: _intervalMode || _everyHours == 0 || _until == null
+            ? null
+            : _until!.hour * 60 + _until!.minute,
+        anchorEpochDay: anchor,
+        snoozeMinutes: _snooze,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    final minimal = context.watch<SettingsController>().isMinimalStyle;
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          20,
+          4,
+          20,
+          20 + MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.initial == null
+                          ? context.l10n.new_reminder
+                          : context.l10n.edit_reminder,
+                      style: sheetTitleStyle(context),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: (_needsDays && _days.isEmpty) ? null : _save,
+                    child: Text(
+                      context.l10n.save,
+                      style: sheetActionStyle(context, size: 16),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              if (widget.followsHabit)
+                _HabitDaysNote(minimal: minimal)
+              else if (minimal)
+                Row(
+                  children: [
+                    for (final mode in [
+                      (false, context.l10n.repeat_weekly),
+                      (true, context.l10n.repeat_interval),
+                    ]) ...[
+                      if (mode.$1) const SizedBox(width: 7),
+                      Expanded(
+                        child: CompactPill(
+                          label: mode.$2,
+                          selected: _intervalMode == mode.$1,
+                          expand: true,
+                          onTap: () =>
+                              setState(() => _intervalMode = mode.$1),
+                        ),
+                      ),
+                    ],
+                  ],
+                )
+              else
+                _ModeToggle(
+                  intervalMode: _intervalMode,
+                  onChanged: (interval) =>
+                      setState(() => _intervalMode = interval),
+                ),
+              const SizedBox(height: 16),
+              if (_intervalMode)
+                minimal
+                    ? CompactStepperRow(
+                        label: context.l10n.every_n_days(_everyDays),
+                        value: _everyDays.toDouble(),
+                        min: 2,
+                        max: _maxEvery.toDouble(),
+                        onChanged: (v) =>
+                            setState(() => _everyDays = v.round()),
+                      )
+                    : _IntervalStepper(
+                        value: _everyDays,
+                        min: 2,
+                        max: _maxEvery,
+                        onChanged: (v) => setState(() => _everyDays = v),
+                      )
+              else ...[
+                if (!widget.followsHabit)
+                Wrap(
+                  spacing: minimal ? 7 : 8,
+                  runSpacing: minimal ? 7 : 8,
+                  children: [
+                    for (final preset in [
+                      (context.l10n.every_day, {1, 2, 3, 4, 5, 6, 7}),
+                      (context.l10n.weekdays, {1, 2, 3, 4, 5}),
+                      (context.l10n.weekends, {6, 7}),
+                    ])
+                      minimal
+                          ? CompactPill(
+                              label: preset.$1,
+                              selected: _days.length == preset.$2.length &&
+                                  _days.containsAll(preset.$2),
+                              onTap: () => _applyPreset(preset.$2),
+                            )
+                          : _PresetChip(
+                              label: preset.$1,
+                              onTap: () => _applyPreset(preset.$2),
+                            ),
+                  ],
+                ),
+                if (!widget.followsHabit) ...[
+                const SizedBox(height: 16),
+                Text(context.l10n.days,
+                    style: sheetBodyStyle(context, size: 13)),
+                const SizedBox(height: 8),
+                ],
+                if (widget.followsHabit)
+                  const SizedBox.shrink()
+                else if (minimal)
+                  CompactWeekdays(
+                    selected: _days.toList()..sort(),
+                    onChanged: (days) => setState(() {
+                      _days
+                        ..clear()
+                        ..addAll(days);
+                    }),
+                  )
+                else
+                Row(
+                  children: List.generate(7, (i) {
+                    final day = i + 1;
+                    final active = _days.contains(day);
+                    return Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: i == 6 ? 0 : 6),
+                        child: Semantics(
+                          button: true,
+                          selected: active,
+                          child: GestureDetector(
+                            onTap: () => setState(() {
+                              active ? _days.remove(day) : _days.add(day);
+                            }),
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 160),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              decoration: BoxDecoration(
+                                color: active
+                                    ? scheme.primary
+                                    : scheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  WeekdayLabels.shortMonFirst(
+                                    Localizations.localeOf(context).languageCode,
+                                  )[i],
+                                  style: TextStyle(
+                                    color: active
+                                        ? scheme.onPrimary
+                                        : context.tokens.muted,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+                const SizedBox(height: 16),
+                Text(context.l10n.repeat_hours,
+                    style: sheetBodyStyle(context, size: 13)),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: minimal ? 7 : 8,
+                  runSpacing: minimal ? 7 : 8,
+                  children: [
+                    for (final hours in const [0, 1, 2, 3, 4, 6, 8, 12])
+                      CompactPill(
+                        label: hours == 0
+                            ? context.l10n.off
+                            : context.l10n.every_n_hours('$hours'),
+                        selected: _everyHours == hours,
+                        onTap: () => setState(() => _everyHours = hours),
+                      ),
+                  ],
+                ),
+              ],
+            const SizedBox(height: 20),
+            Text(context.l10n.time,
+                style: sheetBodyStyle(context, size: 13)),
+            const SizedBox(height: 8),
+            _TimeField(
+              label: _time.format(context),
+              minimal: minimal,
+              onTap: _pickTime,
+            ),
+            if (!_intervalMode && _everyHours > 0) ...[
+              const SizedBox(height: 20),
+              Text(context.l10n.repeat_until,
+                  style: sheetBodyStyle(context, size: 13)),
+              const SizedBox(height: 8),
+              _TimeField(
+                label: _until?.format(context) ?? context.l10n.end_of_day,
+                minimal: minimal,
+                onTap: _pickUntil,
+              ),
+            ],
+            const SizedBox(height: 20),
+            Text(context.l10n.snooze_duration,
+                style: sheetBodyStyle(context, size: 13)),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: minimal ? 7 : 8,
+              runSpacing: minimal ? 7 : 8,
+              children: [
+                for (final minutes in Reminder.snoozeChoices)
+                  minimal
+                      ? CompactPill(
+                          label: context.l10n.minutes_short('$minutes'),
+                          selected: _snooze == minutes,
+                          onTap: () => setState(() => _snooze = minutes),
+                        )
+                      : _SnoozeChip(
+                          label: context.l10n.minutes_short('$minutes'),
+                          selected: _snooze == minutes,
+                          onTap: () => setState(() => _snooze = minutes),
+                        ),
+                if (minimal)
+                  CompactPill(
+                    label: _customSnooze
+                        ? context.l10n.minutes_short('$_snooze')
+                        : context.l10n.snooze_custom,
+                    selected: _customSnooze,
+                    onTap: _pickCustomSnooze,
+                  )
+                else
+                  _SnoozeChip(
+                    label: _customSnooze
+                        ? context.l10n.minutes_short('$_snooze')
+                        : context.l10n.snooze_custom,
+                    selected: _customSnooze,
+                    onTap: _pickCustomSnooze,
+                  ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(context.l10n.reminder_message,
+                style: sheetBodyStyle(context, size: 13)),
+            const SizedBox(height: 8),
+            AppTextField(
+              controller: _message,
+              hint: context.l10n.reminder_message_hint,
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: minimal ? 48 : 54,
+              child: FilledButton(
+                onPressed: (_needsDays && _days.isEmpty) ? null : _save,
+                style: FilledButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(minimal ? 13 : 16),
+                  ),
+                ),
+                child: Text(
+                  context.l10n.save_reminder,
+                  style: sheetActionStyle(context, size: minimal ? 15 : 16),
+                ),
+              ),
+            ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HabitDaysNote extends StatelessWidget {
+  const _HabitDaysNote({required this.minimal});
+
+  final bool minimal;
+
+  @override
+  Widget build(BuildContext context) {
+    final accent = context.colors.primary;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: accent.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(minimal ? 13 : 16),
+      ),
+      child: Row(
+        children: [
+          Icon(LucideIcons.calendarCheck, size: 18, color: accent),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              context.l10n.reminder_habit_days_hint,
+              style: sheetBodyStyle(context, size: 13),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ModeToggle extends StatelessWidget {
+  const _ModeToggle({required this.intervalMode, required this.onChanged});
+
+  final bool intervalMode;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    Widget seg(String label, bool interval) {
+      final active = interval == intervalMode;
+      return Expanded(
+        child: Semantics(
+          button: true,
+          selected: active,
+          child: GestureDetector(
+            onTap: () => onChanged(interval),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                color: active ? scheme.primary : Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: sheetLabelStyle(
+                    context,
+                    color: active ? scheme.onPrimary : context.tokens.muted,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          seg(context.l10n.repeat_weekly, false),
+          seg(context.l10n.repeat_interval, true),
+        ],
+      ),
+    );
+  }
+}
+
+class _IntervalStepper extends StatelessWidget {
+  const _IntervalStepper({
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
+  });
+
+  final int value;
+  final int min;
+  final int max;
+  final ValueChanged<int> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    Widget btn(IconData icon, VoidCallback? onTap) => IconButton(
+          onPressed: onTap,
+          icon: Icon(icon,
+              size: 20,
+              color: onTap == null ? context.tokens.muted : scheme.primary),
+        );
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 4, 4, 4),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              context.l10n.every_n_days(value),
+              style: sheetOptionStyle(context, size: 14, selected: true),
+            ),
+          ),
+          btn(LucideIcons.minus, value > min ? () => onChanged(value - 1) : null),
+          btn(LucideIcons.plus, value < max ? () => onChanged(value + 1) : null),
+        ],
+      ),
+    );
+  }
+}
+
+class _SnoozeChip extends StatelessWidget {
+  const _SnoozeChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+            color: selected
+                ? scheme.primary.withValues(alpha: 0.18)
+                : scheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+
+            border: Border.all(
+              color: selected ? scheme.primary : Colors.transparent,
+              width: 1.5,
+            ),
+          ),
+          child: Text(
+            label,
+            style: sheetLabelStyle(
+              context,
+              color: selected ? scheme.primary : context.tokens.muted,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PresetChip extends StatelessWidget {
+  const _PresetChip({required this.label, required this.onTap});
+
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            color: context.colors.primary.withValues(alpha: 0.14),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            label,
+            style: sheetLabelStyle(
+              context,
+              size: 12,
+              color: context.colors.primary,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TimeField extends StatelessWidget {
+  const _TimeField({
+    required this.label,
+    required this.minimal,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool minimal;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colors;
+    return Semantics(
+      button: true,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(minimal ? 13 : 16),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: minimal ? 14 : 16,
+            vertical: minimal ? 13 : 16,
+          ),
+          decoration: BoxDecoration(
+            color: scheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(minimal ? 13 : 16),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                LucideIcons.clock,
+                color: minimal ? context.tokens.muted : scheme.primary,
+                size: minimal ? 17 : 20,
+              ),
+              SizedBox(width: minimal ? 11 : 12),
+              Text(label, style: sheetOptionStyle(context, selected: true)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

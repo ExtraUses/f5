@@ -1,0 +1,1479 @@
+{
+  "@@locale": "en",
+  "app_tagline": "Habit tracker",
+  "today": "Today",
+  "stats": "Stats",
+  "settings": "Settings",
+  "new_label": "New",
+  "save": "Save",
+  "cancel": "Cancel",
+  "discard_changes": "Discard changes?",
+  "discard_changes_body": "The changes you made to this habit will be lost.",
+  "discard": "Discard",
+  "keep_editing": "Keep editing",
+  "delete": "Delete",
+  "good_morning": "Good morning",
+  "good_afternoon": "Good afternoon",
+  "good_evening": "Good evening",
+  "no_habits_yet": "No habits yet",
+  "all_done_today": "All done today!",
+  "x_of_y_completed": "{done} of {total} completed",
+  "@x_of_y_completed": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "empty_title": "Start your first streak",
+  "empty_body": "Create a habit and tap a day to log it. Small steps, every day.",
+  "add_habit": "Add habit",
+  "all": "All",
+  "onb1_title": "Build real streaks",
+  "onb1_body": "Log a habit in a single tap and watch your momentum grow day after day.",
+  "onb2_title": "Stay on track",
+  "onb2_body": "Daily, weekly or monthly goals with smart reminders so nothing slips.",
+  "onb3_title": "See your progress",
+  "onb3_body": "Rich statistics and a yearly grid reveal exactly how far you have come.",
+  "skip": "Skip",
+  "next": "Next",
+  "get_started": "Get started",
+  "onb_kicker": "Welcome to",
+  "onb_blurb": "Small daily check-ins that turn into habits you keep.",
+  "onb_free_title": "Free, forever",
+  "onb_free_body": "No ads, no subscriptions, no locked features.",
+  "onb_private_title": "Private and offline",
+  "onb_private_body": "Everything stays on your device. No account needed.",
+  "onb_yours_title": "Your data is yours",
+  "onb_yours_body": "Back it up or take it with you whenever you want.",
+  "onb_step": "Step {step} of {total}",
+  "@onb_step": {
+    "placeholders": { "step": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "statistics": "Statistics",
+  "done_today": "Done today",
+  "best_streak": "Best streak",
+  "active_habits": "Active habits",
+  "total_logs": "Total logs",
+  "last_7_days": "Last 7 days",
+  "last_30_days": "Last 30 days",
+  "your_habits": "Your habits",
+  "stats_empty": "Add habits to see your statistics",
+  "completion_rate_short": "Consistency",
+  "completion_rate": "Completion rate",
+  "appearance": "Appearance",
+  "theme": "Theme",
+  "system": "System",
+  "light": "Light",
+  "dark": "Dark",
+  "week_starts_on": "Week starts",
+  "mon": "Mon",
+  "sat": "Sat",
+  "sun": "Sun",
+  "language": "Language",
+  "data": "Data",
+  "export_backup": "Export backup",
+  "export_backup_sub": "Save all habits to a file",
+  "auto_backup": "Automatic backup",
+  "auto_backup_sub": "Off",
+  "auto_backup_off": "Off",
+  "auto_backup_daily": "Every day",
+  "auto_backup_weekly": "Every week",
+  "auto_backup_where": "When you open the app, Streak saves a full backup: a .zip with everything, photos and music included, and a .json. It also writes a readable copy you can open in any editor. The last few backups are kept.",
+  "auto_backup_folder": "Folder",
+  "auto_backup_folder_default": "Inside the app (erased if you uninstall it)",
+  "auto_backup_folder_set": "Folder saved",
+  "auto_backup_folder_failed": "That folder can't be written to",
+  "auto_backup_no_permission": "Storage permission denied",
+  "auto_backup_run_now": "Back up now",
+  "refresh_now": "Refresh",
+  "refresh_now_sub": "Bring in what your other devices left in the folder",
+  "data_folder": "Data folder",
+  "data_folder_documents": "Documents",
+  "data_folder_app": "Next to the app",
+  "data_folder_pick": "Choose a folder",
+  "data_folder_inside": "Pick a folder outside the current one.",
+  "data_folder_taken": "That folder already has Streak data in it.",
+  "data_folder_denied": "Streak can't write to that folder.",
+  "data_folder_move_title": "Move your data",
+  "data_folder_move_body": "Streak will close and move your data to {path}. Open it again when it closes. If anything goes wrong, your data stays where it is.",
+  "data_folder_move_confirm": "Move and close",
+  "@data_folder_move_body": {
+    "placeholders": {
+      "path": { "type": "String" }
+    }
+  },
+  "refresh_brought": "Your habits are up to date",
+  "refresh_nothing": "Nothing new in the folder",
+  "import_backup": "Import backup",
+  "import_backup_sub": "Restore habits from a file",
+  "import_from_app": "Import from another app",
+  "import_from_app_sub": "Loop Habit Tracker, HabitKit…",
+  "import_from_app_done": "Imported {habits} habits ({days} days) from {source}",
+  "@import_from_app_done": {
+    "placeholders": {
+      "habits": { "type": "int" },
+      "days": { "type": "int" },
+      "source": { "type": "String" }
+    }
+  },
+  "import_failed": "Couldn't import that file",
+  "about": "About",
+  "backup_saved": "Backup saved",
+  "export_cancelled": "Export cancelled",
+  "habits_imported": "Habits imported",
+  "new_habit": "New habit",
+  "edit_habit": "Edit habit",
+  "name": "Name",
+  "name_hint": "e.g. Morning run",
+  "description": "Description",
+  "description_hint": "Optional note",
+  "icon": "Icon",
+  "color": "Color",
+  "category": "Category",
+  "category_health": "Health",
+  "category_fitness": "Fitness",
+  "category_mindfulness": "Mindfulness",
+  "category_productivity": "Productivity",
+  "category_learning": "Learning",
+  "category_finance": "Finance",
+  "count_days": "{count, plural, =1{1 day} other{{count} days}}",
+  "@count_days": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "count_weeks": "{count, plural, =1{1 week} other{{count} weeks}}",
+  "@count_weeks": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "count_months": "{count, plural, =1{1 month} other{{count} months}}",
+  "@count_months": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "streak_unit_week": "{count}w",
+  "@streak_unit_week": {
+    "placeholders": { "count": { "type": "String" } }
+  },
+  "streak_unit_month": "{count}mo",
+  "@streak_unit_month": {
+    "placeholders": { "count": { "type": "String" } }
+  },
+  "habit_kind": "Habit type",
+  "kind_positive": "Normal",
+  "kind_negative": "Avoid",
+  "kind_quantitative": "Amount",
+  "kind_locked_hint": "Type can't be changed after creating the habit.",
+  "kind_negative_hint": "Every day counts as clean by default — your streak grows on its own. Tap the check only if you slip; that day turns red and you can undo it.",
+  "cost_per_day": "Cost per day",
+  "cost_note": "Optional. Leave it empty if this habit does not cost money.",
+  "currency": "Currency",
+  "currency_custom": "Custom",
+  "currency_hint": "Symbol or code",
+  "money_saved": "Money saved",
+  "clean_days": "Clean days",
+  "quant_preset_water": "Water",
+  "quant_preset_reading": "Reading",
+  "quant_preset_generic": "Custom",
+  "quant_unit_hint": "Unit (e.g. ml, pages, reps)",
+  "quant_unit_ml": "ml",
+  "quant_unit_pages": "pages",
+  "quant_edit_title": "Today's amount",
+  "quant_daily_goal": "Daily goal",
+  "quant_tap_amount": "Amount per tap",
+  "quant_per_day": "Amount per day",
+  "quant_average": "Average per day",
+  "quant_logged_days": "Days logged",
+  "quant_best_day": "Best day",
+  "quant_goal_days": "Goal reached",
+  "quant_stats_empty": "Log an amount and it adds up here, even on the days you fall short of the goal.",
+  "frequency": "Frequency",
+  "pick_one_day": "Pick at least one day",
+  "reminder_habit_days": "On the habit's days",
+  "reminder_habit_days_hint": "It rings on the days the habit is due.",
+  "focus_label": "Label",
+  "focus_label_none": "No label",
+  "focus_label_new": "New label",
+  "focus_label_hint": "Maths, reading, work...",
+  "focus_label_remove": "Remove label",
+  "focus_label_remove_body": "{label} leaves the list. Your past sessions keep it.",
+  "@focus_label_remove_body": {"placeholders": {"label": {"type": "String"}}},
+  "focus_label_remove_confirm": "Remove",
+  "by_label": "By label",
+  "tracking_hide": "Hide just tracking",
+  "tracking_hide_sub": "Habits you only track stay out of this list",
+  "tracking_show": "Show just tracking ({count})",
+  "@tracking_show": {"placeholders": {"count": {"type": "int"}}},
+  "daily": "Daily",
+  "weekly": "Weekly",
+  "monthly": "Monthly",
+  "sched_days": "Days",
+  "sched_interval": "Interval",
+  "times_per_week": "{n} times per week",
+  "@times_per_week": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "times_per_month": "{n} times per month",
+  "@times_per_month": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "freq_per_week_short": "{n}×/week",
+  "@freq_per_week_short": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "freq_per_month_short": "{n}×/month",
+  "@freq_per_month_short": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "reminders": "Reminders",
+  "reminders_ready_title": "Reminders are on",
+  "reminders_ready_body": "Streak will remind you here.",
+  "add_reminder": "Add reminder",
+  "delete_habit": "Delete habit",
+  "archive_habit": "Archive habit",
+  "archive": "Archive",
+  "share_friends": "Share with a friend",
+  "share_friends_sub": "Send them the app",
+  "share_friends_message": "I'm keeping my streaks alive with Streak — a small, free, offline habit tracker with no accounts and no ads. Come build yours: https://inlitx.github.io/streak/",
+  "copy_message": "Copy message",
+  "message_copied": "Message copied",
+  "app_lock": "App lock",
+  "app_lock_sub": "Ask for your fingerprint or face to open Streak",
+  "app_lock_unavailable": "This phone has no biometrics set up",
+  "app_lock_failed": "Couldn't verify it was you",
+  "app_lock_title": "Streak is locked",
+  "app_lock_unlock": "Unlock",
+  "app_lock_delay": "Lock after",
+  "app_lock_delay_instant": "Immediately",
+  "app_lock_delay_seconds": "{value} seconds",
+  "@app_lock_delay_seconds": {
+    "placeholders": { "value": { "type": "String" } }
+  },
+  "note_photos": "Photos",
+  "note_take_photo": "Camera",
+  "note_pick_photo": "Gallery",
+  "journey": "Journey",
+  "journey_sub": "{count, plural, =1{1 photo} other{{count} photos}}",
+  "@journey_sub": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "journey_empty": "No photos yet",
+  "journey_empty_sub": "Add a photo to a note and it shows up here.",
+  "archive_habit_body": "Move \"{name}\" to the archive? Its history is kept and you can restore it from Settings.",
+  "@archive_habit_body": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "archived_habits": "Archived habits",
+  "archived_habits_sub": "Restore them or delete them for good",
+  "archived_empty": "Nothing archived",
+  "archived_empty_sub": "Habits you delete land here, with all their history.",
+  "restore": "Restore",
+  "restored": "Habit restored",
+  "delete_forever": "Delete for good",
+  "delete_forever_body": "Delete \"{name}\" and all of its history? This cannot be undone.",
+  "@delete_forever_body": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "deleted_forever": "Habit deleted",
+  "clear_progress": "Clear progress",
+  "clear_progress_sub": "History, notes and focus sessions",
+  "clear_progress_warning": "This erases every logged day, note and focus session, but keeps your habits, their schedules and your settings. It cannot be undone unless you have a backup file to import afterwards.",
+  "clear_progress_confirm": "Clear progress",
+  "clear_progress_done": "Progress cleared",
+  "wipe_data": "Erase all data",
+  "wipe_data_sub": "Habits, notes, focus sessions and settings",
+  "wipe_data_warning": "This erases every habit, note, focus session and setting on this phone. It cannot be undone unless you have a backup file to import afterwards.",
+  "wipe_data_sure": "Really erase everything?",
+  "wipe_data_sure_body": "Last chance. Without a backup, this data is gone for good.",
+  "wipe_data_confirm": "Erase everything",
+  "wipe_data_done": "All data erased",
+  "day_start": "Day starts",
+  "day_start_sub": "Late nights still count for the day before",
+  "day_start_midnight": "Midnight",
+  "day_start_hour": "{hour}:00 AM",
+  "@day_start_hour": {
+    "placeholders": { "hour": { "type": "String" } }
+  },
+  "share_photo": "Photo",
+  "share_stats_short": "Stats",
+  "undo": "Undo",
+  "habit_archived": "Habit archived",
+  "duplicate_habit": "Duplicate habit",
+  "habit_duplicated": "{name} added",
+  "@habit_duplicated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "share_blur": "Blur",
+  "delete_habit_body": "Delete \"{name}\"? This cannot be undone.",
+  "@delete_habit_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "log_relapse_title": "Log a relapse?",
+  "log_relapse_body": "This breaks today's clean streak for \"{name}\". You can undo it by tapping again.",
+  "@log_relapse_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "log_relapse_confirm": "Yes, log it",
+  "permission_required": "Notification permission is required",
+  "streaks": "Streaks",
+  "activity": "Activity",
+  "current": "Current",
+  "best": "Best",
+  "total": "Total",
+  "relapses": "Relapses",
+  "strength": "Strength",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year",
+  "new_reminder": "New reminder",
+  "edit_reminder": "Edit reminder",
+  "days": "Days",
+  "time": "Time",
+  "save_reminder": "Save reminder",
+  "select_one_day": "Select at least one day",
+  "every_day": "Every day",
+  "no_days": "No days",
+  "repeat_hours": "Repeat during the day",
+  "repeat_until": "Until",
+  "end_of_day": "End of the day",
+  "every_n_hours": "Every {n} h",
+  "@every_n_hours": {
+    "placeholders": {
+      "n": { "type": "String" }
+    }
+  },
+  "repeat_weekly": "Specific days",
+  "repeat_interval": "Every N days",
+  "every_n_days": "Every {n} days",
+  "@every_n_days": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "every_n_weeks": "{n, plural, =1{Every week} other{Every {n} weeks}}",
+  "@every_n_weeks": {"placeholders": {"n": {"type": "int"}}},
+  "every_n_months": "{n, plural, =1{Every month} other{Every {n} months}}",
+  "@every_n_months": {"placeholders": {"n": {"type": "int"}}},
+  "sched_unit_days": "Days",
+  "sched_unit_weeks": "Weeks",
+  "sched_unit_months": "Months",
+  "todo_tags": "Tags",
+  "todo_projects": "Projects",
+  "todo_project": "Project",
+  "todo_project_new": "New project",
+  "todo_project_name": "Project name",
+  "todo_project_edit": "Edit project",
+  "todo_project_arrange": "Rearrange",
+  "todo_project_arrange_hint": "Drag the folders where you want them.",
+  "todo_project_pick": "Pick a project",
+  "todo_project_none": "No project",
+  "todo_project_delete_body": "The project goes away. The tasks stay.",
+  "todo_tag": "Tag",
+  "todo_tag_new": "New tag",
+  "todo_tag_name": "Tag name",
+  "todo_tag_edit": "Edit tag",
+  "todo_tag_delete_body": "The tag goes away. The tasks stay.",
+  "todo_tag_none": "No tag",
+  "todo_tag_all": "All",
+  "todo_tag_manage": "Manage tags",
+  "todo_tag_empty_title": "No tags yet",
+  "todo_tag_empty_body": "Group tasks by project, place or whatever you like.",
+  "todo_tag_folders": "Folders",
+  "todo_tag_list": "List",
+  "todo_tag_count": "{n} open",
+  "@todo_tag_count": {"placeholders": {"n": {"type": "int"}}},
+  "todo_tag_icon": "Icon",
+  "todo_tag_pick": "Pick tags",
+  "todo_tag_filtered": "Filtered by {name}",
+  "@todo_tag_filtered": {"placeholders": {"name": {"type": "String"}}},
+  "uncategorized": "Uncategorized",
+  "more_icons": "More icons",
+  "less_icons": "Fewer icons",
+  "completions": "Completions",
+  "completion_time": "Completion time",
+  "current_streak": "Current streak",
+  "days_active": "Days active",
+  "completions_per_month": "Completions / Month",
+  "overview": "Overview",
+  "preferences": "Preferences",
+  "support": "Support",
+  "profile": "Profile",
+  "about_app": "About this app",
+  "about_app_sub": "Version, credits and source code",
+  "my_heatmap": "My heatmap",
+  "my_heatmap_sub": "Open the yearly activity grid",
+  "rate_github": "Star on GitHub",
+  "rate_github_sub": "Support the project with a star",
+  "buy_coffee": "Buy me a coffee",
+  "buy_coffee_sub": "Help keep the app free",
+  "view_source": "View source on GitHub",
+  "about_title": "Built for you. Free, forever.",
+  "about_footer": "Made with ☕ and a lot of free time.",
+  "about_body": "Streak was born from a simple idea: why pay to track your own habits?\n\nThis app is completely open source. Anyone can see exactly how it works, suggest improvements, or even build their own version. No black boxes. No surprises.\n\nYour privacy is total — everything stays on your phone. No accounts, no servers, no ads. Not a single byte leaves your device.\n\nNo limits. Create as many habits as you want. No subscriptions, no \"pro version\", no pop-ups asking you to pay. Ever.\n\nIf the app brings you something, you can support it with a star on GitHub or by buying me a coffee. But it is completely optional — the app is yours either way.",
+  "close": "Close",
+  "no_data_yet": "No data yet",
+  "import_question_body": "Replace all your current habits with the backup, or merge them together?",
+  "import_replace": "Replace all",
+  "import_merge": "Merge",
+  "go": "Go",
+  "quote_1": "Small steps, every day.",
+  "quote_2": "Consistency beats intensity.",
+  "quote_3": "Show up for yourself.",
+  "quote_4": "One day at a time.",
+  "quote_5": "Progress, not perfection.",
+  "quote_6": "Done is better than perfect.",
+  "quote_7": "Keep the streak alive.",
+  "quote_8": "Tiny habits, big change.",
+  "quote_9": "Trust the process.",
+  "quote_10": "Win the morning.",
+  "quote_11": "Discipline equals freedom.",
+  "quote_12": "Today counts.",
+  "just_tracking_option": "Offer just tracking",
+  "just_tracking_option_sub": "Adds the switch when you create a habit",
+  "just_tracking": "Just tracking",
+  "just_tracking_sub": "Keep its own grid and numbers, but leave it out of Progress and the day's count",
+  "no_goal": "No daily goal",
+  "no_goal_sub": "Just log the value, like your weight. Any amount marks the day.",
+  "any_amount": "Any amount counts",
+  "any_amount_sub": "Logging any amount marks the day as done, even below the goal.",
+  "any_step": "Done with some steps",
+  "any_step_sub": "Checking one step marks the day as done, without doing them all.",
+  "steps_needed_sub": "The day counts as done with {needed} of {total} steps.",
+  "@steps_needed_sub": {
+    "placeholders": { "needed": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "sched_start": "Starts on",
+  "from_last_done": "Count from the last time",
+  "month_weekday": "Same weekday every month",
+  "month_weekday_sub": "Falls on the {when} of the month, not on a fixed date.",
+  "@month_weekday_sub": {"placeholders": {"when": {"type": "String"}}},
+  "nth_weekday": "{n, select, first{first} second{second} third{third} fourth{fourth} other{last}} {day}",
+  "@nth_weekday": {"placeholders": {"n": {"type": "String"}, "day": {"type": "String"}}},
+  "from_last_done_sub": "Each time you do it, the wait starts again. A missed day still breaks the streak.",
+  "quotes": "Quotes",
+  "quotes_which": "Which quotes",
+  "quotes_app": "From the app",
+  "quotes_mine": "Mine",
+  "quotes_both": "Both",
+  "quotes_off": "Off",
+  "quotes_my_list": "My quotes",
+  "quotes_add": "Add quote",
+  "quotes_edit": "Edit quote",
+  "quotes_hint": "Write your quote",
+  "quotes_empty": "No quotes of your own",
+  "quotes_empty_sub": "Write your own and they show up on Today.",
+  "motiv_start": "Start the day strong 💪",
+  "motiv_progress": "You're on track, keep going",
+  "motiv_almost": "Almost there! Just a bit more",
+  "motiv_perfect": "Perfect day! 🔥",
+  "app_background": "Background",
+  "widgets": "Widgets",
+  "customize_widgets": "Customize widgets",
+  "customize_widgets_sub": "Background, opacity, border",
+  "widget_background": "Background color",
+  "widget_opacity": "Opacity",
+  "widget_border": "Border",
+  "widget_preview": "Preview",
+  "bg_solid": "Solid",
+  "bg_gradient": "Gradient",
+  "bg_dots": "Dots",
+  "bg_oled": "OLED",
+  "weekdays": "Weekdays",
+  "weekends": "Weekends",
+  "reminder_message": "Message (optional)",
+  "reminder_message_hint": "Leave empty for a motivational quote",
+  "new_category": "New category",
+  "edit_category": "Edit category",
+  "add_category": "New",
+  "delete_category": "Delete category",
+  "edit": "Edit",
+  "cover_image": "Cover image",
+  "book_cover": "Book cover",
+  "add_image": "Add image",
+  "when_best": "When are you most consistent?",
+  "streak_evolution": "Streak evolution",
+  "consistency": "Consistency",
+  "consistency_trend": "Consistency trend",
+  "by_habit": "By habit",
+  "ranking": "Ranking",
+  "last_30_days": "Last 30 days",
+  "active_days": "Active days",
+  "perfect_days": "Perfect days",
+  "per_week": "Per week",
+  "best_month": "Best month",
+  "streak_on": "🔥 {n} days in a row. Don't break it!",
+  "@streak_on": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "streak_off": "💪 Today you can start a new streak",
+  "not_enough_data": "Not enough data yet",
+  "about_inline": "Streak is an open-source app for tracking your habits. No accounts, no limits, no payments. Everything stays on your phone.\n\nAnyone can see the code, improve it, or use it freely.",
+  "about_subtitle": "For the days you choose to show up.",
+  "about_story": "This app was born out of frustration with the habit trackers out there. Most cap how many habits you can create, hide basic features behind a paywall, track you, or bombard you with ads. So I decided to build Streak: completely free, no ads, no payments, no tracking. Everything runs locally — your data is yours. Open source, no catch.",
+  "made_by": "Made with ❤️ by @InlitX",
+  "share": "Share",
+  "share_progress": "Share progress",
+  "share_failed": "Couldn't create the image",
+  "share_swipe_hint": "Swipe the card to move through time",
+  "share_background": "Background",
+  "share_size": "Size",
+  "share_size_large": "Tall",
+  "share_size_small": "Square",
+  "share_show_stats": "Show stats",
+  "share_save": "Save",
+  "share_saved": "Saved to your gallery",
+  "share_save_failed": "Couldn't save the image",
+  "about_developer": "The developer",
+  "about_legal": "© InlitX. Streak is free software under the GNU GPLv3, with the additional terms of its section 7, and comes with no warranty. Tap to read the license.",
+  "about_credits": "Credits",
+  "about_credits_body": "Built with Flutter. Icons by Lucide. Charts by fl_chart. Set in Figtree & Playfair Display.",
+  "dev_handle": "@InlitX",
+  "dev_role": "Indie maker · Streak",
+  "notes": "Notes",
+  "notes_enable_sub": "Attach notes to any day of a habit",
+  "add_note": "Add note",
+  "edit_note": "Edit note",
+  "view_notes": "View notes",
+  "edit_entry": "Edit entry",
+  "note_type": "Type",
+  "note_kind_note": "Note",
+  "note_kind_planned": "Planned",
+  "note_kind_completed": "Completed",
+  "note_hint": "Write your note...",
+  "note_time_optional": "Time (optional)",
+  "save_note": "Save note",
+  "notes_empty": "No notes for this day yet",
+  "delete_note": "Delete note",
+  "legend_note_added": "Note added",
+  "tomorrow": "Tomorrow",
+  "notes_count": "{count, plural, =1{1 note} other{{count} notes}}",
+  "@notes_count": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "todos": "To-Do",
+  "todo_view_list": "Simple",
+  "todo_view_papers": "Folders",
+  "todo_style": "To-do style",
+  "todo_style_sub": "A simple list, or folders of sheets like Google Keep.",
+  "todos_enable_sub": "A quick list beside your habits",
+  "todo_new": "New to-do",
+  "todo_hint": "What needs doing?",
+  "todo_subtasks": "Subtasks",
+  "todo_subtask_hint": "Subtask",
+  "todo_empty_title": "Nothing on the list",
+  "todo_empty_body": "Jot down what you want to get done over the next few days.",
+  "todo_date": "Date",
+  "todo_no_date": "No date",
+  "todo_time": "Time",
+  "todo_estimate": "Duration",
+  "todo_estimate_none": "No duration",
+  "todo_priority": "Priority",
+  "todo_paper": "Color",
+  "todo_add": "Add",
+  "todo_list_item": "List item",
+  "todo_title_hint": "Title",
+  "todo_body_hint": "Note",
+  "todo_sort": "Priority order",
+  "todo_sort_high_first": "High priority first",
+  "todo_sort_low_first": "Low priority first",
+  "todo_project_empty": "Nothing in this folder yet",
+  "todo_background": "Background",
+  "todo_background_pick": "Choose a photo",
+  "todo_deleted": "Note deleted",
+  "todo_mark_done": "Mark as done",
+  "todo_mark_open": "Mark as not done",
+  "todo_pin": "Pin",
+  "todo_unpin": "Unpin",
+  "todo_select": "Select",
+  "todo_selected": "{count, plural, =1{1 selected} other{{count} selected}}",
+  "@todo_selected": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "todo_deleted_many": "{count, plural, =1{Note deleted} other{{count} notes deleted}}",
+  "@todo_deleted_many": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "priority_none": "No priority",
+  "priority_low": "Low",
+  "priority_medium": "Medium",
+  "priority_high": "High",
+  "todo_overdue": "Overdue",
+  "todo_upcoming": "Upcoming",
+  "todo_someday": "Someday",
+  "pick_a_date": "Pick a date",
+  "todo_left": "{count, plural, =0{All done} =1{1 to do} other{{count} to do}}",
+  "@todo_left": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "todo_completed_count": "{count, plural, =1{Completed (1)} other{Completed ({count})}}",
+  "@todo_completed_count": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "todo_search": "Search to-dos",
+  "todo_search_empty": "Nothing matches that",
+  "todo_clear_completed": "Clear completed",
+  "todo_clear_completed_body": "{count, plural, =1{This deletes the completed to-do.} other{This deletes the {count} completed to-dos.}}",
+  "@todo_clear_completed_body": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "prefs_general": "General",
+  "prefs_cards": "Cards and calendar",
+  "prefs_habits": "Habits",
+  "prefs_features": "Features",
+  "prefs_privacy": "Privacy",
+  "collapse_cards": "Collapse cards",
+  "expand_cards": "Expand cards",
+  "view_switcher": "View switcher",
+  "view_switcher_sub": "Show the Week / Month / Year buttons on Today. Off, they move to the filter menu",
+  "view_switcher_needs": "Turn on activity on cards to use it",
+  "focus": "Focus",
+  "focus_enable_sub": "A timer for habits that need one",
+  "focus_free_session": "Free session",
+  "focus_duration": "Duration",
+  "focus_start": "Start session",
+  "focus_style": "Timer style",
+  "focus_style_digital": "Circle",
+  "focus_style_flip": "Flip",
+  "focus_style_dots": "Dots",
+  "focus_countdown": "3-second countdown",
+  "focus_skip_break": "Skip break",
+  "focus_continue": "Continue",
+  "focus_alert": "End of round alert",
+  "focus_alert_chime": "Chime",
+  "focus_alert_custom": "Pick a sound",
+  "focus_alert_none": "Silent",
+  "focus_hold": "Wait until I stop it",
+  "focus_hold_sub": "The break also waits until you tap Continue. After a break, Focus always waits.",
+  "focus_long_break": "Long break",
+  "focus_long_break_sub": "Every 4 rounds, a longer break.",
+  "focus_whole_rounds": "Only count full rounds",
+  "focus_whole_rounds_sub": "A round you end early is not saved.",
+  "focus_end_drop": "If you end now, this round is not saved.",
+  "focus_restart": "Restart",
+  "focus_restart_title": "Restart this round?",
+  "focus_restart_body": "The time you have focused in this round will be lost.",
+  "focus_saved": "{time} recorded",
+  "focus_total": "Focus time",
+  "focus_sessions": "Sessions",
+  "focus_stop_title": "End session?",
+  "focus_stop_body": "Your minutes are saved either way. The habit is only completed if you reach the target.",
+  "focus_end": "End",
+  "focus_pick_habit": "What are you focusing on?",
+  "focus_scene_custom": "Your image",
+  "unit_hours": "hours",
+  "unit_minutes": "minutes",
+  "unit_seconds": "seconds",
+  "focus_target_reached": "Target reached",
+  "@focus_saved": {
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "focus_pause": "Pause",
+  "focus_resume": "Resume",
+  "focus_sound": "Sound",
+  "focus_options": "Options",
+  "focus_fullscreen": "Full screen",
+  "focus_exit_fullscreen": "Exit full screen",
+  "focus_pick_audio": "Choose a track from your phone",
+  "focus_no_sound": "No track chosen",
+  "focus_tasks": "List subtask",
+  "focus_custom_duration": "Custom",
+  "focus_end_short": "You are {time} short of the goal.",
+  "focus_end_tasks": "{count} tasks are still unchecked.",
+  "focus_end_reached": "Goal reached. The habit will be marked as done.",
+  "focus_end_keep": "Keep going",
+  "focus_end_anyway": "End anyway",
+  "focus_end_complete": "Mark as done",
+  "focus_end_add_time": "Add focused time",
+  "focus_amount_added": "{amount} added to {habit}",
+  "@focus_end_short": {
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "@focus_end_tasks": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "@focus_amount_added": {
+    "placeholders": { "amount": { "type": "String" }, "habit": { "type": "String" } }
+  },
+  "focus_personalize": "Custom",
+  "focus_track_brown": "Brown noise",
+  "focus_track_fire": "Fire",
+  "focus_track_ticking": "Ticking clock",
+  "focus_track_pad": "Warm pad",
+  "focus_add_track": "Add track",
+  "focus_resources": "Free scenes and sounds",
+  "focus_shuffle": "Shuffle",
+  "focus_loop": "In order",
+  "focus_repeat_one": "Repeat one",
+  "focus_track_too_long": "Tracks must be under 20 minutes",
+  "focus_track_limit": "Up to 30 tracks",
+  "focus_volume": "Volume",
+  "focus_done_title": "Session complete",
+  "focus_your_tracks": "Your tracks",
+  "focus_built_in": "Included",
+  "unit_hour_short": "h",
+  "unit_min_short": "min",
+  "focus_notif_body": "Your focus session is over. Well done!",
+  "focus_notif_break": "Time for a break.",
+  "focus_break_over": "Break over",
+  "focus_notif_back": "Back to focus.",
+  "celebration": "Completion effect",
+  "celebration_confetti": "Confetti",
+  "celebration_fireworks": "Fireworks",
+  "celebration_surprise": "Surprise me",
+  "focus_notif_channel": "Focus sessions",
+  "focus_notif_running": "Focusing",
+  "focus_paused": "Paused",
+  "focus_scene_black": "Black",
+  "focus_pomodoro": "Pomodoro",
+  "focus_pomodoro_sub": "Chain focus rounds with short breaks",
+  "focus_break": "Break",
+  "focus_break_in": "Break in {n}",
+  "@focus_break_in": {
+    "placeholders": {
+      "n": { "type": "String" }
+    }
+  },
+  "focus_back_in": "Focus in {n}",
+  "@focus_back_in": {
+    "placeholders": {
+      "n": { "type": "String" }
+    }
+  },
+  "focus_round": "Round {n}",
+  "focus_daily_goal": "Focus goal",
+  "focus_goal_today": "{done} of {goal} today",
+  "focus_keep_awake": "Keep screen on",
+  "focus_images_limit": "Up to 10 images",
+  "select_all": "Select all",
+  "selected_count": "{count, plural, =1{1 selected} other{{count} selected}}",
+  "@selected_count": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "focus_delete_sessions": "Delete sessions?",
+  "focus_delete_sessions_body": "{count, plural, =1{1 focus session will be removed. This cannot be undone.} other{{count} focus sessions will be removed. This cannot be undone.}}",
+  "@focus_delete_sessions_body": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "focus_sessions_deleted": "{count, plural, =1{1 session deleted} other{{count} sessions deleted}}",
+  "@focus_sessions_deleted": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "unscheduled_title": "Day not scheduled",
+  "unscheduled_body": "This habit is not scheduled on {day}. Log it anyway as an extra?",
+  "@unscheduled_body": {
+    "placeholders": { "day": { "type": "String" } }
+  },
+  "unscheduled_confirm": "Log anyway",
+  "rest_days_none": "None",
+  "consistency": "Consistency",
+  "last_90_days": "Last 90 days",
+  "last_12_months": "Last 12 months",
+  "consistency_vs_previous": "{change} vs previous",
+  "@consistency_vs_previous": {
+    "placeholders": {
+      "change": {"type": "String"}
+    }
+  },
+  "focus_clear_today": "Clear today's sessions",
+  "focus_defaults": "Session defaults",
+  "plan_day": "Plan the day",
+  "plan_day_sub": "Give habits a time of day and see them on a timeline.",
+  "plan_todos": "Tasks in Plan",
+  "plan_todos_sub": "Show the to-dos dated that day below the habits.",
+  "plan_show_habits": "Habits",
+  "plan_show_both": "Both",
+  "plan_show_todos": "To-dos",
+  "swipe_cards": "Swipe habit cards",
+  "swipe_cards_sub": "Swipe left to complete a habit and right to undo it.",
+  "habit_time": "Time of day",
+  "habit_time_none": "Anytime",
+  "habit_time_sub": "Places the habit in Plan at this time. It still shows in Today all day.",
+  "habit_duration": "Duration",
+  "habit_duration_none": "No duration",
+  "day_timeline": "Day",
+  "day_timeline_free": "{span} free",
+  "@day_timeline_free": {
+    "placeholders": { "span": { "type": "String" } }
+  },
+  "day_timeline_anytime": "Anytime",
+  "day_timeline_empty": "Nothing planned for this day",
+  "day_timeline_empty_sub": "Give a habit a time of day and it will show up here.",
+  "day_timeline_empty_todos": "Give a to-do this date and it will show up here.",
+  "clear": "Clear",
+  "start_view": "Today opens on",
+  "start_view_last": "Last used",
+  "focus_stats": "Focus stats",
+  "focus_average": "Average session",
+  "focus_log": "Log a session",
+  "focus_log_date": "Date",
+  "focus_log_saved": "Session added",
+  "perfect_streak": "Perfect day streak",
+  "focus_history": "History",
+  "focus_history_empty": "No sessions yet",
+  "focus_history_empty_sub": "Every focus session you finish shows up here.",
+  "focus_history_day": "{count, plural, =1{1 session} other{{count} sessions}}",
+  "@focus_history_day": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "yesterday": "Yesterday",
+  "@focus_round": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "@focus_goal_today": {
+    "placeholders": { "done": { "type": "String" }, "goal": { "type": "String" } }
+  },
+  "notes_hint": "Open a habit and long-press a day on its calendar to see or add notes",
+  "app_style": "App style",
+  "app_style_sub": "Choose how the whole app looks and feels.",
+  "style_classic": "Classic",
+  "style_minimal": "Minimal",
+  "style_classic_desc": "Habit list, bottom bar and every setting on one screen.",
+  "style_minimal_desc": "Habit grid and settings grouped into four sections.",
+  "appearance_sub": "Theme, accent and background",
+  "preferences_sub": "Language, week and sorting",
+  "data_sub": "Backups, archive and import",
+  "about_sub": "Version, source code and support",
+  "support_sub": "Report a bug or ask for a feature",
+  "check_style": "Check style",
+  "square": "Square",
+  "circle": "Circle",
+  "github_star_row": "View source & give a star",
+  "github_star_sub": "Give the project a star so more people find it",
+  "icons_tab": "Icons",
+  "emojis_tab": "Emojis",
+  "emoji_own": "Type or paste any emoji",
+  "report_issue": "Report an issue",
+  "report_issue_sub": "Tell me about a bug or ask for a feature",
+  "advanced_options": "Advanced options",
+  "default_user": "Inlitx",
+  "your_name": "Your name",
+  "edit_name": "Edit name",
+  "change_photo": "Change photo",
+  "remove_photo": "Remove photo",
+  "notif_greeting": "Hi {name}, ",
+  "@notif_greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "app_icon": "App icon",
+  "icon_default": "Default",
+  "icon_neutral": "Green",
+  "icon_accent": "Tricolor",
+  "custom": "Custom",
+  "see_more": "See more",
+  "see_less": "See less",
+  "colors_tab": "Colors",
+  "reorder": "Reorder",
+  "reorder_hint": "Drag the habits to reorder them",
+  "category_order_empty": "Give a habit a category and it will show up here",
+  "done": "Done",
+  "accent_color": "Accent color",
+  "heatmap_path": "Connect the days",
+  "heatmap_path_sub": "Draws the grid as one long walk",
+  "sort_completed_last": "Completed last",
+  "sort_completed_last_sub": "Sends what you finish to the bottom of the list",
+  "today_only": "Only today's",
+  "today_only_sub": "Hides the habits that are not scheduled for today",
+  "hide_done": "Hide completed",
+  "hide_done_sub": "What you finish today leaves the list",
+  "past_first": "Open past days first",
+  "past_first_sub": "Tapping a past day shows it first, so nothing changes by mistake",
+  "miss_reason_title": "Why did you miss it?",
+  "miss_reasons": "Why you missed",
+  "miss_other": "Other",
+  "miss_other_hint": "Write a reason",
+  "miss_overslept": "Overslept",
+  "miss_busy": "Busy",
+  "miss_traveling": "Traveling",
+  "miss_sick": "Sick",
+  "miss_tired": "Tired",
+  "miss_forgot": "Forgot",
+  "day_not_done": "Not done",
+  "day_clean": "Clean",
+  "day_relapses": "{count, plural, =1{1 relapse} other{{count} relapses}}",
+  "@day_relapses": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "day_log_relapse": "Log relapse",
+  "day_amount": "{value} of {goal}",
+  "@day_amount": {
+    "placeholders": { "value": { "type": "String" }, "goal": { "type": "String" } }
+  },
+  "today_filter": "Show",
+  "today_fold_done": "Done ({count})",
+  "@today_fold_done": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "today_fold_other": "Other days ({count})",
+  "@today_fold_other": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "today_fold_hidden": "Hidden ({count})",
+  "@today_fold_hidden": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "card_activity": "Activity on cards",
+  "card_activity_sub": "Shows the last days on the card, ready to tick",
+  "readable_copy": "Readable copy",
+  "readable_copy_sub": "Also writes your habits as markdown files",
+  "auto_sync": "Keep devices in sync",
+  "auto_sync_sub": "Saves after each change and checks the folder every few minutes",
+  "sync_guide": "How to sync two devices",
+  "theme_sub": "Light, dark or the system one",
+  "accent_color_sub": "Used on buttons and highlights",
+  "app_background_sub": "What you see behind the cards",
+  "check_style_sub": "Square or round marks",
+  "app_icon_sub": "The icon on your home screen",
+  "language_sub": "The language of the whole app",
+  "week_start_sub": "The first column of every grid",
+  "celebration_sub": "What you see when you tick a habit",
+  "start_view_sub": "The view Today opens in",
+  "quotes_sub": "Which quotes show up on Today",
+  "focus_daily_goal_sub": "Minutes of focus you aim for each day",
+  "app_lock_delay_sub": "How soon it asks again after you leave",
+  "focus_only": "Only with a focus session",
+  "focus_only_hint": "The habit is checked when you finish a session, not by tapping it.",
+  "focus_only_title": "Needs a focus session",
+  "focus_only_body": "\"{name}\" is completed by finishing a focus session.",
+  "@focus_only_body": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "focus_only_past": "\"{name}\" is only completed by a focus session, so past days cannot be checked.",
+  "@focus_only_past": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "focus_only_clear_title": "Clear this check?",
+  "focus_only_clear_body": "Only a focus session can check \"{name}\" again.",
+  "@focus_only_clear_body": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "focus_only_start": "Start session",
+  "focus_flowtime": "Flowtime",
+  "focus_flowtime_hint": "No goal and no alarm. The clock counts up and you stop when you feel done.",
+  "focus_mode_timer": "Timer",
+  "focus_ends_at": "Ends at {time}",
+  "@focus_ends_at": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_no_limit": "No time limit",
+  "focus_style_plain": "Simple",
+  "focus_style_digital_clock": "Digital",
+  "focus_linked_habits": "Also count toward",
+  "focus_linked_habits_hint": "Tag other habits to mark today's completion automatically.",
+  "focus_linked_habits_none": "None",
+  "focus_consistency_days": "{days} active days",
+  "@focus_consistency_days": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_timeframe_30d": "30 Days",
+  "focus_timeframe_90d": "90 Days",
+  "focus_timeframe_all": "All Time",
+  "focus_timeframe_off": "Off",
+  "focus_timeframe_section": "Rolling window",
+  "focus_graph_color_reset": "Reset to theme",
+  "focus_graph_color_custom": "Custom color",
+  "focus_graph_color_title": "Graph color",
+  "focus_graph_distribution": "Distribution",
+  "focus_consistency": "Consistency",
+  "log_only": "Log only",
+  "log_only_sub": "Track entries without affecting streaks, completion rates, or consistency. New entries go to a separate log.",
+  "focus_label_sub": "Sort your sessions, for example by subject. Hold one to remove it.",
+  "focus_label_icon": "Icon (optional)",
+  "focus_save_timer": "Save timer",
+  "focus_remove_timer": "Remove this saved timer?",
+  "focus_days_row": "{count, plural, =1{1 day in a row} other{{count} days in a row}}",
+  "@focus_days_row": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_end_flow": "You focused for {time}.",
+  "@focus_end_flow": {
+    "placeholders": { "time": { "type": "String" } }
+  },
+  "on": "On",
+  "off": "Off",
+  "checklist": "Checklist",
+  "checklist_hint": "Break the habit into steps. It's done only when every step is checked.",
+  "add_step": "Add step",
+  "step_hint": "Step name",
+  "todays_checklist": "Today's checklist",
+  "steps_done": "{done}/{total} steps",
+  "@steps_done": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "vacation_all": "Pause every habit",
+  "vacation_all_sub": "Nothing counts as missed while it is on",
+  "vacation_mode": "Vacation mode",
+  "vacation_on_desc": "Paused — these days won't count as missed or completed.",
+  "vacation_off_desc": "Pause this habit. Skipped days won't break your streak.",
+  "paused": "Paused",
+  "start_vacation": "Start vacation",
+  "end_vacation": "End vacation",
+  "vacation_day_on": "Mark as vacation day",
+  "vacation_day_off": "Remove vacation day",
+  "rest_days": "Rest days",
+  "rest_days_desc": "Pause it every week on these days. You can still log them, and they'll count.",
+  "widget_no_habits": "No habits yet\nTap to open Streak",
+  "widget_no_data": "No data yet\nOpen Streak to sync",
+  "widget_open_to_sync": "Open Streak to sync",
+  "widget_activity": "Activity",
+  "widget_today_progress": "Today  {done}/{total}",
+  "widget_today_done": "{done} of {total} done",
+  "@widget_today_done": {
+    "placeholders": {
+      "done": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "@widget_today_progress": {
+    "placeholders": {
+      "done": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "widget_todos_open": "To-do  {count}",
+  "@widget_todos_open": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "widget_todos_empty": "Nothing left for today",
+  "widget_done_today": "done today",
+  "widget_streak_days": "Streak days",
+  "widget_this_week": "This week",
+  "widget_last_days": "Last {count} days",
+  "@widget_last_days": {
+    "placeholders": { "count": { "type": "String" } }
+  },
+  "widget_cfg_days": "Days shown",
+  "widget_week_done": "{done} of {total}",
+  "@widget_week_done": {
+    "placeholders": {
+      "done": { "type": "String" },
+      "total": { "type": "String" }
+    }
+  },
+  "widget_best_streak": "🔥 {streak} best streak",
+  "@widget_best_streak": {
+    "placeholders": {
+      "streak": { "type": "String" }
+    }
+  },
+  "widget_cfg_title": "Customize widget",
+  "widget_cfg_content": "Content",
+  "widget_cfg_background": "Background",
+  "widget_cfg_color": "Color",
+  "widget_cfg_image": "Image",
+  "widget_cfg_choose_image": "Choose image",
+  "widget_cfg_change_image": "Change image",
+  "widget_cfg_custom_color": "Custom color",
+  "widget_cfg_follow_system": "Follow system theme",
+  "widget_cfg_dark_color": "Dark theme",
+  "widget_cfg_light_color": "Light theme",
+  "widget_cfg_opacity": "Opacity  {value}%",
+  "@widget_cfg_opacity": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "widget_cfg_border": "Border",
+  "widget_cfg_thickness": "Thickness  {value}dp",
+  "@widget_cfg_thickness": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "widget_cfg_todos_all": "Show every task",
+  "widget_cfg_todos_hint": "Off: only today, late and undated tasks",
+  "widget_cfg_show_art": "Show illustration",
+  "widget_cfg_show_header": "Header",
+  "widget_cfg_show_icons": "Habit icons",
+  "widget_cfg_show_cards": "Background behind each habit",
+  "widget_cfg_show_details": "Streak under the name",
+  "widget_cfg_buttons": "Buttons",
+  "widget_cfg_buttons_round": "Round",
+  "widget_cfg_buttons_square": "Square",
+  "widget_cfg_hide_done": "Hide completed",
+  "widget_cfg_compact": "Compact",
+  "widget_cfg_compact_hint": "Smaller rows, streak next to the name",
+  "widget_cfg_compact_todos_hint": "Smaller rows, time next to the task",
+  "widget_cfg_today_band": "Highlight today",
+  "widget_cfg_show_activity": "Show activity of",
+  "widget_cfg_dot_color": "Dot color",
+  "widget_cfg_style": "Style",
+  "widget_cfg_style_classic": "Classic",
+  "widget_cfg_style_card": "Card",
+  "widget_cfg_all_habits": "All habits",
+  "widget_cfg_show_habits": "Habits to show",
+  "widget_cfg_show_habits_hint": "Pick one or more. With one habit, the summary shows its streak.",
+  "widget_cfg_save": "Save",
+  "widget_cfg_add": "Add widget",
+  "widget_cfg_reset": "Reset to default",
+  "widget_cfg_hue": "Hue",
+  "widget_cfg_saturation": "Saturation",
+  "widget_cfg_brightness": "Brightness",
+  "widget_demo_read": "Read",
+  "widget_demo_run": "Run",
+  "widget_demo_water": "Water",
+  "notif_streak": "🔥 {streak} day streak",
+  "@notif_streak": {
+    "placeholders": {
+      "streak": { "type": "String" }
+    }
+  },
+  "notif_streak_week": "🔥 {streak} week streak",
+  "@notif_streak_week": {
+    "placeholders": {
+      "streak": { "type": "String" }
+    }
+  },
+  "notif_streak_month": "🔥 {streak} month streak",
+  "@notif_streak_month": {
+    "placeholders": {
+      "streak": { "type": "String" }
+    }
+  },
+  "notif_action_done": "Done",
+  "notif_action_snooze": "Snooze",
+  "notif_action_add": "Add amount",
+  "notif_action_add_hint": "How much?",
+  "snooze_duration": "Snooze for",
+  "snooze_custom": "Custom",
+  "snooze_custom_hint": "Minutes",
+  "minutes_short": "{value} min",
+  "@minutes_short": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
+  },
+  "a11y_mark_done": "Mark {name} as done",
+  "@a11y_mark_done": {
+    "description": "Screen reader label for the button that logs a habit",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "a11y_mark_not_done": "Mark {name} as not done",
+  "@a11y_mark_not_done": {
+    "description": "Screen reader label for the button that undoes a habit",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "a11y_add_amount": "Add to {name}",
+  "@a11y_add_amount": {
+    "description": "Screen reader label for the button that adds progress to a quantitative habit",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "a11y_log_relapse": "Log a relapse for {name}",
+  "@a11y_log_relapse": {
+    "description": "Screen reader label for the button that logs a relapse on a habit to avoid",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "a11y_clear_relapse": "Clear today's relapse for {name}",
+  "@a11y_clear_relapse": {
+    "description": "Screen reader label for the button that removes today's relapse",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "a11y_not_done": "not done",
+  "@a11y_not_done": {
+    "description": "Screen reader state of a day that has not been logged"
+  },
+  "a11y_previous_week": "Previous week",
+  "a11y_next_week": "Next week",
+  "a11y_previous_month": "Previous month",
+  "a11y_next_month": "Next month",
+  "plan_show_month": "Show the whole month",
+  "plan_show_week": "Show one week",
+  "a11y_increase": "Increase",
+  "@a11y_increase": {
+    "description": "Screen reader label for the plus button of a number stepper"
+  },
+  "a11y_decrease": "Decrease",
+  "@a11y_decrease": {
+    "description": "Screen reader label for the minus button of a number stepper"
+  },
+  "a11y_pick_color": "Pick a colour",
+  "@a11y_pick_color": {
+    "description": "Screen reader label for a colour swatch in the picker"
+  },
+  "period_this_week": "This week",
+  "tracked_week": "{n} this week",
+  "@tracked_week": {"placeholders": {"n": {"type": "int"}}},
+  "tracked_month": "{n} this month",
+  "@tracked_month": {"placeholders": {"n": {"type": "int"}}},
+  "tracked_year": "{n} this year",
+  "@tracked_year": {"placeholders": {"n": {"type": "int"}}},
+  "period_last_week": "Last week",
+  "period_this_month": "This month",
+  "period_last_month": "Last month",
+  "period_this_year": "This year",
+  "period_all_time": "All time",
+  "times_completed": "Times completed",
+  "period_last_year": "Last year",
+  "period_week_of": "Week of {date}",
+  "@period_week_of": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "focus_period_sessions": "{count, plural, =0{No sessions} =1{1 session} other{{count} sessions}}",
+  "@focus_period_sessions": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "notes_all": "All notes",
+  "notes_empty_all": "No notes yet",
+  "quant_preset_time": "Time",
+  "style_express": "Express",
+  "style_express_desc": "Rounded shapes, springy motion and a wider typeface.",
+  "celebration_none": "None",
+  "quant_mode_add": "Add",
+  "quant_mode_replace": "Replace",
+  "quant_add_title": "Add amount",
+  "pane_hint": "Open something from the list to see it here",
+  "average_short": "Avg",
+  "island": "Island",
+  "island_enable_sub": "Turn your habits into a Mediterranean archipelago you build piece by piece",
+  "island_open": "Open the island",
+  "island_shop": "Shop",
+  "island_build": "Build",
+  "island_done": "Built",
+  "island_complete": "The archipelago is finished",
+  "island_tap_hint": "Tap a shape to see what goes there",
+  "island_empty": "Check off a habit and the islands start to grow",
+  "island_how": "How points work",
+  "island_how_check": "10 for every habit you check off",
+  "island_how_focus": "1 per focus minute",
+  "island_how_perfect": "25 more for a perfect day",
+  "island_how_note": "Coins come from your history, so a backup brings them back.",
+  "island_built": "{done} of {total} built",
+  "@island_built": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "island_need": "{count} points to go",
+  "@island_need": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_placed": "{name} is on the island now",
+  "@island_placed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "island_p_agave": "Agave",
+  "island_p_altar": "Shrine",
+  "island_p_archway": "Archway",
+  "island_p_banner": "Banner",
+  "island_p_bench": "Bench",
+  "island_p_blue_railing": "Blue railing",
+  "island_p_bougainvillea": "Bougainvillea",
+  "island_p_boulder": "Boulder",
+  "island_p_crate": "Crate",
+  "island_p_crop_patch": "Crop patch",
+  "island_p_cube_house": "Cube house",
+  "island_p_cypress": "Cypress",
+  "island_p_dry_grass": "Dry grass",
+  "island_p_flat_stone": "Flat stone",
+  "island_p_flower_pot": "Flower pot",
+  "island_p_garden_bed": "Garden bed",
+  "island_p_hanging_lantern": "Hanging lantern",
+  "island_p_hay_bale": "Hay bale",
+  "island_p_house": "Small house",
+  "island_p_lantern_post": "Lamp post",
+  "island_p_large_rock": "Large rock",
+  "island_p_main_chapel": "Main chapel",
+  "island_p_mossy_stone": "Mossy stone",
+  "island_p_olive": "Olive tree",
+  "island_p_pebbles": "Pebbles",
+  "island_p_pergola_house": "Pergola house",
+  "island_p_pottery_jar": "Pottery jar",
+  "island_p_rocks": "Rocks",
+  "island_p_signpost": "Signpost",
+  "island_p_small_bridge": "Wooden pier",
+  "island_p_stone_basin": "Stone basin",
+  "island_p_stone_lantern": "Stone lantern",
+  "island_p_stone_pile": "Stone pile",
+  "island_p_storage_box": "Storage chest",
+  "island_p_terrace_house": "Terrace house",
+  "island_p_terracotta_pot": "Terracotta pot",
+  "island_p_tower_chapel": "Bell tower",
+  "island_p_two_story": "Two-storey house",
+  "island_p_veg_garden": "Vegetable garden",
+  "island_p_villa": "Villa",
+  "island_p_water_bucket": "Water bucket",
+  "island_p_well": "Well",
+  "island_p_windmill": "Windmill",
+  "island_p_wood_pile": "Wood pile",
+  "island_reset": "Start the island over",
+  "island_reset_sub": "Everything comes down and every point goes back to your balance.",
+  "island_coins": "Coins",
+  "island_g_pueblo": "The village",
+  "island_g_cala": "The cove",
+  "island_g_terrazas": "The terraces",
+  "island_g_puerto": "The harbour",
+  "island_g_molino": "The windmill ridge",
+  "island_how_todo": "4 for every to-do you finish",
+  "island_how_streak": "A bonus when a habit reaches 7, 30, 100 and 365 days",
+  "island_zoom_hint": "Drag with one finger to move. Pinch with two to zoom, twist to turn the island.",
+  "island_t_teal": "teal",
+  "island_t_clay": "terracotta",
+  "island_t_white": "white",
+  "island_t_coral": "coral",
+  "island_t_lilac": "lilac",
+  "island_t_autumn": "autumn",
+  "island_t_deep": "dark",
+  "island_t_silver": "silver",
+  "island_g_huerta": "The orchard",
+  "island_g_faro": "The stacks",
+  "island_turn": "Turn the view",
+  "gamification": "Gamification",
+  "island_default_name": "My island",
+  "island_rename": "Name your island",
+  "island_only_affordable": "Only what I can afford",
+  "island_nothing_here": "Nothing here yet",
+  "island_g_vega": "The meadow",
+  "island_g_mirador": "The lookout",
+  "island_g_astillero": "The boatyard",
+  "island_g_ermita": "The chapel isle",
+  "island_g_caleta": "The little cove",
+  "island_g_cabo": "The cape",
+  "island_goal": "This is what it looks like when every piece is built.",
+  "island_reset_go": "Start over",
+  "island_beta": "This is a first take on gamification and it is still in beta. It may grow, change shape or be replaced entirely, depending on how you all use it.",
+  "gamification_beta": "Gamification (beta)",
+  "last_check": "Last logged",
+  "check_history": "Check history",
+  "check_history_sub": "{count} days checked off",
+  "@check_history_sub": {"placeholders": {"count": {"type": "String"}}},
+  "check_never": "Never",
+  "check_no_time": "no time saved",
+  "heatmap_rolling": "Last 12 months",
+  "heatmap_rolling_sub": "The yearly grid ends today instead of on 31 December",
+  "check_marks": "{count} marks",
+  "@check_marks": {"placeholders": {"count": {"type": "String"}}},
+  "today_progress_option": "Progress on Today",
+  "today_progress_option_sub": "The day's ring and the strength bar on each habit",
+  "quiet_when_done": "Quiet once done",
+  "quiet_when_done_sub": "No more reminders today for a habit you already completed",
+  "plan_tab": "Plan",
+  "difficulty": "Difficulty",
+  "difficulty_hint": "Harder habits count for more in the day's progress",
+  "difficulty_easy": "Easy",
+  "difficulty_medium": "Medium",
+  "difficulty_hard": "Hard",
+  "pin_lock": "PIN code",
+  "pin_lock_sub": "Your own code, separate from the phone's lock",
+  "pin_choose": "Choose a PIN",
+  "pin_choose_sub": "4 to 8 digits",
+  "pin_repeat": "Enter it again",
+  "pin_mismatch": "They don't match. Start again.",
+  "pin_enter": "Enter your PIN",
+  "pin_wrong": "Wrong PIN",
+  "pin_wait": "Too many tries. Wait {seconds} s",
+  "@pin_wait": {"placeholders": {"seconds": {"type": "String"}}},
+  "pin_recovery_title": "Your recovery code",
+  "pin_recovery_body": "If you forget the PIN, this code opens Streak and turns the lock off. Keep it somewhere safe: it won't be shown again.",
+  "pin_copy": "Copy code",
+  "pin_copied": "Code copied",
+  "pin_forgot": "Forgot your PIN?",
+  "pin_recovery_hint": "Recovery code",
+  "pin_recovery_wrong": "That code isn't right",
+  "pin_recovered": "Lock turned off. You can set a new PIN in Settings.",
+  "pin_change": "Change PIN",
+  "pin_remove": "Remove PIN",
+  "pin_fingerprint": "Use fingerprint",
+  "app_lock_method": "Unlock with",
+  "app_lock_biometric": "Fingerprint or face",
+  "difficulty_option": "Habit difficulty",
+  "difficulty_option_sub": "Let harder habits count for more in the day's progress",
+  "todo_save_another": "Save and add another",
+  "todo_add_subtask": "Add subtask",
+  "pin_paste": "Paste code",
+  "performance": "Performance",
+  "performance_sub": "Lighter app for older or low-end phones",
+  "glass_effects": "Glass effects",
+  "glass_effects_sub": "Blur behind the bar and at the screen edges. It's what weighs the most",
+  "animations": "Animations",
+  "animations_sub": "Entrances, page changes and moving text",
+  "widgets_sub": "Widget style, for phones without the widget editor",
+  "widgets_hint": "If your home screen doesn't open the editor when you add or hold a widget, change its style here. It applies to every widget of that type that wasn't customized on its own.",
+  "widget_kind_habit": "Habits",
+  "widget_kind_today": "Today",
+  "widget_kind_stats": "Summary",
+  "widget_kind_heatmap": "Heatmap",
+  "widget_kind_todos": "To-do",
+  "today_view": "View"
+}

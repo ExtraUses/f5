@@ -1,0 +1,341 @@
+import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:streak/app/theme/app_palette.dart';
+import 'package:streak/app/theme/app_tokens.dart';
+import 'package:streak/core/database/local_store.dart';
+import 'package:streak/core/i18n/l10n.dart';
+import 'package:streak/core/widgets/sheet_type.dart';
+import 'package:streak/core/widgets/app_text_field.dart';
+import 'package:streak/features/habits/data/category.dart';
+import 'package:streak/features/habits/state/categories_controller.dart';
+import 'package:streak/features/habits/state/habits_controller.dart';
+import 'package:streak/features/habits/widgets/color_picker.dart';
+import 'package:uuid/uuid.dart';
+
+class CategoryEditorSheet extends StatefulWidget {
+  const CategoryEditorSheet({super.key, this.initial});
+
+  final Category? initial;
+
+  @override
+  State<CategoryEditorSheet> createState() => _CategoryEditorSheetState();
+}
+
+class _CategoryEditorSheetState extends State<CategoryEditorSheet> {
+  late final TextEditingController _name =
+      TextEditingController(text: _label);
+  late Color _color = widget.initial?.color ?? AppPalette.brand;
+  late String _icon = widget.initial?.icon ?? CategoryIcons.names.first;
+  bool _showAllIcons = false;
+
+  static const _iconPreviewCount = 16;
+
+  String get _label {
+    final initial = widget.initial;
+    return initial == null ? '' : context.categoryLabel(initial.name);
+  }
+
+  bool get _canSave => _name.text.trim().isNotEmpty;
+
+  List<String> get _visibleIcons {
+    final all = CategoryIcons.names;
+    if (_showAllIcons || all.length <= _iconPreviewCount) return all;
+    final preview = all.take(_iconPreviewCount).toList();
+    if (!preview.contains(_icon) && all.contains(_icon)) preview[preview.length - 1] = _icon;
+    return preview;
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
+
+  void _save() {
+    final initial = widget.initial;
+    final name = _name.text.trim();
+    final adopted = initial != null &&
+        CategoriesController.isSeed(initial) &&
+        name != _label;
+    final result = Category(
+      id: initial == null || adopted ? const Uuid().v4() : initial.id,
+      name: name == _label ? initial!.name : name,
+      color: _color,
+      icon: _icon,
+      order: widget.initial?.order ?? 0,
+    );
+    Navigator.of(context).pop(result);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          20,
+          4,
+          20,
+          20 + MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.initial == null
+                    ? context.l10n.new_category
+                    : context.l10n.edit_category,
+                style: sheetTitleStyle(context),
+              ),
+              const SizedBox(height: 18),
+              AppTextField(
+                controller: _name,
+                hint: context.l10n.category,
+                onChanged: (_) => setState(() {}),
+              ),
+              const SizedBox(height: 18),
+              Text(context.l10n.icon,
+                  style: sheetBodyStyle(context, size: 13)),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  for (final name in _visibleIcons)
+                    Semantics(
+                      button: true,
+                      selected: _icon == name,
+                      label: name,
+                      child: GestureDetector(
+                        onTap: () => setState(() => _icon = name),
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: _icon == name
+                                ? _color.withValues(alpha: 0.16)
+                                : context.colors.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(12),
+                            border: _icon == name
+                                ? Border.all(color: _color, width: 1.6)
+                                : null,
+                          ),
+                          child: Icon(
+                            CategoryIcons.resolve(name),
+                            size: 20,
+                            color: _icon == name ? _color : context.tokens.muted,
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (!_showAllIcons &&
+                      CategoryIcons.names.length > _iconPreviewCount)
+                    Semantics(
+                      button: true,
+                      child: GestureDetector(
+                        onTap: () => setState(() => _showAllIcons = true),
+                        child: Container(
+                          height: 44,
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: context.colors.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            context.l10n.see_more,
+                            style: sheetLabelStyle(
+                              context,
+                              color: context.colors.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Text(context.l10n.color,
+                  style: sheetBodyStyle(context, size: 13)),
+              const SizedBox(height: 10),
+              ColorPicker(
+                selected: _color,
+                onSelected: (c) => setState(() => _color = c),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                height: 54,
+                child: FilledButton(
+                  onPressed: _canSave ? _save : null,
+                  style: FilledButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Text(
+                    context.l10n.save,
+                    style: sheetActionStyle(context, size: 16),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Future<String> addCategory(BuildContext context, Category draft) async {
+  final categories = context.read<CategoriesController>();
+  final key = LocalStore.categoryKey(draft.name);
+  final labelOf = context.categoryLabel;
+  for (final existing in categories.categories) {
+    if (LocalStore.categoryKey(labelOf(existing.name)) == key) {
+      return existing.name;
+    }
+  }
+  for (final existing in categories.categories) {
+    if (LocalStore.categoryKey(existing.name) != key) continue;
+    final kept = Category(
+      id: const Uuid().v4(),
+      name: labelOf(existing.name),
+      color: existing.color,
+      icon: existing.icon,
+      order: existing.order,
+    );
+    await saveCategory(context, existing, kept);
+    break;
+  }
+  final created = await categories.create(
+    name: draft.name,
+    color: draft.color,
+    icon: draft.icon,
+  );
+  return created.name;
+}
+
+Future<void> saveCategory(
+  BuildContext context,
+  Category before,
+  Category after,
+) async {
+  final habits = context.read<HabitsController>();
+  await context.read<CategoriesController>().replace(before, after);
+  if (before.name == after.name) return;
+  for (final habit in habits.withArchived) {
+    if (habit.category != before.name) continue;
+    await habits.update(habit.copyWith(category: after.name));
+  }
+}
+
+Future<void> showCategoryOrderSheet(BuildContext context) =>
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.sizeOf(context).height * 0.85,
+      ),
+      builder: (_) => const _CategoryOrderSheet(),
+    );
+
+class _CategoryOrderSheet extends StatelessWidget {
+  const _CategoryOrderSheet();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = context.watch<CategoriesController>();
+    final used = {
+      for (final habit in context.watch<HabitsController>().habits)
+        if (habit.category.isNotEmpty) habit.category,
+    };
+    final all = controller.categories;
+    final categories = [
+      for (final category in all)
+        if (used.contains(category.name) ||
+            !CategoriesController.isSeed(category))
+          category,
+    ];
+    final rest = [
+      for (final category in all)
+        if (!categories.contains(category)) category,
+    ];
+    if (categories.isEmpty) {
+      return SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(context.l10n.reorder, style: sheetTitleStyle(context)),
+              const SizedBox(height: 10),
+              Text(
+                context.l10n.category_order_empty,
+                style: sheetBodyStyle(context, size: 13),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 12, 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(context.l10n.reorder, style: sheetTitleStyle(context)),
+            const SizedBox(height: 8),
+            Flexible(
+              child: ReorderableListView(
+                shrinkWrap: true,
+                buildDefaultDragHandles: false,
+                onReorder: (from, to) {
+                  final ordered = [...categories];
+                  ordered.insert(
+                    to > from ? to - 1 : to,
+                    ordered.removeAt(from),
+                  );
+                  controller.reorder([...ordered, ...rest]);
+                },
+                children: [
+                  for (final (index, category) in categories.indexed)
+                    ListTile(
+                      key: ValueKey(category.id),
+                      contentPadding: EdgeInsets.zero,
+                      leading: Icon(
+                        CategoryIcons.resolve(category.icon),
+                        color: category.color,
+                      ),
+                      title: Text(
+                        context.categoryLabel(category.name),
+                        style: sheetOptionStyle(context),
+                      ),
+                      trailing: ReorderableDragStartListener(
+                        index: index,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Icon(
+                            LucideIcons.gripVertical,
+                            color: context.tokens.muted,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

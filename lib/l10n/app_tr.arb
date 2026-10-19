@@ -1,0 +1,1540 @@
+{
+  "today": "Bugün",
+  "stats": "İstatistikler",
+  "settings": "Ayarlar",
+  "good_morning": "Günaydın",
+  "good_afternoon": "Tünaydın",
+  "select_all": "Tümünü seç",
+  "last_90_days": "Son 90 gün",
+  "clear": "Temizle",
+  "focus_history": "Geçmiş",
+  "focus_stats": "Odaklanma istatistikleri",
+  "save": "Kaydet",
+  "new_label": "Yeni",
+  "cancel": "İptal et",
+  "delete": "Sil",
+  "good_evening": "İyi akşamlar",
+  "all": "Hepsi",
+  "next": "Sonraki",
+  "statistics": "İstatistikler",
+  "last_30_days": "Son 30 gün",
+  "last_7_days": "Son 7 gün",
+  "add_habit": "Alışkanlık ekle",
+  "notif_greeting": "Merhaba {name}, ",
+  "@notif_greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "difficulty_option": "Alışkanlık zorluğu",
+  "dev_handle": "@InlitX",
+  "deleted_forever": "Alışkanlık silindi",
+  "close": "Kapat",
+  "monthly": "Aylık",
+  "sched_unit_days": "Günler",
+  "sched_unit_weeks": "Haftalar",
+  "sched_unit_months": "Aylar",
+  "todo_tags": "Etiketler",
+  "todo_projects": "Projeler",
+  "todo_project": "Proje",
+  "todo_project_new": "Yeni proje",
+  "todo_project_name": "Proje adı",
+  "todo_project_edit": "Projeyi düzenle",
+  "todo_date": "Tarih",
+  "todo_priority": "Öncelik",
+  "priority_low": "Düşük",
+  "priority_medium": "Orta",
+  "priority_high": "Yüksek",
+  "todos": "Yapılacaklar",
+  "gamification": "Oyunlaştırma",
+  "island_g_puerto": "Liman",
+  "island_p_agave": "Sabır çiçeği",
+  "island_p_house": "Küçük ev",
+  "island_p_olive": "Zeytin ağacı",
+  "island_p_rocks": "Taşlar",
+  "island_p_flat_stone": "Düz taş",
+  "island_p_flower_pot": "Saksı",
+  "light": "Aydınlık",
+  "dark": "Karanlık",
+  "language": "Dil",
+  "auto_backup_folder": "Klasör",
+  "refresh_now": "Yenile",
+  "about": "Hakkında",
+  "category": "Kategori",
+  "category_health": "Sağlık",
+  "category_fitness": "Fitness",
+  "category_learning": "Eğitim",
+  "category_finance": "Finans",
+  "habit_kind": "Alışkanlık türü",
+  "currency": "Para birimi",
+  "quant_preset_water": "Su",
+  "quant_daily_goal": "Günlük hedef",
+  "copy_message": "Mesajı kopyala",
+  "note_take_photo": "Kamera",
+  "day_start_midnight": "Gece yarısı",
+  "repeat_hours": "Gün içinde tekrarla",
+  "todo_tag_folders": "Klasörler",
+  "rate_github": "GitHub'da yıldızla",
+  "profile": "Profil",
+  "new_category": "Yeni kategori",
+  "difficulty_easy": "Kolay",
+  "difficulty_medium": "Orta",
+  "difficulty_hard": "Zor",
+  "check_never": "Hiçbir zaman",
+  "difficulty": "Zorluk",
+  "gamification_beta": "Oyunlaştırma (beta)",
+  "island_p_water_bucket": "Su kovası",
+  "island_p_well": "Kuyu",
+  "island_p_windmill": "Yel değirmeni",
+  "period_this_year": "Bu yıl",
+  "a11y_previous_week": "Önceki hafta",
+  "app_tagline": "Alışkanlık takibi",
+  "island_t_white": "beyaz",
+  "widget_demo_water": "Su",
+  "no_habits_yet": "Henüz alışkanlık yok",
+  "all_done_today": "Bugünlük hepsi tamam!",
+  "x_of_y_completed": "{done}/{total} tamamlandı",
+  "@x_of_y_completed": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "empty_title": "İlk serini başlat",
+  "empty_body": "Bir alışkanlık oluştur ve kaydetmek için bir güne dokun. Her gün küçük adımlar.",
+  "onb1_title": "Gerçek seriler oluştur",
+  "onb1_body": "Alışkanlığını tek dokunuşla kaydet ve ivmenin günden güne artışını izle.",
+  "onb2_title": "Yolundan sapma",
+  "onb2_body": "Hiçbir şeyi gözden kaçırmamak için akıllı hatırlatıcılarla günlük, haftalık veya aylık hedefler.",
+  "onb3_title": "İlerlemeni gör",
+  "onb3_body": "Zengin istatistikler ve yıllık tablo, ne kadar yol katettiğini net bir şekilde gösterir.",
+  "skip": "Atla",
+  "get_started": "Başlayın",
+  "onb_kicker": "Hoş geldin",
+  "onb_free_title": "Ücretsiz, sonsuza dek",
+  "onb_free_body": "Reklam yok, abonelik yok, kilitli özellik yok.",
+  "onb_private_title": "Gizli ve çevrimdışı",
+  "onb_blurb": "Her gün yaptığın küçük kontroller, zamanla sürdürdüğün alışkanlıklara dönüşür.",
+  "onb_private_body": "Her şey cihazında kalır. Hesap oluşturman gerekmez.",
+  "onb_yours_title": "Verilerin sana aittir",
+  "onb_yours_body": "İstediğin zaman yedekle veya yanında götür.",
+  "onb_step": "{total} adımdan {step}",
+  "@onb_step": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "done_today": "Bugün tamamlandı",
+  "best_streak": "En uzun seri",
+  "active_habits": "Aktif alışkanlıklar",
+  "total_logs": "Toplam kayıtlar",
+  "your_habits": "Alışkanlıkların",
+  "stats_empty": "İstatistiklerini görmek için alışkanlık ekle",
+  "completion_rate_short": "Tutarlılık",
+  "completion_rate": "Tamamlama oranı",
+  "appearance": "Görünüm",
+  "theme": "Tema",
+  "system": "Sistem",
+  "week_starts_on": "Haftanın başlangıcı",
+  "mon": "Pzt",
+  "sat": "Cmt",
+  "sun": "Paz",
+  "data": "Veri",
+  "export_backup": "Yedeği dışa aktar",
+  "export_backup_sub": "Tüm alışkanlıkları bir dosyaya kaydet",
+  "auto_backup": "Otomatik yedekleme",
+  "auto_backup_sub": "Kapalı",
+  "auto_backup_off": "Kapalı",
+  "auto_backup_daily": "Her gün",
+  "auto_backup_weekly": "Her hafta",
+  "auto_backup_where": "Uygulamayı açtığında Streak, her şeyin dahil olduğu tam bir yedekleme oluşturur: fotoğraflar ve müzik dahil olmak üzere bir .zip dosyası ve bir .json dosyası. Ayrıca herhangi bir düzenleyicide açabileceğin, okunabilir bir kopya da oluşturur. Son birkaç yedekleme saklanır.",
+  "auto_backup_folder_default": "Uygulama içinde (uygulamayı kaldırırsan silinir)",
+  "auto_backup_folder_set": "Klasör kaydedildi",
+  "auto_backup_folder_failed": "Bu klasöre yazılamıyor",
+  "auto_backup_no_permission": "Depolama izni reddedildi",
+  "auto_backup_run_now": "Şimdi yedekle",
+  "refresh_now_sub": "Diğer cihazlarının klasöre bıraktığı verileri içe aktar",
+  "refresh_brought": "Alışkanlıkların güncel",
+  "refresh_nothing": "Klasörde yeni bir şey yok",
+  "import_backup": "Yedeği içe aktar",
+  "import_backup_sub": "Alışkanlıkları bir dosyadan geri yükle",
+  "import_from_app": "Başka bir uygulamadan içe aktar",
+  "import_from_app_sub": "Loop Habit Tracker, HabitKit…",
+  "import_from_app_done": "{source} uygulamasından {habits} alışkanlık ({days} gün) içe aktarıldı",
+  "@import_from_app_done": {
+    "placeholders": {
+      "habits": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      },
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "import_failed": "Bu dosya içe aktarılamadı",
+  "backup_saved": "Yedekleme kaydedildi",
+  "export_cancelled": "Dışa aktarma iptal edildi",
+  "habits_imported": "Alışkanlıklar içe aktarıldı",
+  "new_habit": "Yeni alışkanlık",
+  "edit_habit": "Alışkanlığı düzenle",
+  "name": "Ad",
+  "name_hint": "Örn. Sabah koşusu",
+  "description": "Açıklama",
+  "description_hint": "İsteğe bağlı not",
+  "color": "Renk",
+  "icon": "Simge",
+  "category_productivity": "Üretkenlik",
+  "count_days": "{count, plural, =1{1 gün} other{{count} gün}}",
+  "@count_days": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "count_weeks": "{count, plural, =1{1 hafta} other{{count} hafta}}",
+  "@count_weeks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "count_months": "{count, plural, =1{1 ay} other{{count} ay}}",
+  "@count_months": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "streak_unit_week": "{count}h",
+  "@streak_unit_week": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "streak_unit_month": "{count} ay",
+  "@streak_unit_month": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "kind_positive": "Normal",
+  "kind_negative": "Kaçın",
+  "category_mindfulness": "Farkındalık",
+  "kind_quantitative": "Miktar",
+  "kind_locked_hint": "Alışkanlık oluşturulduktan sonra türü değiştirilemez.",
+  "kind_negative_hint": "Varsayılan olarak her gün \"temiz\" sayılır — serin kendi kendine ilerler. Yalnızca bir aksama olursa onay işaretine dokun; o gün kırmızıya döner ve işlemi geri alabilirsin.",
+  "currency_custom": "Özel",
+  "money_saved": "Tasarruf edilen para",
+  "clean_days": "Temiz günler",
+  "quant_preset_reading": "Okuma",
+  "quant_preset_generic": "Özel",
+  "quant_unit_pages": "sayfalar",
+  "quant_edit_title": "Bugünün miktarı",
+  "quant_tap_amount": "Dokunma başına miktar",
+  "quant_per_day": "Günlük miktar",
+  "quant_average": "Günlük ortalama",
+  "quant_logged_days": "Kaydedilen gün sayısı",
+  "quant_best_day": "En iyi gün",
+  "quant_goal_days": "Hedefe ulaşılan günler",
+  "currency_hint": "Sembol veya kod",
+  "quant_unit_hint": "Birim (örn. ml, sayfa, tekrar)",
+  "quant_unit_ml": "ml",
+  "quant_stats_empty": "Miktar kaydet; hedefin altında kaldığın günlerde bile burada toplamına eklenir.",
+  "frequency": "Sıklık",
+  "cost_per_day": "Günlük maliyet",
+  "cost_note": "İsteğe bağlı. Bu alışkanlığın maliyeti yoksa boş bırak.",
+  "daily": "Günlük",
+  "weekly": "Haftalık",
+  "sched_days": "Günler",
+  "sched_interval": "Aralık",
+  "times_per_week": "Haftada {n} kez",
+  "@times_per_week": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "times_per_month": "Ayda {n} kez",
+  "@times_per_month": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "freq_per_week_short": "{n}×/hafta",
+  "@freq_per_week_short": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "freq_per_month_short": "{n}×/ay",
+  "@freq_per_month_short": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "reminders": "Hatırlatıcılar",
+  "add_reminder": "Hatırlatıcı ekle",
+  "delete_habit": "Alışkanlığı sil",
+  "archive_habit": "Alışkanlığı arşivle",
+  "archive": "Arşivle",
+  "share_friends": "Bir arkadaşınla paylaş",
+  "share_friends_sub": "Ona uygulamayı gönder",
+  "share_friends_message": "Serilerimi Streak ile sürdürüyorum — küçük, ücretsiz, çevrimdışı çalışan, hesapsız ve reklamsız bir alışkanlık takipçisi. Sen de kendi serini başlat: https://inlitx.github.io/streak/",
+  "message_copied": "Mesaj kopyalandı",
+  "app_lock": "Uygulama kilidi",
+  "app_lock_sub": "Streak'i açmak için parmak izi veya yüz doğrulaması iste",
+  "app_lock_unavailable": "Bu telefonda biyometrik doğrulama ayarlı değil",
+  "app_lock_failed": "Senin olduğun doğrulanamadı",
+  "app_lock_title": "Streak kilitli",
+  "app_lock_unlock": "Kilidi aç",
+  "app_lock_delay": "Şu süre sonra kilitle",
+  "app_lock_delay_instant": "Hemen",
+  "app_lock_delay_seconds": "{value} saniye",
+  "@app_lock_delay_seconds": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "note_photos": "Fotoğraflar",
+  "note_pick_photo": "Galeri",
+  "journey": "Yolculuk",
+  "journey_sub": "{count, plural, =1{1 fotoğraf} other{{count} fotoğraf}}",
+  "@journey_sub": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journey_empty": "Henüz fotoğraf yok",
+  "journey_empty_sub": "Bir nota fotoğraf ekle, burada görünsün.",
+  "archive_habit_body": "\"{name}\" arşive taşınsın mı? Geçmişi saklanır ve Ayarlar üzerinden geri yükleyebilirsin.",
+  "@archive_habit_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "archived_habits": "Arşivlenen alışkanlıklar",
+  "archived_habits_sub": "Geri yükle ya da tamamen sil",
+  "archived_empty": "Arşivlenen bir şey yok",
+  "archived_empty_sub": "Sildiğin alışkanlıklar tüm geçmişiyle birlikte burada görünür.",
+  "restore": "Geri yükle",
+  "restored": "Alışkanlık geri yüklendi",
+  "delete_forever": "Kalıcı olarak sil",
+  "delete_forever_body": "\"{name}\" ve tüm geçmişi silinsin mi? Bu işlem geri alınamaz.",
+  "@delete_forever_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clear_progress": "İlerlemeyi temizle",
+  "clear_progress_sub": "Geçmiş, notlar ve odaklanma oturumları",
+  "clear_progress_warning": "Bu işlem kaydedilen tüm günleri, notları ve odaklanma oturumlarını siler; alışkanlıkların, programları ve ayarların kalır. Sonradan içe aktarabileceğin bir yedek dosyan yoksa geri alınamaz.",
+  "clear_progress_confirm": "İlerlemeyi temizle",
+  "clear_progress_done": "İlerleme temizlendi",
+  "wipe_data": "Tüm verileri sil",
+  "wipe_data_sub": "Alışkanlıklar, notlar, odaklanma oturumları ve ayarlar",
+  "wipe_data_warning": "Bu işlem bu telefondaki tüm alışkanlıkları, notları, odaklanma oturumlarını ve ayarları siler. Sonradan içe aktarabileceğin bir yedek dosyan yoksa geri alınamaz.",
+  "wipe_data_sure": "Gerçekten her şey silinsin mi?",
+  "wipe_data_sure_body": "Son şans. Yedeğin yoksa bu veriler kalıcı olarak kaybolur.",
+  "wipe_data_confirm": "Her şeyi sil",
+  "wipe_data_done": "Tüm veriler silindi",
+  "day_start": "Gün başlangıcı",
+  "day_start_sub": "Gece geç saatler bir önceki güne sayılır",
+  "day_start_hour": "{hour}:00",
+  "@day_start_hour": {
+    "placeholders": {
+      "hour": {
+        "type": "String"
+      }
+    }
+  },
+  "share_photo": "Fotoğraf",
+  "share_stats_short": "İstatistik",
+  "undo": "Geri al",
+  "habit_archived": "Alışkanlık arşivlendi",
+  "duplicate_habit": "Alışkanlığı çoğalt",
+  "habit_duplicated": "{name} eklendi",
+  "@habit_duplicated": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "share_blur": "Bulanıklaştır",
+  "delete_habit_body": "\"{name}\" silinsin mi? Bu işlem geri alınamaz.",
+  "@delete_habit_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "log_relapse_title": "Nüks kaydedilsin mi?",
+  "log_relapse_body": "Bu, \"{name}\" için bugünkü temiz seriyi bozar. Tekrar dokunarak geri alabilirsin.",
+  "@log_relapse_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "log_relapse_confirm": "Evet, kaydet",
+  "permission_required": "Bildirim izni gerekli",
+  "streaks": "Seriler",
+  "activity": "Aktivite",
+  "current": "Güncel",
+  "best": "En iyi",
+  "total": "Toplam",
+  "relapses": "Nüksler",
+  "strength": "Güç",
+  "week": "Hafta",
+  "month": "Ay",
+  "year": "Yıl",
+  "new_reminder": "Yeni hatırlatıcı",
+  "edit_reminder": "Hatırlatıcıyı düzenle",
+  "days": "Günler",
+  "time": "Saat",
+  "save_reminder": "Hatırlatıcıyı kaydet",
+  "select_one_day": "En az bir gün seç",
+  "every_day": "Her gün",
+  "no_days": "Gün yok",
+  "every_n_hours": "{n} saatte bir",
+  "@every_n_hours": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "repeat_weekly": "Belirli günler",
+  "repeat_interval": "Her N günde bir",
+  "every_n_days": "{n} günde bir",
+  "@every_n_days": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "every_n_weeks": "{n, plural, =1{Her hafta} other{{n} haftada bir}}",
+  "@every_n_weeks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "every_n_months": "{n, plural, =1{Her ay} other{{n} ayda bir}}",
+  "@every_n_months": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_project_arrange": "Yeniden sırala",
+  "todo_project_arrange_hint": "Klasörleri istediğin yere sürükle.",
+  "todo_project_pick": "Proje seç",
+  "todo_project_none": "Proje yok",
+  "todo_project_delete_body": "Proje silinir. Görevler kalır.",
+  "todo_tag": "Etiket",
+  "todo_tag_new": "Yeni etiket",
+  "todo_tag_name": "Etiket adı",
+  "todo_tag_edit": "Etiketi düzenle",
+  "todo_tag_delete_body": "Etiket silinir. Görevler kalır.",
+  "todo_tag_none": "Etiket yok",
+  "todo_tag_all": "Hepsi",
+  "todo_tag_manage": "Etiketleri yönet",
+  "todo_tag_empty_title": "Henüz etiket yok",
+  "todo_tag_empty_body": "Görevleri proje, yer veya istediğin başka bir şeye göre grupla.",
+  "todo_tag_list": "Liste",
+  "todo_tag_count": "{n} açık",
+  "@todo_tag_count": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_tag_icon": "Simge",
+  "todo_tag_pick": "Etiket seç",
+  "todo_tag_filtered": "{name} ile filtrelendi",
+  "@todo_tag_filtered": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "uncategorized": "Kategorisiz",
+  "more_icons": "Daha fazla simge",
+  "less_icons": "Daha az simge",
+  "completions": "Tamamlamalar",
+  "completion_time": "Tamamlama saati",
+  "current_streak": "Güncel seri",
+  "days_active": "Aktif günler",
+  "completions_per_month": "Tamamlama / Ay",
+  "overview": "Genel bakış",
+  "preferences": "Tercihler",
+  "support": "Destek",
+  "about_app": "Bu uygulama hakkında",
+  "about_app_sub": "Sürüm, emeği geçenler ve kaynak kodu",
+  "my_heatmap": "Isı haritam",
+  "my_heatmap_sub": "Yıllık aktivite tablosunu aç",
+  "rate_github_sub": "Bir yıldızla projeyi destekle",
+  "buy_coffee": "Bana bir kahve ısmarla",
+  "buy_coffee_sub": "Uygulamanın ücretsiz kalmasına yardım et",
+  "view_source": "Kaynağı GitHub'da gör",
+  "about_title": "Senin için yapıldı. Sonsuza dek ücretsiz.",
+  "about_footer": "☕ ve bolca boş zamanla yapıldı.",
+  "about_body": "Streak basit bir fikirden doğdu: kendi alışkanlıklarını takip etmek için neden para ödeyesin?\n\nBu uygulama tamamen açık kaynak. Herkes tam olarak nasıl çalıştığını görebilir, iyileştirme önerebilir, hatta kendi sürümünü yapabilir. Kara kutu yok. Sürpriz yok.\n\nGizliliğin tam: her şey telefonunda kalır. Hesap yok, sunucu yok, reklam yok. Cihazından tek bir bayt bile çıkmaz.\n\nSınır yok. İstediğin kadar alışkanlık oluştur. Abonelik yok, \"pro sürüm\" yok, senden para isteyen açılır pencereler yok. Asla.\n\nUygulama sana bir şey katıyorsa GitHub'da bir yıldızla ya da bana bir kahve ısmarlayarak destekleyebilirsin. Ama bu tamamen isteğe bağlı — uygulama her durumda senin.",
+  "no_data_yet": "Henüz veri yok",
+  "import_question_body": "Mevcut tüm alışkanlıkların yedekle değiştirilsin mi, yoksa birleştirilsin mi?",
+  "import_replace": "Hepsini değiştir",
+  "import_merge": "Birleştir",
+  "go": "Git",
+  "quote_1": "Her gün küçük adımlar.",
+  "quote_2": "Tutarlılık, yoğunluğu yener.",
+  "quote_3": "Kendin için ortaya çık.",
+  "quote_4": "Her seferinde bir gün.",
+  "quote_5": "Mükemmellik değil, ilerleme.",
+  "quote_6": "Bitmiş olmak, mükemmel olmaktan iyidir.",
+  "quote_7": "Seriyi canlı tut.",
+  "quote_8": "Küçük alışkanlıklar, büyük değişim.",
+  "quote_9": "Sürece güven.",
+  "quote_10": "Sabahı kazan.",
+  "quote_11": "Disiplin özgürlüktür.",
+  "quote_12": "Bugün sayılır.",
+  "just_tracking_option": "Sadece takip seçeneği sun",
+  "just_tracking_option_sub": "Alışkanlık oluştururken anahtarı ekler",
+  "just_tracking": "Sadece takip",
+  "just_tracking_sub": "Kendi tablosu ve sayıları tutulur, ama İlerleme'nin ve günün sayacının dışında kalır",
+  "quotes": "Sözler",
+  "quotes_which": "Hangi sözler",
+  "quotes_app": "Uygulamadan",
+  "quotes_mine": "Benimkiler",
+  "quotes_both": "İkisi de",
+  "quotes_off": "Kapalı",
+  "quotes_my_list": "Sözlerim",
+  "quotes_add": "Söz ekle",
+  "quotes_edit": "Sözü düzenle",
+  "quotes_hint": "Sözünü yaz",
+  "quotes_empty": "Kendi sözün yok",
+  "quotes_empty_sub": "Kendi sözlerini yaz, Bugün ekranında görünsünler.",
+  "motiv_start": "Güne güçlü başla 💪",
+  "motiv_progress": "Yoldasın, devam et",
+  "motiv_almost": "Neredeyse tamam! Biraz daha",
+  "motiv_perfect": "Mükemmel gün! 🔥",
+  "app_background": "Arka plan",
+  "widgets": "Widget'lar",
+  "customize_widgets": "Widget'ları özelleştir",
+  "customize_widgets_sub": "Arka plan, opaklık, kenarlık",
+  "widget_background": "Arka plan rengi",
+  "widget_opacity": "Opaklık",
+  "widget_border": "Kenarlık",
+  "widget_preview": "Önizleme",
+  "bg_solid": "Düz",
+  "bg_gradient": "Gradyan",
+  "bg_dots": "Noktalar",
+  "bg_oled": "OLED",
+  "weekdays": "Hafta içi",
+  "weekends": "Hafta sonu",
+  "reminder_message": "Mesaj (isteğe bağlı)",
+  "reminder_message_hint": "Motivasyon sözü için boş bırak",
+  "edit_category": "Kategoriyi düzenle",
+  "add_category": "Yeni",
+  "delete_category": "Kategoriyi sil",
+  "edit": "Düzenle",
+  "cover_image": "Kapak resmi",
+  "book_cover": "Kitap kapağı",
+  "add_image": "Resim ekle",
+  "when_best": "Ne zaman en tutarlısın?",
+  "streak_evolution": "Seri gelişimi",
+  "consistency": "Tutarlılık",
+  "consistency_trend": "Tutarlılık eğilimi",
+  "by_habit": "Alışkanlığa göre",
+  "ranking": "Sıralama",
+  "active_days": "Aktif günler",
+  "perfect_days": "Mükemmel günler",
+  "per_week": "Haftalık",
+  "best_month": "En iyi ay",
+  "streak_on": "🔥 Üst üste {n} gün. Bozma!",
+  "@streak_on": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "streak_off": "💪 Bugün yeni bir seri başlatabilirsin",
+  "not_enough_data": "Henüz yeterli veri yok",
+  "about_inline": "Streak, alışkanlıklarını takip etmen için açık kaynaklı bir uygulama. Hesap yok, sınır yok, ödeme yok. Her şey telefonunda kalır.\n\nKodu herkes görebilir, geliştirebilir ya da özgürce kullanabilir.",
+  "about_subtitle": "Ortaya çıkmayı seçtiğin günler için.",
+  "about_story": "Bu uygulama, piyasadaki alışkanlık takipçilerinden duyduğum hayal kırıklığından doğdu. Çoğu oluşturabileceğin alışkanlık sayısını sınırlıyor, temel özellikleri ödeme duvarının arkasına saklıyor, seni takip ediyor ya da reklamlarla boğuyor. Ben de Streak'i yapmaya karar verdim: tamamen ücretsiz, reklamsız, ödemesiz, takipsiz. Her şey yerelde çalışır — verilerin senin. Açık kaynak, hiçbir şartı yok.",
+  "made_by": "@InlitX tarafından ❤️ ile yapıldı",
+  "share": "Paylaş",
+  "share_progress": "İlerlemeyi paylaş",
+  "share_failed": "Görsel oluşturulamadı",
+  "share_swipe_hint": "Zamanda gezinmek için kartı kaydır",
+  "share_background": "Arka plan",
+  "share_size": "Boyut",
+  "share_size_large": "Dikey",
+  "share_size_small": "Kare",
+  "share_show_stats": "İstatistikleri göster",
+  "share_save": "Kaydet",
+  "share_saved": "Galeriye kaydedildi",
+  "share_save_failed": "Görsel kaydedilemedi",
+  "about_developer": "Geliştirici",
+  "about_legal": "© InlitX. Streak, 7. maddesindeki ek şartlarla birlikte GNU GPLv3 altında özgür yazılımdır ve hiçbir garanti vermez. Lisansı okumak için dokun.",
+  "about_credits": "Emeği geçenler",
+  "about_credits_body": "Flutter ile geliştirildi. Simgeler Lucide'den. Grafikler fl_chart ile. Yazı tipleri: Figtree ve Playfair Display.",
+  "dev_role": "Bağımsız yapımcı · Streak",
+  "notes": "Notlar",
+  "notes_enable_sub": "Bir alışkanlığın herhangi bir gününe not ekle",
+  "add_note": "Not ekle",
+  "edit_note": "Notu düzenle",
+  "view_notes": "Notları gör",
+  "edit_entry": "Kaydı düzenle",
+  "note_type": "Tür",
+  "note_kind_note": "Not",
+  "note_kind_planned": "Planlandı",
+  "note_kind_completed": "Tamamlandı",
+  "note_hint": "Notunu yaz...",
+  "note_time_optional": "Saat (isteğe bağlı)",
+  "save_note": "Notu kaydet",
+  "notes_empty": "Bu gün için henüz not yok",
+  "delete_note": "Notu sil",
+  "legend_note_added": "Not eklendi",
+  "tomorrow": "Yarın",
+  "notes_count": "{count, plural, =1{1 not} other{{count} not}}",
+  "@notes_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todos_enable_sub": "Alışkanlıklarının yanında hızlı bir liste",
+  "todo_new": "Yeni görev",
+  "todo_hint": "Ne yapılması gerekiyor?",
+  "todo_subtasks": "Alt görevler",
+  "todo_subtask_hint": "Alt görev",
+  "todo_empty_title": "Listede hiçbir şey yok",
+  "todo_empty_body": "Önümüzdeki günlerde yapmak istediklerini not al.",
+  "todo_no_date": "Tarih yok",
+  "todo_time": "Saat",
+  "todo_paper": "Renk",
+  "todo_add": "Ekle",
+  "todo_list_item": "Liste öğesi",
+  "todo_title_hint": "Başlık",
+  "todo_body_hint": "Not",
+  "todo_sort": "Öncelik sırası",
+  "todo_sort_high_first": "Önce yüksek öncelik",
+  "todo_sort_low_first": "Önce düşük öncelik",
+  "todo_project_empty": "Bu klasörde henüz bir şey yok",
+  "todo_background": "Arka plan",
+  "todo_background_pick": "Fotoğraf seç",
+  "todo_deleted": "Not silindi",
+  "todo_mark_done": "Tamamlandı olarak işaretle",
+  "todo_mark_open": "Tamamlanmadı olarak işaretle",
+  "todo_pin": "Sabitle",
+  "todo_unpin": "Sabitlemeyi kaldır",
+  "todo_select": "Seç",
+  "todo_selected": "{count, plural, =1{1 seçildi} other{{count} seçildi}}",
+  "@todo_selected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_deleted_many": "{count, plural, =1{Not silindi} other{{count} not silindi}}",
+  "@todo_deleted_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "priority_none": "Öncelik yok",
+  "todo_overdue": "Gecikmiş",
+  "todo_upcoming": "Yaklaşan",
+  "todo_someday": "Bir gün",
+  "pick_a_date": "Tarih seç",
+  "todo_left": "{count, plural, =0{Hepsi tamam} =1{1 görev kaldı} other{{count} görev kaldı}}",
+  "@todo_left": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_completed_count": "{count, plural, =1{Tamamlanan (1)} other{Tamamlanan ({count})}}",
+  "@todo_completed_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "todo_search": "Görevlerde ara",
+  "todo_search_empty": "Eşleşen bir şey yok",
+  "todo_clear_completed": "Tamamlananları temizle",
+  "todo_clear_completed_body": "{count, plural, =1{Bu işlem tamamlanan görevi siler.} other{Bu işlem tamamlanan {count} görevi siler.}}",
+  "@todo_clear_completed_body": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "prefs_general": "Genel",
+  "prefs_features": "Özellikler",
+  "prefs_privacy": "Gizlilik",
+  "collapse_cards": "Kartları daralt",
+  "expand_cards": "Kartları genişlet",
+  "view_switcher": "Görünüm değiştirici",
+  "view_switcher_sub": "Bugün ekranında Hafta / Ay / Yıl düğmelerini göster",
+  "view_switcher_needs": "Kullanmak için kartlarda aktiviteyi aç",
+  "focus": "Odaklanma",
+  "focus_enable_sub": "Zamanlayıcı gerektiren alışkanlıklar için bir sayaç",
+  "focus_free_session": "Serbest oturum",
+  "focus_duration": "Süre",
+  "focus_start": "Oturumu başlat",
+  "focus_style": "Zamanlayıcı stili",
+  "focus_style_digital": "Daire",
+  "focus_style_flip": "Çevirmeli",
+  "focus_style_dots": "Noktalar",
+  "focus_countdown": "3 saniyelik geri sayım",
+  "focus_skip_break": "Molayı atla",
+  "focus_continue": "Devam et",
+  "focus_alert": "Tur sonu uyarısı",
+  "focus_alert_chime": "Zil sesi",
+  "focus_alert_custom": "Ses seç",
+  "focus_alert_none": "Sessiz",
+  "focus_hold": "Ben durdurana kadar bekle",
+  "focus_hold_sub": "Mola da Devam et'e dokunmanı bekler. Moladan sonra Odaklanma her zaman bekler.",
+  "focus_restart": "Yeniden başlat",
+  "focus_restart_title": "Bu tur yeniden başlatılsın mı?",
+  "focus_restart_body": "Bu turda odaklandığın süre kaybolur.",
+  "focus_saved": "{time} kaydedildi",
+  "@focus_saved": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_total": "Odaklanma süresi",
+  "focus_sessions": "Oturumlar",
+  "focus_stop_title": "Oturum bitirilsin mi?",
+  "focus_stop_body": "Dakikaların her durumda kaydedilir. Alışkanlık yalnızca hedefe ulaşırsan tamamlanır.",
+  "focus_end": "Bitir",
+  "focus_pick_habit": "Neye odaklanıyorsun?",
+  "focus_scene_custom": "Senin görselin",
+  "unit_hours": "saat",
+  "unit_minutes": "dakika",
+  "unit_seconds": "saniye",
+  "focus_target_reached": "Hedefe ulaşıldı",
+  "focus_pause": "Duraklat",
+  "focus_resume": "Sürdür",
+  "focus_sound": "Ses",
+  "focus_pick_audio": "Telefonundan bir parça seç",
+  "focus_no_sound": "Parça seçilmedi",
+  "focus_tasks": "Alt görevleri listele",
+  "focus_custom_duration": "Özel",
+  "focus_end_short": "Hedefe {time} kaldı.",
+  "@focus_end_short": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_end_tasks": "{count} görev hâlâ işaretlenmedi.",
+  "@focus_end_tasks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_end_reached": "Hedefe ulaşıldı. Alışkanlık tamamlandı olarak işaretlenecek.",
+  "focus_end_keep": "Devam et",
+  "focus_end_anyway": "Yine de bitir",
+  "focus_end_complete": "Tamamlandı olarak işaretle",
+  "focus_end_add_time": "Odaklanılan süreyi ekle",
+  "focus_amount_added": "{habit} alışkanlığına {amount} eklendi",
+  "@focus_amount_added": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "habit": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_personalize": "Özel",
+  "focus_track_brown": "Kahverengi gürültü",
+  "focus_track_fire": "Ateş",
+  "focus_track_pad": "Sıcak pad",
+  "focus_add_track": "Parça ekle",
+  "focus_shuffle": "Karışık",
+  "focus_loop": "Sırayla",
+  "focus_repeat_one": "Birini tekrarla",
+  "focus_track_too_long": "Parçalar 20 dakikadan kısa olmalı",
+  "focus_track_limit": "En fazla 30 parça",
+  "focus_done_title": "Oturum tamamlandı",
+  "focus_your_tracks": "Parçaların",
+  "focus_built_in": "Dahili",
+  "unit_hour_short": "sa",
+  "unit_min_short": "dk",
+  "focus_notif_body": "Odaklanma oturumun bitti. Aferin!",
+  "celebration": "Tamamlama efekti",
+  "celebration_confetti": "Konfeti",
+  "celebration_fireworks": "Havai fişek",
+  "celebration_surprise": "Beni şaşırt",
+  "focus_notif_channel": "Odaklanma oturumları",
+  "focus_notif_running": "Odaklanıyor",
+  "focus_paused": "Duraklatıldı",
+  "focus_scene_black": "Siyah",
+  "focus_pomodoro": "Pomodoro",
+  "focus_pomodoro_sub": "Odaklanma turlarını kısa molalarla zincirle",
+  "focus_break": "Mola",
+  "focus_round": "{n}. tur",
+  "@focus_round": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_daily_goal": "Odaklanma hedefi",
+  "focus_goal_today": "Bugün {done} / {goal}",
+  "@focus_goal_today": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_keep_awake": "Ekranı açık tut",
+  "focus_images_limit": "En fazla 10 görsel",
+  "selected_count": "{count, plural, =1{1 seçildi} other{{count} seçildi}}",
+  "@selected_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_delete_sessions": "Oturumlar silinsin mi?",
+  "focus_delete_sessions_body": "{count, plural, =1{1 odaklanma oturumu kaldırılacak. Bu işlem geri alınamaz.} other{{count} odaklanma oturumu kaldırılacak. Bu işlem geri alınamaz.}}",
+  "@focus_delete_sessions_body": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "focus_sessions_deleted": "{count, plural, =1{1 oturum silindi} other{{count} oturum silindi}}",
+  "@focus_sessions_deleted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unscheduled_title": "Gün planlanmamış",
+  "unscheduled_body": "Bu alışkanlık {day} gününe planlanmamış. Yine de ekstra olarak kaydedilsin mi?",
+  "@unscheduled_body": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "unscheduled_confirm": "Yine de kaydet",
+  "rest_days_none": "Yok",
+  "focus_clear_today": "Bugünkü oturumları temizle",
+  "focus_defaults": "Oturum varsayılanları",
+  "plan_day": "Günü planla",
+  "plan_day_sub": "Alışkanlıklara günün bir saatini ver ve zaman çizelgesinde gör.",
+  "plan_todos": "Plandaki görevler",
+  "plan_todos_sub": "O güne tarihlenen görevleri alışkanlıkların altında göster.",
+  "swipe_cards": "Alışkanlık kartlarını kaydır",
+  "swipe_cards_sub": "Alışkanlığı tamamlamak için sola, geri almak için sağa kaydır.",
+  "habit_time": "Günün saati",
+  "habit_time_none": "Her zaman",
+  "habit_duration": "Süre",
+  "habit_duration_none": "Süre yok",
+  "day_timeline": "Gün",
+  "day_timeline_free": "{span} boş",
+  "@day_timeline_free": {
+    "placeholders": {
+      "span": {
+        "type": "String"
+      }
+    }
+  },
+  "day_timeline_anytime": "Her zaman",
+  "day_timeline_empty": "Bu gün için planlanmış bir şey yok",
+  "day_timeline_empty_sub": "Bir alışkanlığa günün bir saatini ver, burada görünsün.",
+  "start_view": "Bugün şununla açılır",
+  "start_view_last": "Son kullanılan",
+  "focus_average": "Ortalama oturum",
+  "focus_log": "Oturum kaydet",
+  "focus_log_date": "Tarih",
+  "focus_log_saved": "Oturum eklendi",
+  "perfect_streak": "Mükemmel gün serisi",
+  "focus_history_empty": "Henüz oturum yok",
+  "focus_history_empty_sub": "Bitirdiğin her odaklanma oturumu burada görünür.",
+  "focus_history_day": "{count, plural, =1{1 oturum} other{{count} oturum}}",
+  "@focus_history_day": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "yesterday": "Dün",
+  "notes_hint": "Notları görmek veya eklemek için bir alışkanlığı aç ve takvimindeki bir güne uzun bas",
+  "app_style": "Uygulama stili",
+  "app_style_sub": "Tüm uygulamanın görünümünü ve hissini seç.",
+  "style_classic": "Klasik",
+  "style_minimal": "Minimal",
+  "style_classic_desc": "Alışkanlık listesi, alt çubuk ve tüm ayarlar tek ekranda.",
+  "style_minimal_desc": "Alışkanlık tablosu ve ayarlar dört bölümde toplanır.",
+  "appearance_sub": "Tema, vurgu ve arka plan",
+  "preferences_sub": "Dil, hafta ve sıralama",
+  "data_sub": "Yedekler ve içe aktarma",
+  "about_sub": "Sürüm, kaynak kodu ve destek",
+  "support_sub": "Hata bildir veya özellik iste",
+  "check_style": "İşaret stili",
+  "square": "Kare",
+  "circle": "Daire",
+  "github_star_row": "Kaynağı gör ve yıldız ver",
+  "github_star_sub": "Daha çok kişi bulsun diye projeye yıldız ver",
+  "icons_tab": "Simgeler",
+  "emojis_tab": "Emojiler",
+  "emoji_own": "Herhangi bir emojiyi yaz veya yapıştır",
+  "report_issue": "Sorun bildir",
+  "report_issue_sub": "Bir hatayı bildir veya özellik iste",
+  "advanced_options": "Gelişmiş seçenekler",
+  "default_user": "Inlitx",
+  "your_name": "Adın",
+  "edit_name": "Adı düzenle",
+  "change_photo": "Fotoğrafı değiştir",
+  "remove_photo": "Fotoğrafı kaldır",
+  "app_icon": "Uygulama simgesi",
+  "icon_default": "Varsayılan",
+  "icon_neutral": "Yeşil",
+  "icon_accent": "Üç renkli",
+  "custom": "Özel",
+  "see_more": "Daha fazla gör",
+  "see_less": "Daha az gör",
+  "colors_tab": "Renkler",
+  "reorder": "Yeniden sırala",
+  "reorder_hint": "Alışkanlıkları sıralamak için sürükle",
+  "category_order_empty": "Bir alışkanlığa kategori ver, burada görünsün",
+  "done": "Bitti",
+  "accent_color": "Vurgu rengi",
+  "heatmap_path": "Günleri birleştir",
+  "heatmap_path_sub": "Tabloyu tek uzun bir yürüyüş olarak çizer",
+  "sort_completed_last": "Tamamlananlar sona",
+  "sort_completed_last_sub": "Bitirdiklerini listenin altına gönderir",
+  "today_only": "Sadece bugünküler",
+  "today_only_sub": "Bugüne planlanmamış alışkanlıkları gizler",
+  "card_activity": "Kartlarda aktivite",
+  "card_activity_sub": "Kartta son günleri gösterir, işaretlemeye hazır",
+  "readable_copy": "Okunabilir kopya",
+  "readable_copy_sub": "Alışkanlıklarını ayrıca markdown dosyaları olarak yazar",
+  "theme_sub": "Aydınlık, karanlık veya sistem teması",
+  "accent_color_sub": "Düğmelerde ve vurgularda kullanılır",
+  "app_background_sub": "Kartların arkasında gördüğün şey",
+  "check_style_sub": "Kare veya yuvarlak işaretler",
+  "app_icon_sub": "Ana ekranındaki simge",
+  "language_sub": "Tüm uygulamanın dili",
+  "week_start_sub": "Her tablonun ilk sütunu",
+  "celebration_sub": "Bir alışkanlığı işaretlediğinde gördüğün şey",
+  "start_view_sub": "Bugün ekranının açıldığı görünüm",
+  "quotes_sub": "Bugün ekranında hangi sözler görünür",
+  "focus_daily_goal_sub": "Her gün hedeflediğin odaklanma dakikası",
+  "app_lock_delay_sub": "Uygulamadan çıktıktan sonra ne kadar sürede tekrar sorar",
+  "focus_only": "Sadece odaklanma oturumuyla",
+  "focus_only_hint": "Alışkanlık, ona dokunarak değil, bir oturumu bitirince işaretlenir.",
+  "focus_only_title": "Odaklanma oturumu gerekli",
+  "focus_only_body": "\"{name}\", bir odaklanma oturumu bitirilerek tamamlanır.",
+  "@focus_only_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_only_past": "\"{name}\" yalnızca bir odaklanma oturumuyla tamamlanır, bu yüzden geçmiş günler işaretlenemez.",
+  "@focus_only_past": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_only_clear_title": "Bu işaret kaldırılsın mı?",
+  "focus_only_clear_body": "\"{name}\" yeniden yalnızca bir odaklanma oturumuyla işaretlenebilir.",
+  "@focus_only_clear_body": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_only_start": "Oturumu başlat",
+  "focus_flowtime": "Flowtime",
+  "focus_flowtime_hint": "Hedef yok, alarm yok. Saat ileri sayar ve kendini bitmiş hissettiğinde durdurursun.",
+  "focus_end_flow": "{time} odaklandın.",
+  "@focus_end_flow": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "on": "Açık",
+  "off": "Kapalı",
+  "checklist": "Kontrol listesi",
+  "checklist_hint": "Alışkanlığı adımlara böl. Ancak her adım işaretlenince tamamlanır.",
+  "add_step": "Adım ekle",
+  "step_hint": "Adım adı",
+  "todays_checklist": "Bugünün kontrol listesi",
+  "steps_done": "{done}/{total} adım",
+  "@steps_done": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "vacation_all": "Tüm alışkanlıkları duraklat",
+  "vacation_all_sub": "Açıkken hiçbir şey kaçırılmış sayılmaz",
+  "vacation_mode": "Tatil modu",
+  "vacation_on_desc": "Duraklatıldı — bu günler kaçırılmış ya da tamamlanmış sayılmaz.",
+  "vacation_off_desc": "Bu alışkanlığı duraklat. Atlanan günler serini bozmaz.",
+  "paused": "Duraklatıldı",
+  "start_vacation": "Tatili başlat",
+  "end_vacation": "Tatili bitir",
+  "vacation_day_on": "Tatil günü olarak işaretle",
+  "vacation_day_off": "Tatil gününü kaldır",
+  "rest_days": "Dinlenme günleri",
+  "rest_days_desc": "Bu günlerde her hafta duraklatılır. Yine de kaydedebilirsin, sayılırlar.",
+  "widget_no_habits": "Henüz alışkanlık yok\nStreak'i açmak için dokun",
+  "widget_no_data": "Henüz veri yok\nSenkronize etmek için Streak'i aç",
+  "widget_open_to_sync": "Senkronize etmek için Streak'i aç",
+  "widget_activity": "Aktivite",
+  "widget_today_progress": "Bugün  {done}/{total}",
+  "@widget_today_progress": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_todos_open": "Görev  {count}",
+  "@widget_todos_open": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_todos_empty": "Bugün için hiçbir şey kalmadı",
+  "widget_done_today": "bugün tamamlandı",
+  "widget_best_streak": "🔥 {streak} en uzun seri",
+  "@widget_best_streak": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_cfg_title": "Widget'ı özelleştir",
+  "widget_cfg_color": "Renk",
+  "widget_cfg_image": "Görsel",
+  "widget_cfg_choose_image": "Görsel seç",
+  "widget_cfg_change_image": "Görseli değiştir",
+  "widget_cfg_custom_color": "Özel renk",
+  "widget_cfg_follow_system": "Sistem temasını izle",
+  "widget_cfg_dark_color": "Karanlık tema",
+  "widget_cfg_light_color": "Aydınlık tema",
+  "widget_cfg_opacity": "Opaklık  {value}%",
+  "@widget_cfg_opacity": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_cfg_border": "Kenarlık",
+  "widget_cfg_thickness": "Kalınlık  {value}dp",
+  "@widget_cfg_thickness": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "widget_cfg_todos_all": "Tüm görevleri göster",
+  "widget_cfg_todos_hint": "Kapalı: yalnızca bugünkü, geciken ve tarihsiz görevler",
+  "widget_cfg_show_activity": "Şunun aktivitesini göster",
+  "widget_cfg_dot_color": "Nokta rengi",
+  "widget_cfg_style": "Stil",
+  "widget_cfg_style_classic": "Klasik",
+  "widget_cfg_style_card": "Kart",
+  "widget_cfg_all_habits": "Tüm alışkanlıklar",
+  "widget_cfg_save": "Kaydet",
+  "widget_cfg_add": "Widget ekle",
+  "widget_cfg_reset": "Varsayılana sıfırla",
+  "widget_cfg_hue": "Ton",
+  "widget_cfg_saturation": "Doygunluk",
+  "widget_cfg_brightness": "Parlaklık",
+  "widget_demo_read": "Oku",
+  "widget_demo_run": "Koş",
+  "notif_streak": "🔥 {streak} günlük seri",
+  "@notif_streak": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "notif_streak_week": "🔥 {streak} haftalık seri",
+  "@notif_streak_week": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "notif_streak_month": "🔥 {streak} aylık seri",
+  "@notif_streak_month": {
+    "placeholders": {
+      "streak": {
+        "type": "String"
+      }
+    }
+  },
+  "notif_action_done": "Tamam",
+  "notif_action_snooze": "Ertele",
+  "notif_action_add": "Miktar ekle",
+  "notif_action_add_hint": "Ne kadar?",
+  "snooze_duration": "Erteleme süresi",
+  "snooze_custom": "Özel",
+  "snooze_custom_hint": "Dakika",
+  "minutes_short": "{value} dk",
+  "@minutes_short": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_mark_done": "{name} alışkanlığını tamamlandı olarak işaretle",
+  "@a11y_mark_done": {
+    "description": "Screen reader label for the button that logs a habit",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_mark_not_done": "{name} alışkanlığını tamamlanmadı olarak işaretle",
+  "@a11y_mark_not_done": {
+    "description": "Screen reader label for the button that undoes a habit",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_add_amount": "{name} alışkanlığına ekle",
+  "@a11y_add_amount": {
+    "description": "Screen reader label for the button that adds progress to a quantitative habit",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_log_relapse": "{name} için nüks kaydet",
+  "@a11y_log_relapse": {
+    "description": "Screen reader label for the button that logs a relapse on a habit to avoid",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_clear_relapse": "{name} için bugünkü nüksü kaldır",
+  "@a11y_clear_relapse": {
+    "description": "Screen reader label for the button that removes today's relapse",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "a11y_not_done": "tamamlanmadı",
+  "@a11y_not_done": {
+    "description": "Screen reader state of a day that has not been logged"
+  },
+  "a11y_next_week": "Sonraki hafta",
+  "a11y_increase": "Artır",
+  "@a11y_increase": {
+    "description": "Screen reader label for the plus button of a number stepper"
+  },
+  "a11y_decrease": "Azalt",
+  "@a11y_decrease": {
+    "description": "Screen reader label for the minus button of a number stepper"
+  },
+  "a11y_pick_color": "Renk seç",
+  "@a11y_pick_color": {
+    "description": "Screen reader label for a colour swatch in the picker"
+  },
+  "period_this_week": "Bu hafta",
+  "period_last_week": "Geçen hafta",
+  "period_this_month": "Bu ay",
+  "period_last_month": "Geçen ay",
+  "period_all_time": "Tüm zamanlar",
+  "times_completed": "Tamamlanma sayısı",
+  "period_last_year": "Geçen yıl",
+  "period_week_of": "{date} haftası",
+  "@period_week_of": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_period_sessions": "{count, plural, =0{Oturum yok} =1{1 oturum} other{{count} oturum}}",
+  "@focus_period_sessions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notes_all": "Tüm notlar",
+  "notes_empty_all": "Henüz not yok",
+  "quant_preset_time": "Süre",
+  "style_express": "Ekspres",
+  "style_express_desc": "Yuvarlak şekiller, yaylanan hareket ve daha geniş bir yazı tipi.",
+  "celebration_none": "Yok",
+  "quant_add_title": "Miktar ekle",
+  "pane_hint": "Burada görmek için listeden bir şey aç",
+  "average_short": "Ort.",
+  "island": "Ada",
+  "island_enable_sub": "Alışkanlıklarını parça parça inşa ettiğin bir Akdeniz takımadasına dönüştür",
+  "island_open": "Adayı aç",
+  "island_shop": "Mağaza",
+  "island_build": "İnşa et",
+  "island_done": "İnşa edildi",
+  "island_complete": "Takımada tamamlandı",
+  "island_tap_hint": "Nelerin yerleşeceğini görmek için bir şekle dokun",
+  "island_empty": "Bir alışkanlığı işaretle, adalar büyümeye başlasın",
+  "island_how": "Puanlar nasıl işler",
+  "island_how_check": "İşaretlediğin her alışkanlık için 10",
+  "island_how_focus": "Her odaklanma dakikası için 1",
+  "island_how_perfect": "Mükemmel bir gün için 25 daha",
+  "island_how_note": "Paralar geçmişinden hesaplanır, bu yüzden bir yedek onları geri getirir.",
+  "island_built": "{done}/{total} inşa edildi",
+  "@island_built": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "island_need": "{count} puan kaldı",
+  "@island_need": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "island_placed": "{name} artık adada",
+  "@island_placed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "island_p_altar": "Sunak",
+  "island_p_archway": "Kemerli geçit",
+  "island_p_banner": "Flama",
+  "island_p_bench": "Bank",
+  "island_p_blue_railing": "Mavi korkuluk",
+  "island_p_bougainvillea": "Begonvil",
+  "island_p_boulder": "Kaya bloğu",
+  "island_p_crate": "Kasa",
+  "island_p_crop_patch": "Ekin tarlası",
+  "island_p_cube_house": "Küp ev",
+  "island_p_cypress": "Servi",
+  "island_p_dry_grass": "Kuru ot",
+  "island_p_garden_bed": "Çiçek tarhı",
+  "island_p_hanging_lantern": "Asma fener",
+  "island_p_hay_bale": "Saman balyası",
+  "island_p_lantern_post": "Lamba direği",
+  "island_p_large_rock": "Büyük kaya",
+  "island_p_main_chapel": "Ana şapel",
+  "island_p_mossy_stone": "Yosunlu taş",
+  "island_p_pebbles": "Çakıl taşları",
+  "island_p_pergola_house": "Pergolalı ev",
+  "island_p_pottery_jar": "Çömlek",
+  "island_p_signpost": "Yön tabelası",
+  "island_p_small_bridge": "Ahşap iskele",
+  "island_p_stone_basin": "Taş havuz",
+  "island_p_stone_lantern": "Taş fener",
+  "island_p_stone_pile": "Taş yığını",
+  "island_p_storage_box": "Depo sandığı",
+  "island_p_terrace_house": "Teraslı ev",
+  "island_p_terracotta_pot": "Terakota saksı",
+  "island_p_tower_chapel": "Çan kulesi",
+  "island_p_two_story": "İki katlı ev",
+  "island_p_veg_garden": "Sebze bahçesi",
+  "island_p_villa": "Villa",
+  "island_p_wood_pile": "Odun yığını",
+  "island_reset": "Adayı baştan başlat",
+  "island_reset_sub": "Her şey yıkılır ve tüm puanlar bakiyene geri döner.",
+  "island_coins": "Paralar",
+  "island_g_pueblo": "Köy",
+  "island_g_cala": "Koy",
+  "island_g_terrazas": "Teraslar",
+  "island_g_molino": "Yel değirmeni sırtı",
+  "island_how_todo": "Bitirdiğin her görev için 4",
+  "island_how_streak": "Bir alışkanlık 7, 30, 100 ve 365 güne ulaşınca bonus",
+  "island_zoom_hint": "Taşımak için tek parmakla sürükle. Yakınlaştırmak için iki parmakla kıstır, adayı döndürmek için çevir.",
+  "island_t_teal": "petrol yeşili",
+  "island_t_clay": "terakota",
+  "island_t_coral": "mercan",
+  "island_t_lilac": "leylak",
+  "island_t_autumn": "sonbahar",
+  "island_t_deep": "koyu",
+  "island_t_silver": "gümüş",
+  "island_g_huerta": "Meyve bahçesi",
+  "island_g_faro": "Deniz kayalıkları",
+  "island_turn": "Görünümü çevir",
+  "island_default_name": "Adam",
+  "island_rename": "Adana bir ad ver",
+  "island_only_affordable": "Yalnızca alabildiklerim",
+  "island_nothing_here": "Burada henüz bir şey yok",
+  "island_g_vega": "Çayır",
+  "island_g_mirador": "Seyir tepesi",
+  "island_g_astillero": "Tersane",
+  "island_g_ermita": "Şapel adası",
+  "island_g_caleta": "Küçük koy",
+  "island_g_cabo": "Burun",
+  "island_goal": "Her parça inşa edildiğinde görünüşü böyle olur.",
+  "island_reset_go": "Baştan başla",
+  "island_beta": "Bu, oyunlaştırmaya yönelik ilk deneme ve hâlâ beta aşamasında. Nasıl kullandığına bağlı olarak büyüyebilir, şekil değiştirebilir ya da tamamen başka bir şeyle değiştirilebilir.",
+  "last_check": "Son işaret",
+  "check_history": "İşaret geçmişi",
+  "check_history_sub": "{count} gün işaretlendi",
+  "@check_history_sub": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "check_no_time": "saat kaydedilmedi",
+  "heatmap_rolling": "Son 12 ay",
+  "heatmap_rolling_sub": "Yıllık tablo 31 Aralık yerine bugün biter",
+  "check_marks": "{count} işaret",
+  "@check_marks": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "today_progress_option": "Bugün ekranında ilerleme",
+  "today_progress_option_sub": "Günün halkası ve her alışkanlıktaki güç çubuğu",
+  "quiet_when_done": "Bitince sessiz",
+  "quiet_when_done_sub": "Tamamladığın alışkanlık için bugün başka hatırlatıcı gelmez",
+  "plan_tab": "Plan",
+  "difficulty_hint": "Zor alışkanlıklar günün ilerlemesinde daha çok sayılır",
+  "pin_lock": "PIN kodu",
+  "pin_lock_sub": "Telefonun kilidinden ayrı, kendi kodun",
+  "pin_choose": "PIN seç",
+  "pin_choose_sub": "4 ila 8 rakam",
+  "pin_repeat": "Tekrar gir",
+  "pin_mismatch": "Eşleşmiyor. Baştan başla.",
+  "pin_enter": "PIN'ini gir",
+  "pin_wrong": "Yanlış PIN",
+  "pin_wait": "Çok fazla deneme. {seconds} sn bekle",
+  "@pin_wait": {
+    "placeholders": {
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "pin_recovery_title": "Kurtarma kodun",
+  "pin_recovery_body": "PIN'ini unutursan bu kod Streak'i açar ve kilidi kapatır. Güvenli bir yerde sakla: tekrar gösterilmeyecek.",
+  "pin_copy": "Kodu kopyala",
+  "pin_copied": "Kod kopyalandı",
+  "pin_forgot": "PIN'ini mi unuttun?",
+  "pin_recovery_hint": "Kurtarma kodu",
+  "pin_recovery_wrong": "Bu kod doğru değil",
+  "pin_recovered": "Kilit kapatıldı. Ayarlar'dan yeni bir PIN belirleyebilirsin.",
+  "pin_change": "PIN'i değiştir",
+  "pin_remove": "PIN'i kaldır",
+  "pin_fingerprint": "Parmak izi kullan",
+  "app_lock_method": "Şununla aç",
+  "app_lock_biometric": "Parmak izi veya yüz",
+  "difficulty_option_sub": "Zor alışkanlıklar günün ilerlemesinde daha çok sayılsın",
+  "todo_save_another": "Kaydet ve bir tane daha ekle",
+  "todo_add_subtask": "Alt görev ekle",
+  "pin_paste": "Kodu yapıştır",
+  "data_folder": "Veri klasörü",
+  "data_folder_documents": "Belgeler",
+  "data_folder_app": "Uygulamanın yanında",
+  "data_folder_pick": "Klasör seç",
+  "data_folder_inside": "Mevcut klasörün dışında bir klasör seç.",
+  "data_folder_taken": "Bu klasörde zaten Streak verisi var.",
+  "data_folder_denied": "Streak bu klasöre yazamıyor.",
+  "data_folder_move_title": "Verilerini taşı",
+  "data_folder_move_body": "Streak kapanacak ve verilerini {path} konumuna taşıyacak. Kapandıktan sonra tekrar aç. Bir şey ters giderse verilerin olduğu yerde kalır.",
+  "@data_folder_move_body": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "data_folder_move_confirm": "Taşı ve kapat",
+  "pick_one_day": "En az bir gün seç",
+  "reminder_habit_days": "Alışkanlığın günlerinde",
+  "reminder_habit_days_hint": "Alışkanlığın yapılması gereken günlerde çalar.",
+  "focus_label": "Etiket",
+  "focus_label_none": "Etiket yok",
+  "focus_label_new": "Yeni etiket",
+  "focus_label_hint": "Matematik, okuma, iş...",
+  "focus_label_remove": "Etiketi kaldır",
+  "focus_label_remove_body": "{label} listeden çıkar. Geçmiş oturumların onu korur.",
+  "@focus_label_remove_body": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_label_remove_confirm": "Kaldır",
+  "by_label": "Etikete göre",
+  "tracking_hide": "Sadece takip olanları gizle",
+  "tracking_show": "Sadece takip olanları göster ({count})",
+  "@tracking_show": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repeat_until": "Şu zamana kadar",
+  "end_of_day": "Günün sonu",
+  "any_amount": "Her miktar sayılır",
+  "any_amount_sub": "Herhangi bir miktar kaydetmek, hedefin altında olsa bile günü tamamlanmış sayar.",
+  "any_step": "Her adım sayılır",
+  "any_step_sub": "Tek bir adımı işaretlemek, hepsini yapmadan günü tamamlanmış sayar.",
+  "sched_start": "Başlangıç",
+  "todo_view_list": "Basit",
+  "todo_view_papers": "Klasörler",
+  "todo_style": "Görev stili",
+  "todo_style_sub": "Basit bir liste ya da Google Keep gibi sayfa klasörleri.",
+  "todo_estimate": "Süre",
+  "todo_estimate_none": "Süre yok",
+  "focus_options": "Seçenekler",
+  "focus_fullscreen": "Tam ekran",
+  "focus_exit_fullscreen": "Tam ekrandan çık",
+  "focus_volume": "Ses düzeyi",
+  "focus_notif_break": "Mola zamanı.",
+  "focus_break_over": "Mola bitti",
+  "focus_notif_back": "Odaklanmaya dön.",
+  "focus_break_in": "{n} sonra mola",
+  "@focus_break_in": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "focus_back_in": "{n} sonra odaklanma",
+  "@focus_back_in": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "plan_show_habits": "Alışkanlıklar",
+  "plan_show_both": "İkisi",
+  "plan_show_todos": "Görevler",
+  "day_timeline_empty_todos": "Bir göreve bu tarihi ver, burada görünsün.",
+  "widget_cfg_show_habits": "Gösterilecek alışkanlıklar",
+  "widget_cfg_show_habits_hint": "Bir veya daha fazlasını seç. Tek alışkanlıkta özet, onun serisini gösterir.",
+  "a11y_previous_month": "Önceki ay",
+  "a11y_next_month": "Sonraki ay",
+  "plan_show_month": "Ayın tamamını göster",
+  "plan_show_week": "Tek bir hafta göster"
+}

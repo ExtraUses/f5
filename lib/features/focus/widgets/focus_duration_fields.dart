@@ -1,0 +1,474 @@
+import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:streak/app/theme/app_tokens.dart';
+import 'package:streak/core/express/express_button.dart';
+import 'package:streak/core/express/express_surface.dart';
+import 'package:streak/core/express/express_switch.dart';
+import 'package:streak/core/express/express_tabs.dart';
+import 'package:streak/core/express/express_type.dart';
+import 'package:streak/core/i18n/l10n.dart';
+import 'package:streak/core/minimal/minimal_kit.dart';
+import 'package:streak/core/widgets/number_keypad_dialog.dart';
+import 'package:streak/features/settings/state/settings_controller.dart';
+
+const focusPresets = [25, 45];
+const focusBreakPresets = [5, 15];
+const focusLongBreakPresets = [15, 30];
+
+class FocusDurationChips extends StatelessWidget {
+  const FocusDurationChips({
+    super.key,
+    required this.minutes,
+    required this.onChanged,
+    this.allowFlow = true,
+  });
+
+  final int minutes;
+  final ValueChanged<int> onChanged;
+  final bool allowFlow;
+
+  Future<void> _pickCustom(BuildContext context) async {
+    final value = await showNumberKeypadDialog(
+      context,
+      title: context.l10n.focus_duration,
+      value: minutes < 1 ? 25 : minutes.toDouble(),
+      unit: context.l10n.unit_min_short,
+      min: allowFlow ? 0 : 1,
+    );
+    if (value == null) return;
+    final picked = value.round();
+    onChanged(allowFlow && picked <= 0 ? 0 : picked.clamp(1, 600));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final flow = minutes <= 0;
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        for (final preset in focusPresets)
+          FocusChip(
+            label: context.l10n.minutes_short('$preset'),
+            selected: minutes == preset,
+            onTap: () => onChanged(preset),
+          ),
+        if (!flow && !focusPresets.contains(minutes))
+          FocusChip(
+            label: context.l10n.minutes_short('$minutes'),
+            selected: true,
+            onTap: () => _pickCustom(context),
+          ),
+        _PencilButton(onTap: () => _pickCustom(context)),
+        if (allowFlow)
+          FocusChip(
+            label: context.l10n.focus_flowtime,
+            selected: flow,
+            icon: LucideIcons.infinity,
+            onTap: () => onChanged(0),
+          ),
+      ],
+    );
+  }
+}
+
+class FocusPomodoroCard extends StatelessWidget {
+  const FocusPomodoroCard({
+    super.key,
+    required this.enabled,
+    required this.breakMinutes,
+    required this.onToggle,
+    required this.onBreakChanged,
+  });
+
+  final bool enabled;
+  final int breakMinutes;
+  final ValueChanged<bool> onToggle;
+  final ValueChanged<int> onBreakChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = context.watch<SettingsController>();
+    final express = style.isExpressStyle;
+    final minimal = style.isMinimalStyle;
+    return Container(
+      padding: express
+          ? const EdgeInsets.fromLTRB(18, 12, 14, 12)
+          : const EdgeInsets.fromLTRB(16, 6, 10, 10),
+      decoration: BoxDecoration(
+        color: express
+            ? expressSurface(context)
+            : minimal
+            ? minimalSurface(context)
+            : context.colors.surfaceContainerHighest.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(express ? 24 : (minimal ? 20 : 16)),
+        border: express ? expressHairline(context) : null,
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.l10n.focus_pomodoro,
+                      style: express
+                          ? ExpressType.headline.at(
+                              16,
+                              weight: 800,
+                              color: context.colors.onSurface,
+                            )
+                          : TextStyle(
+                              fontSize: 15.5,
+                              fontWeight: FontWeight.w700,
+                              color: context.colors.onSurface,
+                            ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      context.l10n.focus_pomodoro_sub,
+                      style: express
+                          ? ExpressType.body.at(
+                              12.5,
+                              weight: 600,
+                              color: context.tokens.muted,
+                            )
+                          : TextStyle(
+                              fontSize: 12.5,
+                              color: context.tokens.muted,
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+              if (express)
+                ExpressSwitch(value: enabled, onChanged: onToggle)
+              else
+                Switch(value: enabled, onChanged: onToggle),
+            ],
+          ),
+          if (enabled)
+            Padding(
+              padding: const EdgeInsets.only(top: 4, bottom: 4, right: 6),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _MinuteChoices(
+                    title: context.l10n.focus_break,
+                    presets: focusBreakPresets,
+                    minutes: breakMinutes,
+                    onChanged: onBreakChanged,
+                  ),
+                  const SizedBox(height: 6),
+                  _PomodoroOption(
+                    title: context.l10n.focus_long_break,
+                    subtitle: context.l10n.focus_long_break_sub,
+                    value: style.focusLongBreak > 0,
+                    onChanged: (on) => style.setFocusLongBreak(on ? 15 : 0),
+                  ),
+                  if (style.focusLongBreak > 0)
+                    _MinuteChoices(
+                      title: context.l10n.focus_long_break,
+                      heading: false,
+                      presets: focusLongBreakPresets,
+                      minutes: style.focusLongBreak,
+                      onChanged: style.setFocusLongBreak,
+                    ),
+                  _PomodoroOption(
+                    title: context.l10n.focus_whole_rounds,
+                    subtitle: context.l10n.focus_whole_rounds_sub,
+                    value: style.focusWholeRounds,
+                    onChanged: style.setFocusWholeRounds,
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MinuteChoices extends StatelessWidget {
+  const _MinuteChoices({
+    required this.title,
+    this.heading = true,
+    required this.presets,
+    required this.minutes,
+    required this.onChanged,
+  });
+
+  final String title;
+  final bool heading;
+  final List<int> presets;
+  final int minutes;
+  final ValueChanged<int> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final express = context.watch<SettingsController>().isExpressStyle;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (heading) ...[
+          Text(
+            title,
+            style: express
+                ? ExpressType.body.at(
+                    13.5,
+                    weight: 700,
+                    color: context.tokens.muted,
+                  )
+                : TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: context.tokens.muted,
+                  ),
+          ),
+          const SizedBox(height: 8),
+        ],
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            for (final value in presets)
+              FocusChip(
+                label: context.l10n.minutes_short('$value'),
+                selected: minutes == value,
+                onTap: () => onChanged(value),
+              ),
+            if (!presets.contains(minutes))
+              FocusChip(
+                label: context.l10n.minutes_short('$minutes'),
+                selected: true,
+                onTap: () {},
+              ),
+            _PencilButton(
+              onTap: () async {
+                final value = await showNumberKeypadDialog(
+                  context,
+                  title: title,
+                  value: minutes.toDouble(),
+                  unit: context.l10n.unit_min_short,
+                  min: 1,
+                );
+                if (value != null) onChanged(value.round().clamp(1, 120));
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _PomodoroOption extends StatelessWidget {
+  const _PomodoroOption({
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final express = context.watch<SettingsController>().isExpressStyle;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: express
+                      ? ExpressType.body.at(
+                          14,
+                          weight: 700,
+                          color: context.colors.onSurface,
+                        )
+                      : TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: context.colors.onSurface,
+                        ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: express
+                      ? ExpressType.body.at(
+                          12.5,
+                          weight: 600,
+                          color: context.tokens.muted,
+                        )
+                      : TextStyle(fontSize: 12.5, color: context.tokens.muted),
+                ),
+              ],
+            ),
+          ),
+          if (express)
+            ExpressSwitch(value: value, onChanged: onChanged)
+          else
+            Switch(value: value, onChanged: onChanged),
+        ],
+      ),
+    );
+  }
+}
+
+class FocusChip extends StatelessWidget {
+  const FocusChip({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    this.icon,
+    this.onLongPress,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  final IconData? icon;
+  final VoidCallback? onLongPress;
+
+  @override
+  Widget build(BuildContext context) {
+    final chip = _chip(context);
+    if (onLongPress == null) return chip;
+    return GestureDetector(onLongPress: onLongPress, child: chip);
+  }
+
+  Widget _chip(BuildContext context) {
+    final style = context.watch<SettingsController>();
+    if (style.isExpressStyle) {
+      return ExpressChip(
+        label: label,
+        icon: icon,
+        active: selected,
+        onTap: onTap,
+      );
+    }
+    if (style.isMinimalStyle) {
+      return MinimalChip(label: label, active: selected, onTap: onTap);
+    }
+    final accent = context.colors.primary;
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            color: selected
+                ? accent.withValues(alpha: 0.14)
+                : context.colors.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: selected ? accent : Colors.transparent,
+              width: 1.3,
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null) ...[
+                Icon(
+                  icon,
+                  size: 15,
+                  color: selected ? accent : context.tokens.muted,
+                ),
+                const SizedBox(width: 6),
+              ],
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: selected ? accent : context.tokens.muted,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PencilButton extends StatelessWidget {
+  const _PencilButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = context.watch<SettingsController>();
+    if (style.isExpressStyle) {
+      return ExpressIconButton(
+        icon: LucideIcons.pencil,
+        size: 42,
+        tooltip: context.l10n.edit,
+        tint: context.colors.primary,
+        onPressed: onTap,
+      );
+    }
+    if (style.isMinimalStyle) {
+      return Semantics(
+        button: true,
+        label: context.l10n.edit,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          child: Container(
+            width: 40,
+            height: 34,
+            decoration: BoxDecoration(
+              color: minimalRaised(context),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              LucideIcons.pencil,
+              size: 15,
+              color: context.tokens.muted,
+            ),
+          ),
+        ),
+      );
+    }
+    return Semantics(
+      button: true,
+      label: context.l10n.edit,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 44,
+          height: 42,
+          decoration: BoxDecoration(
+            color: context.colors.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(
+            LucideIcons.pencil,
+            size: 16,
+            color: context.colors.primary,
+          ),
+        ),
+      ),
+    );
+  }
+}

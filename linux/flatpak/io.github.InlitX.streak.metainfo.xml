@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.InlitX.streak</id>
+  <name>Streak</name>
+  <summary>Build lasting habits, privately</summary>
+  <developer id="io.github.inlitx">
+    <name>InlitX</name>
+  </developer>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <launchable type="desktop-id">io.github.InlitX.streak.desktop</launchable>
+  <provides>
+    <binary>Streak</binary>
+  </provides>
+  <url type="homepage">https://github.com/InlitX/streak</url>
+  <url type="bugtracker">https://github.com/InlitX/streak/issues</url>
+  <url type="vcs-browser">https://github.com/InlitX/streak</url>
+  <url type="translate">https://hosted.weblate.org/engage/streak/</url>
+  <description>
+    <p>Streak is a habit tracker that respects you. Create as many habits as you like, log them with a single click, and follow your progress through an activity grid, streak counters and a statistics dashboard. It is fast, offline, and built to feel calm rather than demanding.</p>
+    <p>No accounts, no subscriptions, no ads, no tracking. Every habit and setting stays on your computer, and the full source is open.</p>
+    <ul>
+      <li>Three kinds of habit: normal, avoid with relapses, and amount with your own unit and goal</li>
+      <li>Flexible schedules: daily, a few times a week or month, chosen weekdays, or every few days</li>
+      <li>Checklists, day notes with photos, vacation mode and rest days</li>
+      <li>A focus timer with Pomodoro rounds, calm scenes and built-in sounds</li>
+      <li>Activity grid by week, month or year, streak history and habit strength</li>
+      <li>To-dos and notes beside your habits</li>
+      <li>Three styles, light and dark themes and your own accent colour</li>
+      <li>Import from Loop Habit Tracker, HabitKit, Habitica, HabitBull or a CSV file</li>
+      <li>Backups as a single file, automatic backups and a PIN lock</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/InlitX/streak/main/linux/flatpak/screenshots/1.png</image>
+      <caption>Today's habits</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/InlitX/streak/main/linux/flatpak/screenshots/2.png</image>
+      <caption>Progress and statistics</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/InlitX/streak/main/linux/flatpak/screenshots/3.png</image>
+      <caption>Focus timer</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="2.2.0" date="2026-10-03"/>
+    <release version="2.1.0" date="2026-09-27"/>
+    <release version="2.0.0" date="2026-09-20"/>
+  </releases>
+</component>

@@ -1,0 +1,62 @@
+package com.streak.app
+
+import android.content.Context
+import org.json.JSONObject
+
+object WidgetText {
+    private fun strings(context: Context): JSONObject? = try {
+        context.getSharedPreferences("HomeWidgetPreferences", Context.MODE_PRIVATE)
+            .getString("widget_strings", null)?.let { JSONObject(it) }
+    } catch (e: Exception) {
+        null
+    }
+
+    fun get(context: Context, key: String, fallback: String): String {
+        val value = strings(context)?.optString(key, "") ?: ""
+        return if (value.isEmpty()) fallback else value
+    }
+
+    fun title(context: Context, key: String, fallback: String): String =
+        get(context, key, fallback)
+            .replace(Regex("""\{\w+\}"""), "")
+            .replace("/", "")
+            .trim()
+            .ifEmpty { fallback }
+
+    fun amount(value: Double): String {
+        val rounded = Math.round(value * 100.0) / 100.0
+        if (rounded == Math.floor(rounded)) return rounded.toLong().toString()
+        return rounded.toString().trimEnd('0').trimEnd('.')
+    }
+
+    fun clock(minutes: Double): String {
+        val total = Math.round(minutes).toInt()
+        val hours = total / 60
+        val rest = total % 60
+        return if (hours == 0) "${rest}m" else "$hours:${rest.toString().padStart(2, '0')}"
+    }
+
+    fun compact(value: Double): String =
+        if (value < 1000) amount(value) else compact(Math.round(value).toInt())
+
+    fun compact(value: Int): String = when {
+        value < 1000 -> value.toString()
+        value < 10000 -> {
+            val tenths = (value + 50) / 100
+            if (tenths % 10 == 0) "${tenths / 10}k" else "${tenths / 10}.${tenths % 10}k"
+        }
+        value < 1000000 -> "${(value + 500) / 1000}k"
+        else -> "${(value + 500000) / 1000000}M"
+    }
+
+    fun format(
+        context: Context,
+        key: String,
+        fallback: String,
+        vararg subs: Pair<String, String>,
+    ): String {
+        var result = get(context, key, fallback)
+        for ((token, value) in subs) result = result.replace(token, value)
+        return result
+    }
+}
