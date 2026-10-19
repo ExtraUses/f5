@@ -380,3 +380,5 @@ help as much as a coffee does.
 Released under the <a href="LICENSE"><b>GNU GPLv3</b></a>, with the <a href="ADDITIONAL_TERMS.md">attribution term</a> of its section 7(b).
 
 </div>
+
+
