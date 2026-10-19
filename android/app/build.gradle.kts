@@ -18,7 +18,11 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.streak.app"
     compileSdk = 36
-    ndkVersion = flutter.ndkVersion
+    // Pin NDK version to avoid CI downloading the latest NDK (~1.5 GB)
+    // on every run. NDK 27.2 is ~800 MB smaller than r28c and is
+    // compatible with all plugins in this project (jni, audioplayers,
+    // flutter_local_notifications, home_widget).
+    ndkVersion = "27.2.12479018"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
