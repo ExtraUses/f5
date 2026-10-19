@@ -22,7 +22,7 @@ class FocusHeatmap extends StatelessWidget {
     super.key,
     required this.accent,
     this.weeks = 53,
-    this.cellSize = 12,
+    this.cellSize = 14,
     this.gap = 3,
   });
 

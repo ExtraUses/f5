@@ -197,10 +197,10 @@ class SegmentedLabelBarChart extends StatelessWidget {
   }
 
   double _barWidthFor(int count) {
-    if (count <= 7) return 14;
-    if (count <= 30) return 6;
-    if (count <= 90) return 3;
-    return 2;
+    if (count <= 7) return 22;
+    if (count <= 30) return 9;
+    if (count <= 90) return 5;
+    return 3;
   }
 
   /// Build a list of [BarChartRodStackItem] for a single day's bar,

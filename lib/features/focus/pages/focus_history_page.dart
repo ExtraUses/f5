@@ -373,7 +373,11 @@ class _SessionTile extends StatelessWidget {
                   ? scheme.primary.withValues(alpha: 0.16)
                   : express
                       ? expressSurface(context)
-                      : scheme.surfaceContainerHighest.withValues(alpha: 0.6),
+                      : Color.lerp(
+                          scheme.surfaceContainerHighest,
+                          color,
+                          0.08,
+                        ),
               borderRadius: BorderRadius.circular(
                 express ? (selected ? 26 : 22) : 16,
               ),
@@ -437,7 +441,7 @@ class _SessionTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${DateFormat.Hm(locale).format(session.startedAt)}'
+                        '${DateFormat.jm(locale).format(session.startedAt)}'
                         '  ·  '
                         '${session.targetMinutes <= 0 ? context.l10n.focus_flowtime : context.l10n.minutes_short('${session.targetMinutes}')}',
                         style: express

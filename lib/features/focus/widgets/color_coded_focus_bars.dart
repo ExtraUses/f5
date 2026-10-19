@@ -35,9 +35,9 @@ class ColorCodedFocusBars extends StatelessWidget {
   final double height;
 
   double get _barWidth => switch (range) {
-        FocusRange.week => 14,
-        FocusRange.month => 5,
-        FocusRange.year => 11,
+        FocusRange.week => 22,
+        FocusRange.month => 9,
+        FocusRange.year => 16,
       };
 
   String _label(BuildContext context, int index) {

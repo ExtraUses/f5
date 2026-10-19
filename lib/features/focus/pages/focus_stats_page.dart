@@ -320,22 +320,20 @@ class _FocusStatsPageState extends State<FocusStatsPage> {
               ),
 
               // ─── Productive Hours (24-hour timeline) ───────────────
-              // Only shown when a timeframe filter is active, since the
-              // chart needs the rolling-window sessions.
-              if (_timeframe != null) ...[
-                const SizedBox(height: 16),
-                StatReveal(
-                  child: StatCard(
-                    title: context.l10n.focus_productive_hours,
-                    icon: LucideIcons.clock,
-                    color: accent,
-                    child: ProductiveHoursChart(
-                      timeframe: _timeframe!,
-                      accent: accent,
-                    ),
+              // Always visible — defaults to last 30 days when no
+              // timeframe filter is active.
+              const SizedBox(height: 16),
+              StatReveal(
+                child: StatCard(
+                  title: context.l10n.focus_productive_hours,
+                  icon: LucideIcons.clock,
+                  color: accent,
+                  child: ProductiveHoursChart(
+                    timeframe: _timeframe ?? FocusTimeframe.last30Days,
+                    accent: accent,
                   ),
                 ),
-              ],
+              ),
 
               // ─── Focus Intensity Heatmap ────────────────────────────
               // Always visible — shows the last ~53 weeks of focus
