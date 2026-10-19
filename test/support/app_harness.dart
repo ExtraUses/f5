@@ -12,6 +12,7 @@ import 'package:streak/core/utils/app_dirs.dart';
 import 'package:streak/core/extensions/date_extensions.dart';
 import 'package:streak/core/routing/app_navigator.dart';
 import 'package:streak/features/focus/state/focus_controller.dart';
+import 'package:streak/features/focus/state/focus_labels_controller.dart';
 import 'package:streak/features/habits/data/completion.dart';
 import 'package:streak/features/habits/data/habit_note.dart';
 import 'package:streak/features/habits/data/habit.dart';
@@ -20,6 +21,7 @@ import 'package:streak/features/habits/state/categories_controller.dart';
 import 'package:streak/features/habits/state/habits_controller.dart';
 import 'package:streak/features/habits/state/notes_controller.dart';
 import 'package:streak/features/island/state/island_controller.dart';
+import 'package:streak/features/settings/state/graph_color_overrides_controller.dart';
 import 'package:streak/features/settings/state/settings_controller.dart';
 import 'package:streak/features/todos/data/todo.dart';
 import 'package:streak/features/todos/state/todo_tags_controller.dart';
@@ -192,12 +194,14 @@ Future<void> pumpScreen(
       providers: [
         ChangeNotifierProvider(create: (_) => SettingsController()),
         ChangeNotifierProvider(create: (_) => CategoriesController()),
+        ChangeNotifierProvider(create: (_) => FocusLabelsController()),
         ChangeNotifierProvider(create: (_) => NotesController()),
         ChangeNotifierProvider(create: (_) => TodosController()),
         ChangeNotifierProvider(create: (_) => TodoTagsController()),
         ChangeNotifierProvider(create: (_) => FocusController()),
         ChangeNotifierProvider(create: (_) => IslandController()),
         ChangeNotifierProvider(create: (_) => HabitsController()),
+        ChangeNotifierProvider(create: (_) => GraphColorOverridesController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
