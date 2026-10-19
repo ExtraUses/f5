@@ -674,6 +674,12 @@ class HabitsController extends ChangeNotifier {
       try {
         final context = AppNavigator.key.currentContext;
         if (context != null) {
+          // `context.read` is synchronous and safe — it just looks up
+          // an inherited widget without subscribing. The
+          // `use_build_context_synchronously` lint fires because the
+          // surrounding method is async, but no await happens between
+          // capturing `context` and calling `read`.
+          // ignore: use_build_context_synchronously
           final controller =
               context.read<GraphColorOverridesController>();
           await controller.restore(data.graphColorOverrides);

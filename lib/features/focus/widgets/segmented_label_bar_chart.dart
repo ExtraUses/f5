@@ -199,11 +199,13 @@ class SegmentedLabelBarChart extends StatelessWidget {
       final seconds = entry.value;
       if (seconds <= 0) continue;
       final toY = fromY + seconds / 60;
+      // fl_chart 0.69 BarChartRodStackItem takes 3 POSITIONAL args:
+      // (fromY, toY, color) — NOT named parameters.
       items.add(
         BarChartRodStackItem(
-          fromY: fromY,
-          toY: toY,
-          color: colorFor[entry.key] ?? fallbackColor,
+          fromY,
+          toY,
+          colorFor[entry.key] ?? fallbackColor,
         ),
       );
       fromY = toY;
