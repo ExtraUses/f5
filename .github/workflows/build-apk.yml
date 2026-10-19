@@ -25,13 +25,50 @@ env:
   FLUTTER_VERSION: '3.47.7'
 
 jobs:
-  build:
-    name: Build Android APK
+  # ─── Job 1: Quick checks (analyze + test) ────────────────────────────
+  # Runs in parallel with the build job. If this fails, the build job
+  # still produces an APK — but you'll see the check failure separately.
+  check:
+    name: Analyze & Test
     runs-on: ubuntu-latest
-    # First run downloads the NDK (~1.5 GB) + Gradle deps.
-    # 45 min gives plenty of headroom. Future runs use the cache
-    # and finish in ~5-7 min.
-    timeout-minutes: 45
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - name: Test
+        run: flutter test
+
+  # ─── Job 2: Build APK (the important one) ───────────────────────────
+  # Goes STRAIGHT to building — no analyze, no test. This cuts the job
+  # from ~15 min down to ~8-10 min, well under GitHub's runner recycling
+  # threshold. The check job above handles code quality separately.
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    # Give the build up to 30 minutes. With the optimizations below it
+    # should finish in ~8-10 min.
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
@@ -64,27 +101,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: /usr/local/lib/android/sdk/ndk
-          # Key includes Flutter version so the cache invalidates when
-          # Flutter's required NDK version changes.
           key: ndk-flutter-${{ env.FLUTTER_VERSION }}
-
-      - name: Show versions
-        run: flutter --version
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze
-        run: flutter analyze --no-fatal-infos --no-fatal-warnings
-
-      - name: Test
-        continue-on-error: true
-        run: flutter test
-
       # Build APK for arm64 ONLY — this is the architecture used by
-      # virtually all modern Android tablets (Samsung Galaxy Tab,
-      # Lenovo Tab, etc.). Skipping armv7 and x86_64 cuts the native
-      # C++ compilation time by ~2/3 (from ~10 min to ~3 min).
+      # virtually all modern Android tablets. Skipping armv7 and x86_64
+      # cuts the native C++ compilation time by ~2/3.
       # --no-tree-shake-icons: skips icon analysis (saves ~30 sec).
       # --android-skip-build-dependency-validation: bypasses version checks.
       - name: Build APK
@@ -102,11 +126,11 @@ jobs:
           path: build/app/outputs/flutter-apk/Streak-android.apk
           if-no-files-found: error
 
+  # ─── Job 3: Publish release (manual trigger only) ───────────────────
   release:
     name: Publish release
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-    # Only when manually dispatched with a tag.
+    timeout-minutes: 30
     if: github.event_name == 'workflow_dispatch'
 
     env:
@@ -148,17 +172,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Analyze
-        run: flutter analyze --no-fatal-infos --no-fatal-warnings
-
-      - name: Test
-        run: flutter test
-
-      # Patch jni build-id for reproducible builds (F-Droid compatibility).
       - name: Patch jni build-id
         run: sed -i -e 's/-Wl,/-Wl,--build-id=none,/' "$PUB_CACHE"/hosted/pub.dev/jni-*/src/CMakeLists.txt
 
-      # Sign the release APK with the release keystore (kept in GitHub Secrets).
       - name: Set up signing
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
@@ -174,7 +190,6 @@ jobs:
           storeFile=streak-release.jks
           EOF
 
-      # Build APK for arm64 only (same optimization as the build job).
       - name: Build APK
         run: flutter build apk --release --target-platform android-arm64 --no-tree-shake-icons --split-debug-info=build/symbols --android-skip-build-dependency-validation
 
